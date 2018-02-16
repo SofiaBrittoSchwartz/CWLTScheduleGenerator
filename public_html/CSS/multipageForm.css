@@ -1,0 +1,40 @@
+
+/* FORMATTING MULTIPAGE FORM */
+
+	/* Hide all steps by default: */
+	.tab 
+	{
+		display: none;
+	}
+
+	/* Make circles that indicate the steps of the form: */
+	.step 
+	{
+		float: center;
+		height: 40px;
+		width: 160px;
+		background-color: #bbbbbb;
+		/*border: thin #ECF0F1;  */
+		margin-left: 4%;
+		margin-top: 2px;
+		display: inline-block;
+		opacity: 0.5;
+	}
+
+	.step.active 
+	{
+		background-color: #650000;
+		/*border-color: #650000;*/
+		color: #ECF0F1;
+		opacity: 1;
+	}
+
+	/* Mark the steps that are finished and valid: */
+	.step.finish 
+	{
+		opacity: 0.7;
+		background-color: #650000;
+		color: #ECF0F1;
+	}
+
+	

@@ -1,0 +1,35 @@
+/* FORMATTING FORM */
+
+	* 
+	{
+		box-sizing: border-box;
+	}
+
+	body 
+	{
+		background-color: #f1f1f1;
+	}
+
+	input 
+	{
+	    display: table-cell;
+  	} 
+
+  	form  
+  	{ 
+	    display: table;  
+	    margin-left: 10px;
+  	}
+
+  	label 
+  	{
+	    margin-right: -60px;
+	    display: block; 
+	    width: 185px;
+	    float: left; 
+	}
+
+	button
+	{
+		/*margin-top: -30px;*/
+	}

@@ -24,7 +24,7 @@
     background:#ccc; 
     font-weight:bold; 
     text-align:center; 
-    width:120px; 
+    width:100px; 
     padding:5px; 
     border-bottom:1px solid #999; 
     border-top:1px solid #999; 
@@ -45,7 +45,7 @@
 
   /* shared */
   td.schedule-day, td.schedule-day-np { 
-    width:120px; 
+    width:100px; 
     padding:5px; 
     border-bottom:1px solid #999; 
     border-right:1px solid #999; 
