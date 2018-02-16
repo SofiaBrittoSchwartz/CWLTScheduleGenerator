@@ -1,0 +1,15 @@
+
+public enum Day {
+	SUNDAY(true, 13, 15), 
+	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+	
+	private boolean open;
+	private short firstAppointment;
+	private short lastAppointment;
+	
+	Day(boolean open, short first, short last){
+		this.open = open;
+		this.firstAppointment = first;
+		this.lastAppointment = last;
+	}
+}
