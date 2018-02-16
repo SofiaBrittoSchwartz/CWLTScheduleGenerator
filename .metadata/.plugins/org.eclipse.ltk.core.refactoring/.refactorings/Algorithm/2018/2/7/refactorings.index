@@ -1,5 +1,0 @@
-1518738471549	Encapsulate field 'lastAppointment'
-1518738483156	Encapsulate field 'firstAppointment'
-1518739017125	Delete element
-1518740262773	Extract method 'extracted'
-1518742701015	Infer generic type arguments
