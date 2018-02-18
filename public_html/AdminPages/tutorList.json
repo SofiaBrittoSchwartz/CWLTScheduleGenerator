@@ -1,0 +1,50 @@
+{	
+	"sbschwartz": 
+	{ 
+		"name": "Sofia Schwartz", 
+		"studentID": "sbschwartz", 	
+		"position": null
+	},
+
+	"sberling": 
+	{ 
+		"name": "Sam Berling", 
+		"studentID": "sberling", 	
+		"position": "Writing Advisor"
+	},
+
+	"person2": 
+	{ 
+		"name": "reallyLongName guy", 
+		"studentID": "person2", 
+		"position": "Writing Advisor"
+	},
+
+	"person3":
+	{ 
+		"name": "Person 3", 
+		"studentID": "person3", 
+		"position": "Math Subject Tutor"
+	},
+
+	"person4":
+	{ 
+		"name": "Person 4", 
+		"studentID": "person4", 
+		"position": "Bio Subject Tutor"
+	},
+
+	"person5":
+	{ 
+		"name": "Person 5", 
+		"studentID": "person5", 
+		"position": "Chem Subject Tutor"
+	},
+
+	"person6":
+	{ 
+		"name": "Person 6", 
+		"studentID": "person6", 
+		"position": "Writing Advisor"
+	}
+}

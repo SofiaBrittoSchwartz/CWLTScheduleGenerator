@@ -11,9 +11,14 @@
 		float: center;
 		background-color: #ffffff;
 		font-family: Raleway;
-		width: 580px;
+		width: 700px;
 		height: 520px;
 		min-width: 300px;
+	}
+
+	#tab
+	{
+		height: 500px;
 	}
 
 	iframe
@@ -55,32 +60,25 @@
 	<form id = "adminForm">
 
 		<!-- Part 1: Open Hours Input -->	
-			<div class = "tab">
+			<!-- <div class = "tab">
 				<h2 style = "margin-bottom: -25px;">Confirm Open Hours</h2>
-				<!-- <p style = "margin-top: 10px;"> Please confirm that these are the open hours for this semester. </p> -->
 				<iframe src= "../weeklySchedule.php" frameborder= "0"> </iframe>
-			</div>
+			</div> -->
 
 		<!-- Part 2: Special Events -->	
-			<div class = "tab">
+			<!-- <div class = "tab">
 				<h2 style = "margin-bottom: -25px;"> Confirm Special Events </h2>
-				<!-- <p> Please confirm that these are the times for the special events for this semester. </p> -->
 				<iframe src= "../weeklySchedule.php" frameborder= "0"> </iframe>
-			</div>
+			</div> -->
 
 		<!-- Part 3: List of Tutors -->
 			<div class = "tab">
-				<h2 style = "margin-right: 30px; margin-top: 40px;"> Basic Info </h2>
-				<div>
-					<p style = "margin-left: 100px;">
-						<label for = "name"> Name: </label>
-						<input id = "studentName" type = "text" name = "studentName" title = "Please input your name" required/>
-					</p>
-					<p style = "margin-left: 100px;">
-						<label for = "email"> School Email: </label>
-						<input id = "email" type = "text" name = "email" title = "Please input your school email" required/> @pugetsound.edu
-					</p>
-				</div>
+				
+				<h2 style = "margin-right: 30px; margin-top: 40px; margin-bottom: -20px;"> List of Tutors </h2>
+				
+				<iframe src = "tutorList.php" frameborder="0" style = "width: 680px; height: 330px; margin-top: 5px;"></iframe>
+				<!-- <h3> Use a JS function to resize the tab div && the iframe based on the size of the number of items in tutorList.json </h3> -->
+
 			</div>
 
 		<!-- Part 4: Liaison Information -->
@@ -105,7 +103,7 @@
 
 		<!-- Buttons -->
 			
-			<div style="text-align: center;">
+			<div style="text-align: center; height: 10px;">
 				<button type="button" id="prevBtn" onclick="nextPrev('adminForm', -1)" style = "display: none;">Previous</button>
 				<button type="button" id="nextBtn" onclick="nextPrev('adminForm', 1)">Next</button>
 			</div>

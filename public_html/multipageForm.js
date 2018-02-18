@@ -10,7 +10,7 @@
 		if(variant == 1)
 		{
 			frame.style.width = "880px";
-			frame.style.height = "720px";	
+			frame.style.height = "600px";	
 		}
 		else if(variant == -1 && (currentTab == 0 || currentTab == tabs.length - 1))
 		{
