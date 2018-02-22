@@ -6,7 +6,7 @@ public enum Day implements Comparable<Day>{
 	Wednesday(9, 20),
 	Thursday(9, 20),
 	Friday(9, 15),
-	Saturday(0, 0);
+	Saturday(-1, -1); //closed on Saturdays
 	
 	private int firstAppointment; //the time (in 24H format) of the first appointment slot that day, ie what time the center opens
 	private int lastAppointment; //the time (in 24H format) of the last appointment slot that day, ie the center will close 1 hour after this time
