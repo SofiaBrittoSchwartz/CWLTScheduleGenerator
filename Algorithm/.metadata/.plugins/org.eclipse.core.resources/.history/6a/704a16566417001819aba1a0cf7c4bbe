@@ -1,0 +1,27 @@
+/**
+ * An object representation of a 1 hour shift. If a tutor is working for multiple hours in a row, this will be represented as multiple shifts.
+ * @author Sam Berling
+ *
+ */
+public class Shift implements Comparable<Shift>{
+	protected Day day; //day of the shift
+	protected int time;//start time of the shift. 
+	
+	public Shift(Day day, int time){
+		this.day = day;
+		this.time = time;
+	}
+	
+	/**
+	 * This method determines whether or not this shift is adjacent to (i.e. either immediately precedes or succeeds) the input shift 
+	 * @param shift the shift we are comparing to
+	 * @return
+	 */
+	public boolean adjacentTo(Shift shift){
+		
+	}
+	
+	public String toString(){
+		return "("+day+" at "+time+")";
+	}
+}

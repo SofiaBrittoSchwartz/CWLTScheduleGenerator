@@ -1,0 +1,167 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+
+public class Master {
+	protected HashMap<Shift, ArrayList<Tutor>> availabilityMap; //Maps a shift to a list of tutors available during that time
+	//	private HashMap<Tutor, ArrayList<Shift>> assignmentMap; //Maps a tutor to a list of Shifts assigned to that tutor.
+	protected ArrayList<Tutor> tutors; //Master list of all tutors
+	protected ArrayList<Shift> shifts; //Master list of all shifts
+
+	protected static final boolean DEBUG = true;
+
+	public Master(){
+		shifts = new ArrayList<Shift>();
+		tutors = new ArrayList<Tutor>();
+		availabilityMap = new HashMap<Shift, ArrayList<Tutor>>();
+		//		assignmentMap = new HashMap<Tutor, ArrayList<Shift>>();
+		generateShifts();
+	}
+
+	private void generateShifts() {
+		for(Day day : Day.values()){ //for each day in the week
+			for(int i = day.getFirstAppointment(); i <= day.getLastAppointment(); i++){ //for each shift in the day
+				Shift shift = new Shift(day, i); //create the shift
+				shifts.add(shift); //add it to the list of shifts
+				availabilityMap.put(shift, new ArrayList<Tutor>());
+			}
+		}
+	}
+
+	private void blackOutShift(Day day, int time){
+		Shift toRemove = null;
+		for(Shift shift : shifts){
+			if(shift.day == day && shift.time == time){
+				toRemove = shift;
+				break;
+			}
+			else if(shift.day.compareTo(day)>0){ //if we get past the day of the shift we're trying to remove, we know it doesn't exist and we can break
+				break;
+			}
+		}
+		shifts.remove(toRemove);
+	}
+
+	public void read() throws FileNotFoundException{
+		String fileName = "Fall2017Availability.csv";
+		Scanner sc = new Scanner(new File(fileName));
+		String firstLine = sc.nextLine();
+		Scanner fl = new Scanner(firstLine); //this first line of the csv tells us which shifts are changing in the format of D-T (e.g. 3-14 represents Wednesday at 2pm)
+		fl.useDelimiter(",+");
+		fl.next(); //don't care about id tag
+		int shiftIndex = 0; //this serves as an index when trekking through our list of Shifts
+		ArrayList<Shift> shiftsToModify = new ArrayList<Shift>(); //this is a list of the shifts we'll be modifying based on the input file. It will ma
+
+
+		while(fl.hasNext()){
+			String shift = fl.next();
+			print("LOOKING AT " + shift);
+			print("----------");
+			String[] dayTime = shift.split("-");
+			int day = Integer.parseInt(dayTime[0]); //integer representing the day of the week with 0=sunday and so on
+			int time = Integer.parseInt(dayTime[1]); //the time in 24h format
+			print("this shift represents " + Day.values()[day] + " at " +time);
+
+			/*we're advancing shift index until the shift represented by that index matches the shift read in from the input
+			 * the reason we do this is just in case the 'shifts' list of Shifts is a superset of the list of shifts in the csv*/
+			print("the masterlist of shifts has " + shifts.get(shiftIndex) + " at the current index");
+			while(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) < 0){ //comparing 'day' to the day of the "current shift" represented by 'shiftIndex'
+				print("advancing to get to the correct day...");
+				shiftIndex++; 
+			}
+			if(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) == 0){ //the "current shift" in our list of shifts and 'day' now match
+				print("found the correct day: " + shifts.get(shiftIndex));
+				while(shifts.get(shiftIndex).time < time){ //comparing 'time' to the time of the "current shift" represented by 'shiftIndex'
+					print("advancing to get to the correct time...");
+					shiftIndex++;
+				}
+				if(shifts.get(shiftIndex).time == time){
+					print("found the correct time: " + shifts.get(shiftIndex) + "! adding this shift to the list of shifts to modify.");
+					shiftsToModify.add(shifts.get(shiftIndex)); //we've found the shift that our csv is looking for!
+				}
+			}
+			if(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) > 0 || shifts.get(shiftIndex).time > time){
+				print("UH OH SOMETHING WENT WRONG");
+				break;
+			}
+			print("");
+
+		}
+		print("Final list of shifts!");
+		for(Shift s : shiftsToModify){
+			print(s);
+		}
+		fl.close();
+
+		while(sc.hasNextLine()){
+			String line = sc.nextLine();
+			String studentID;
+
+			if(line.isEmpty()){
+				continue;
+			}
+			String[] tokens = line.split(",+");
+			studentID = tokens[0];
+
+			if(tutorContains(studentID)){
+				print("FOUND A DUPLICATE TUTOR, SOMETHING IS WRONG");
+				break;
+			}
+
+			Tutor tutor = new Tutor(studentID);
+			tutors.add(tutor);
+			print("Processing " + studentID + ":\n-------------");
+
+			print("number of data entries equals number of shifts: " + (tokens.length == shiftsToModify.size()));
+
+			for(int i = 0; i < tokens.length; i++){
+				int available = Integer.parseInt(tokens[i]); //the csv has 1 if the student is available at this time, and a 0 if not
+				switch(available){
+				case 0: //tutor is unavailable for this shift
+					break;
+				case 1: //i represents which shift we're looking at
+					tutor.availableShifts.add(shiftsToModify.get(i)); //add this shift to the tutor's list of available shifts
+					//						if(availabilityMap.containsKey(shiftsToModify.get(i))){ //if this shift is already in the a
+					availabilityMap.get(shiftsToModify.get(i)).add(tutor); //add this tutor to the map of available tutors
+					//						}
+					//						else{
+					//							ArrayList<Tutor> availableTutors = new ArrayList<Tutor>();
+					//							availableTutors.add(tutor);
+					//							availabilityMap.put(shiftsToModify.get(i), availableTutors);
+					//						}
+					break;
+				default:
+					print("DATA NOT 1 OR 0, SOMETHING IS WRONG");
+					break;
+				}
+			}
+		}
+	}
+
+	private boolean tutorContains(String studentID) {
+		for(Tutor t : tutors){
+			if(t.id.equalsIgnoreCase(studentID)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void print(Object x){
+		if(DEBUG){
+			System.out.println(x);;
+		}
+	}
+
+	public static void main(String[] args) throws FileNotFoundException{
+		Master m = new Master();
+		//		for(Shift shift : m.shifts){
+		//			print(shift);
+		//		}
+		//		m.blackOutShift(Day.Monday, 12);
+		m.read();
+	}
+}

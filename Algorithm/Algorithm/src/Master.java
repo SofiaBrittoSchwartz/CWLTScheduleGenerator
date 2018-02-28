@@ -12,7 +12,7 @@ public class Master {
 	protected ArrayList<Shift> shifts; //Master list of all shifts
 
 	protected static boolean DEBUG = true; //variable that turns on(true)/off(false) print statements. I left this as *not* final so that I can selectively print some things and not others when debugging
-	protected static final int MIN_LENGTH = 2; //minimum number of consecutive hours a tutor is required to work. the processTutor method only works properly if this constant is set equal to 2
+	protected static final int MIN_LENGTH = 2; //minimum number of consecutive hours a tutor is required to work
 	protected static final int MAX_LENGTH = 3; //maximum number of consecutive hours a tutor is required to work 
 
 	public Master(){
@@ -150,10 +150,10 @@ public class Master {
 			switch(available){
 			case 0: //tutor is unavailable for this shift
 				println(" x");
-				if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
-					println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
-					remove(tutor, mostRecent);
-				}
+//				if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
+//					println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
+//					remove(tutor, mostRecent);
+//				}
 				consecutive = 0; //reset the run
 				break;
 			case 1:
@@ -186,24 +186,62 @@ public class Master {
 		availabilityMap.get(shift).remove(tutor);
 	}
 	
-	private boolean checkForSingleShift(){//makes sure no tutor says their available for a lone hour
+	private void checkForSingleShift(){//checks for any single shifts 
 		for(Tutor tutor : tutors){
 			for(int i = 1; i < tutor.availableShifts.size()-1; i++){
 				Shift prev 	  = tutor.availableShifts.get(i-1);
 				Shift current = tutor.availableShifts.get(i);
 				Shift next    = tutor.availableShifts.get(i+1);
 				if(!current.adjacentTo(prev) && !current.adjacentTo(next)){
-					println(tutor + ": " + current);
-					return false;
+					println(tutor + " has a single shift at " + current);
+//					remove(tutor, current);
 				}
 			}
 		}
-		return true;
+	}
+	
+	private void sortShifts(ArrayList<Shift> shifts){//puts the list of shifts in increasing order of number of available shifts for that shift
+		if(shifts.size()>1){//don't need to sort lists of size 1
+			int halfSize = shifts.size()/2;
+			ArrayList<Shift> left = new ArrayList<Shift>();
+			ArrayList<Shift> right = new ArrayList<Shift>();
+			
+			for(int i = 0; i < halfSize; i++){
+				left.add(shifts.get(i));
+			}
+			for(int i = halfSize; i < shifts.size(); i++){
+				right.add(shifts.get(i));
+			}
+			
+			sortShifts(left);
+			sortShifts(right);
+			
+			mergeShifts(shifts, left, right);
+		}
+	}
+	
+	private void mergeShifts(ArrayList<Shift> output, ArrayList<Shift> left, ArrayList<Shift> right){
+		int l=0, r = 0, o=0; //indices for our 3 lists 
+		
+		while(l < left.size() && r < right.size()){//while left and right both have data
+			if(availabilityMap.get(left.get(l)).size() < availabilityMap.get(right.get(r)).size()){ //add the left data if it's smaller
+				output.set(o++, left.get(l++));
+			}
+			else{
+				output.set(o++, right.get(r++));
+			}
+		}
+		while(l < left.size()){
+			output.set(o++, left.get(l++));
+		}
+		while(r < right.size()){
+			output.set(o++, right.get(r++));
+		}
 	}
 
-	private boolean tutorContains(String studentID) {
+	private boolean tutorContains(String studentID) { //determines whether or not the tutors list already contains a Tutor with the input studentID
 		for(Tutor t : tutors){
-			if(t.id.equalsIgnoreCase(studentID)){
+			if(t.studentID.equalsIgnoreCase(studentID)){
 				return true;
 			}
 		}
@@ -229,5 +267,9 @@ public class Master {
 	public static void main(String[] args) throws FileNotFoundException{
 		Master m = new Master();
 		m.readFile();
+		m.sortShifts(m.shifts);
+		for(Shift s : m.shifts){
+			println(s + ": " +m.availabilityMap.get(s).size());
+		}
 	}
 }

@@ -1,0 +1,1 @@
+INDEX VERSION 1.127+/Users/samberling/OneDrive/School/Spring 2018/CSCI 440/Schedule Generator/.metadata/.plugins/org.eclipse.jdt.core
