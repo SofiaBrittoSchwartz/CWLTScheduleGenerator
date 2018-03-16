@@ -1,0 +1,326 @@
+"finalSchedule":{
+  "Sunday":{
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "16":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "17":
+    [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Monday":{
+    "9": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "10": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "11": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "16":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "17":
+    [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "18":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "19":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "20":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Tuesday":{
+    "9": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "10": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "11": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "16":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "17":
+    [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "18":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "19":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "20":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Wednesday":{
+    "9": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "10": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "11": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "16":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "17":
+    [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "18":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "19":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "20":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Thursday":{
+    "9": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "10": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "11": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "16":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "17":
+    [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "18":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "19":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "20":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Friday":{
+    "9": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "10": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "11": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "12": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "13": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "14": [
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ],
+    "15":[
+      "studentID1",
+      "studentID2",
+      "studentID3"
+    ]
+  },
+  "Saturday":{
+  }
+}

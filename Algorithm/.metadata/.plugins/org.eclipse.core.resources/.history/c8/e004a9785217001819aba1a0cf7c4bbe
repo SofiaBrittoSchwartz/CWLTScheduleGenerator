@@ -1,0 +1,112 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+
+public class Master {
+	protected HashMap<Shift, ArrayList<Tutor>> availabilityMap; //Maps a shift to a list of tutors available during that time
+//	private HashMap<Tutor, ArrayList<Shift>> assignmentMap; //Maps a tutor to a list of Shifts assigned to that tutor.
+	protected ArrayList<Tutor> tutors; //Master list of all tutors
+	protected ArrayList<Shift> shifts; //Master list of all shifts
+	
+	public Master(){
+		shifts = new ArrayList<Shift>();
+		tutors = new ArrayList<Tutor>();
+		availabilityMap = new HashMap<Shift, ArrayList<Tutor>>();
+//		assignmentMap = new HashMap<Tutor, ArrayList<Shift>>();
+		generateShifts();
+	}
+
+	private void generateShifts() {
+		for(Day day : Day.values()){ //for each day in the week
+			for(int i = day.getFirstAppointment(); i < day.getLastAppointment(); i++){ //for each shift in the day
+				Shift shift = new Shift(day, i); //create the shift
+				shifts.add(shift); //add it to the list of shifts
+			}
+		}
+	}
+	
+	private void blackOutShift(Day day, int time){
+		Shift toRemove = null;
+		for(Shift shift : shifts){
+			if(shift.day == day && shift.time == time){
+				toRemove = shift;
+				break;
+			}
+			else if(shift.day.compareTo(day)>0){ //if we get past the day of the shift we're trying to remove, we know it doesn't exist and we can break
+				break;
+			}
+		}
+		shifts.remove(toRemove);
+	}
+	
+	public void read() throws FileNotFoundException{
+		String fileName = "Fall2018Availability.csv";
+		Scanner sc = new Scanner(new File(fileName));
+		String firstLine = sc.nextLine();
+		Scanner fl = new Scanner(firstLine); //this first line of the csv tells us which shifts are changing in the format of D-T (e.g. 3-14 represents Wednesday at 2pm)
+		fl.useDelimiter(",+");
+		fl.next(); //don't care about id tag
+		int shiftIndex = 0; //this serves as an index when trekking through our list of Shifts
+		ArrayList<Shift> shiftsToModify = new ArrayList<Shift>(); //this is a list of the shifts we'll be modifying based on the input file. It will ma
+		
+		
+		while(fl.hasNext()){
+			String shift = fl.next();
+			String[] dayTime = shift.split("-");
+			int day = Integer.parseInt(dayTime[0]); //integer representing the day of the week with 0=sunday and so on
+			int time = Integer.parseInt(dayTime[1]); //the time in 24h format
+			
+			/*we're advancing shift index until the shift represented by that index matches the shift read in from the input
+			 * the reason we do this is just in case the 'shifts' list of Shifts is a superset of the list of shifts in the csv*/
+			while(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) < 0){ //comparing 'day' to the day of the "current shift" represented by 'shiftIndex'
+				shiftIndex++; 
+			}
+			if(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) == 0){ //the "current shift" in our list of shifts and 'day' now match
+				while(shifts.get(shiftIndex).time < time){ //comparing 'time' to the time of the "current shift" represented by 'shiftIndex'
+					shiftIndex++;
+				}
+				if(shifts.get(shiftIndex).time == time){
+					shiftsToModify.add(shifts.get(shiftIndex)); //we've found the shift that our csv is looking for!
+				}
+			}
+			if(shifts.get(shiftIndex).day.compareTo(Day.values()[day]) > 0 || shifts.get(shiftIndex).time > time){
+				print("UH OH SOMETHING WENT WRONG");
+				break;
+			}
+			
+			
+		}
+		
+		for(Shift s : shiftsToModify){
+			print(s +"");
+		}
+		
+		
+//		sc.useDelimiter(","); //using csv format
+//		sc.next(); //ignore the id cell
+//		while(sc.hasNextLine()){
+//			String line = sc.nextLine();
+//			if(line.isEmpty()){
+//				continue;
+//			}
+//			String[] tokens = line.split(",");
+//		}
+		
+	}
+	
+	public void print(String x){
+		System.out.println(x);;
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		Master m = new Master();
+		for(Shift shift : m.shifts){
+//			System.out.println(shift);
+		}
+//		m.blackOutShift(Day.Monday, 12);
+		m.read();
+	}
+}
