@@ -16,32 +16,40 @@
 		{
 			frame.style.width = "580px";
 			frame.style.height = "300px";	
-		}
-		
+		}		
 	}
 
-	function showTab(variant) 
+	function showTab(schedule, tabIndex)
 	{
 	  // This function will display the specified tab of the form...
 	  var tabs = document.getElementsByClassName("tab");
-	  tabs[variant].style.display = "block";
+	  tabs[tabIndex].style.display = "block";
 	  
-	  //... and fix the Previous/Next buttons:
-	  if (variant == 0) {
+	  console.log(tabs[tabIndex].id + "Input");
+
+	  setIframe(tabs[tabIndex].id + "Input");
+	  //set iframe source if iframe found
+
+	  // var iframe = document.getElementById(tabs[tabIndex].id + "Input");
+	  // iframe.src = 
+
+	  // Change the Previous/Next buttons if necessary
+	  if (tabIndex == 0) {
 	    document.getElementById("prevBtn").style.display = "none";
 	  } 
 	  else {
 	    document.getElementById("prevBtn").style.display = "inline";
-	    document.getElementById("nextBtn").style = "margin-left: 15px";
+
 	    document.getElementById("prevBtn").style  = "margin-right: 15px";
+	    document.getElementById("nextBtn").style = "margin-left: 15px";
 	  }
 
-	  // second to last button click will title name of nextBtn from Next to Submit
-	  if (variant == (tabs.length - 2)) 
+	  // second to last tab, button click will change the text of nextBtn from Next to Submit
+	  if (tabIndex == (tabs.length - 2)) 
 	  {
 	    document.getElementById("nextBtn").innerHTML = "Submit";
 	  } 
-	  else if (variant == (tabs.length - 1))
+	  else if (tabIndex == (tabs.length - 1))
 	  {
 	  	document.getElementById("prevBtn").style.display = "none";
 	    document.getElementById("nextBtn").style.display = "none";
@@ -51,40 +59,40 @@
 	    document.getElementById("nextBtn").innerHTML = "Next";
 	  }
 	  //... and run a function that will display the correct step indicator:
-	  fixStepIndicator(variant)
+	  fixStepIndicator(tabIndex);
 	}
 
-	function nextPrev(currForm, variant) 
+	function nextPrev(schedule, currForm, variant) 
 	{
-	  // This function will figure out which tab to display
-	  var tabs = document.getElementsByClassName("tab");
-	  
-	  // Exit the function if any field in the current tab is invalid:
-	  if (variant == 1 && !validateForm()) return false;
-	  
-	  // Hide the current tab:
-	  tabs[currentTab].style.display = "none";
-	  
-	  // Increase or decrease the current tab by 1:
-	  currentTab = currentTab + variant;
-	  
-	  // if you have reached the end of the form...
-	  if (currentTab >= tabs.length-1) {
+		// This function will figure out which tab to display
+		var tabs = document.getElementsByClassName("tab");
 
-	    adjustFrame(currForm, -1);
-	  	showTab(currentTab);
+		// Exit the function if any field in the current tab is invalid:
+		if (variant == 1 && !validateForm()) return false;
 
-	    // ... the form gets submitted:
-	    // document.getElementById("tutorForm").submit();
-	    submit();
-	    return false;
-	  }
+		// Hide the current tab:
+		tabs[currentTab].style.display = "none";
 
-	  // Otherwise, display the correct tab:
-	  adjustFrame(currForm, variant);
-	  showTab(currentTab);
-	  // window.scrollTo(155, 155);
-	  window.scrollTo(0, 0);
+		// Increase or decrease the current tab by 1:
+		currentTab = currentTab + variant;
+
+		// if you have reached the end of the form...
+		if (currentTab >= tabs.length-1) {
+
+			adjustFrame(currForm, -1);
+				showTab(currentTab);
+
+			// ... the form gets submitted:
+			submit();
+
+			return false;
+		}
+
+		// Otherwise, display the correct tab:
+		adjustFrame(currForm, variant);
+		showTab(schedule, currentTab);
+
+		window.scrollTo(0, 0);
 	}
 
 	function validateForm() 
@@ -93,27 +101,31 @@
 	  var x, y, i, valid = true;
 	  x = document.getElementsByClassName("tab");
 	  y = x[currentTab].getElementsByTagName("input");
+	  
 	  // A loop that checks every input field in the current tab:
 	  for (i = 0; i < y.length; i++) {
+	    
 	    // If a field is empty...
 	    if (y[i].value == "") {
+	      
 	      // add an "invalid" class to the field:
 	      y[i].className += " invalid";
+	      
 	      // and set the current valid status to false
 	      valid = false;
 	    }
 	  }
+	  
 	  // If the valid status is true, mark the step as finished and valid:
 	  if (valid && !document.getElementsByClassName("step")[currentTab].className.includes(" finish"))
-	  {
-  		
+	  {	
   		document.getElementsByClassName("step")[currentTab].className += " finish";
 	  }
 	  return valid; // return the valid status
 	}
 
-	/* Changes colors of step indicators */
-	function fixStepIndicator(n) 
+	/* Changes colors of the blocks that indicate progress through the form */
+	function fixStepIndicator(tabIndex) 
 	{
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
@@ -122,22 +134,17 @@
 	    x[i].className = x[i].className.replace(" active", "");
 	  }
 	  //... and adds the "active" class on the current step:
-	  if(n < x.length)
+	  if(tabIndex < x.length)
 	  {
 	  	if(document.getElementsByClassName("step")[currentTab].className.includes(" finish"))
 	  	{
-	  		x[n].className = x[n].className.replace(" finish", " active");	
+	  		x[tabIndex].className = x[tabIndex].className.replace(" finish", " active");	
 	  	}
 	  	else
 	  	{
-		  	x[n].className += " active";		  		
+		  	x[tabIndex].className += " active";		  		
 	  	}
 	  
 	  }
 	  
-	}
-
-	function submit()
-	{
-		
 	}

@@ -41,10 +41,10 @@
 		"position": "Chem Subject Tutor"
 	},
 
-	"person6":
+	"jbiden":
 	{ 
-		"name": "Person 6", 
-		"studentID": "person6", 
-		"position": "Writing Advisor"
+		"name": "Joe Biden", 
+		"studentID": "jbiden", 
+		"position": "Politics Subject Tutor"
 	}
 }

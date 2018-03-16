@@ -1,0 +1,69 @@
+  /* schedule */
+  table.schedule { border-left:1px solid #999; }
+  
+  td.open-shift { 
+    width:100px; 
+    height: 40px; 
+    padding:5px; 
+    border-bottom:1px solid #999; 
+    border-right:1px solid #999; 
+  }
+
+  td.closed-shift  { 
+    background:#ccc; 
+    min-height:30px; 
+    position:relative; 
+    height: 40px;
+  }
+  
+  td.busy-shift  { 
+    background:#310000; 
+    min-height:30px; 
+    position:relative; 
+    height: 40px;
+  }
+
+  td.prefered-shift  { 
+    background:#11A020; 
+    min-height:30px; 
+    position:relative; 
+    height: 40px;
+  }
+
+  td.schedule-day-head { 
+    background:#ccc; 
+    font-weight:bold; 
+    text-align:center; 
+    width:100px; 
+    padding:5px; 
+    border-bottom:1px solid #999; 
+    border-top:1px solid #999; 
+    border-right:1px solid #999; 
+  }
+
+  td.shift-time { 
+    text-align:center; 
+    width:100px; 
+    padding:5px; 
+    border-bottom:1px solid #999; 
+    border-right:1px solid #999; 
+  }
+
+  div.day-number { 
+    padding:5px; 
+    color:#000;
+    font-size: 15;
+    font: initial;
+    float:right; 
+    margin-top: -38%;
+    margin-right: -1%; 
+    width:20px; 
+    text-align:center;
+  }
+
+  /* shared */
+
+  p {
+    text-align: center;
+    font-size: 16;
+  }

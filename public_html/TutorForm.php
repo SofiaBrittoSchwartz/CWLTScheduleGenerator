@@ -28,10 +28,7 @@
 <html>
 	<body>
 		<div class="topnav">
-		  <a class="active" href="#home">Home</a>
-		  <a href="/adminForm.php">Admin</a>
-		  <a href="#contact">Contact</a>
-		  <a href="#about">About</a>
+		  <a class = "active" style = "width: 350px;"> Center for Writing, Learning and Teaching </a>
 		</div>
 		
 		<!-- Marks how far through the form they are -->
@@ -39,7 +36,6 @@
 		    <span class="step active"> Basic Info </span> <br>
 		    <span class="step"> Conflicts </span> <br>
 		    <span class="step"> Work Preferences </span> <br>
-		    <!-- <span class="step" style = "border-bottom: solid thin;"> Work Preferences </span> <br> -->
 		</div>
 
 		<form id = "tutorForm" style = "border-style: solid;">
