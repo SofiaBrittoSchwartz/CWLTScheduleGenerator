@@ -62,7 +62,6 @@
 
 		<!-- Part 1: Open Hours Input -->	
 			<div class = "tab" id = "OpenHours">
-			<!-- <div class = "tab"> -->
 				<h2 style = "margin-bottom: -25px;">Confirm Open Hours</h2>
 				<iframe id = "OpenHoursInput" name = "-1" frameborder= "0"></iframe>
 				
@@ -107,15 +106,28 @@
 		<!-- Buttons -->
 			
 			<div style="text-align: center; height: 10px;">
-				<button type="button" id="prevBtn" onclick="nextPrev(getSchedule(),'adminForm', -1)" style = "display: none;">Previous</button>
-				<button type="button" id="nextBtn" onclick="nextPrev(getSchedule(),'adminForm', 1)">Next</button>
+				<button type="button" id="prevBtn" onclick="storeSchedule(-1)" style = "display: none;">Previous</button>
+				<button type="button" id="nextBtn" onclick="nextPrev('adminForm', 1)">Next</button>
 			</div>
 			
 
 	</form>
 
-	<script src = "adminForm.js"></script>
+	<!-- <script src = "adminForm.js"></script> -->
 	<script src="../multipageForm.js"></script>
+	<script type="text/javascript">
+		
+		var scheduleStates = new Map();
+
+		// function storeSchedule(tabIndex, schedule)
+		function storeSchedule(variant)
+		{
+			scheduleStates.set(tabIndex, getSchedule());
+			console.log("Schedule in adminForm: \n"+getSchedule().toString());
+			nextPrev('adminForm', variant);
+		}
+
+	</script>
 
 </body>
 

@@ -1,4 +1,4 @@
-<script src = "./AdminPages/adminForm.js"></script>
+<!-- <script src = "./AdminPages/adminForm.js"></script> -->
 
 <?php
 
@@ -9,11 +9,11 @@
   $sched = json_decode($_GET['sched']);
   $type = $_GET['type'];
 
-  echo "schedule: ".$sched;
+  // echo "schedule: ".$sched;
   echo nl2br("\n".$type);
   echo draw_schedule($sched, $type);
   
-  /* draws a schedule, using any previous information that needs to be included and specifying the type of thes*/
+  /* draws a schedule, using any previous information that needs to be included and specifying the type of these inputs*/
   function draw_schedule($currentSchedule = null, $inputType = 0){
 
     $closed = -1;
@@ -21,15 +21,11 @@
     $prefered = 1;
     $busy = 2;
 
-    // if($currentSchedule === null):
-    //   $currentSchedule = $openHours;
-    // endif;
-
-    echo nl2br("\ncurrentSchedule:".$currentSchedule);
-    // echo "isArray: ".is_array($currentSchedule);
+    // echo nl2br("\ncurrentSchedule:".$currentSchedule);
 
     // link to the correct CSS
     echo '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
+    echo '<script src="./multipageForm.js"></script>';
 
     /* draw table */
     $schedGrid = ' <div id = "schedule" style="width: 60%">';
@@ -50,7 +46,7 @@
     // iterates through the rows
     for($curr_hour = 0; $curr_hour <= $hours_per_day; $curr_hour++):
       
-      $schedGrid.= '<tr class="schedule-row">';
+      $schedGrid .= '<tr class="schedule-row">';
 
       // iterates through the days
       for($curr_day = 0; $curr_day < 7; $curr_day++):
@@ -70,47 +66,43 @@
 
           endif;
 
-          $schedGrid.='<td class="shift-time"> <p>'.$hour.':00 '.$unit.' </p></td>';
+          $schedGrid .= '<td class="shift-time"> <p>'.$hour.':00 '.$unit.' </p></td>';
 
         else:
-          // echo nl2br("\nvalue: ".$currentSchedule[$curr_day][$curr_hour]);
-          echo "closed: " .$closed;
 
           if($currentSchedule[$curr_day - 1][$curr_hour] === $closed):
-            
-            echo nl2br("\nclosedValue: ".$currentSchedule[$curr_day - 1][$curr_hour]);
-            $schedGrid.='<td class="closed-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
+
+            $schedGrid .= '<td class="closed-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $busy):
             
-            echo nl2br("\nbusyValue: ".(string)$currentSchedule[$curr_day - 1][$curr_hour]);
-            $schedGrid.='<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
+            $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $prefered):
-            $schedGrid.='<td class="prefered-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';             
+            $schedGrid .= '<td class="prefered-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';             
           else:
             
-            echo nl2br("\ndefaultValue: ".(string)$currentSchedule[$curr_day - 1][$curr_hour]);
-            
-            // each hour block will have an ID based on the day and hour (in military representation) at which it is located
+            // // each hour block will have an ID based on the day and hour (in military representation) at which it is located
             $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
+
+            // $schedGrid .= '<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "tester()"></td>';   
           endif;
         
         endif;
 
       endfor;
         
-      $schedGrid.= '</tr>';
+      $schedGrid .= '</tr>';
 
     endfor;
 
     /* final row */
-    $schedGrid.= '</tr>';
+    $schedGrid .= '</tr>';
 
     /* end the table */
-    $schedGrid.= '</table>';
+    $schedGrid .= '</table>';
 
-    $schedGrid.= '</div>';
+    $schedGrid .= '</div>';
     
     /* all done, return result */
     return $schedGrid;
