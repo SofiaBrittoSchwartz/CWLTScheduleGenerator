@@ -1,0 +1,86 @@
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
+/**
+ * An object representation of a 1 hour shift. If a tutor is working for multiple hours in a row, this will be represented as multiple shifts.
+ * @author Sam Berling
+ *
+ */
+public class Shift implements Comparable<Shift>{
+	protected Day day; //day of the shift
+	protected int time;//start time of the shift. 
+	protected PriorityQueue<Tutor> availableTutors; 
+	protected ArrayList<Tutor> assignedTutors;
+	private double score = 0; //the sum of the scores of the available tutors for this shift
+	private ArrayList<Tutor> preferredTutors; //list of the tutors who preferred this shift, not just are available.
+	protected static final int MIN_TUTORS = 2;
+	private static final int MAX_TUTORS = 8;
+
+
+	public Shift(Day day, int time){
+		this.day = day;
+		this.time = time;
+		availableTutors = new PriorityQueue<Tutor>();
+		assignedTutors = new ArrayList<Tutor>();
+	}
+
+	/**
+	 * This method determines whether or not this shift is adjacent to (i.e. either immediately precedes or succeeds) the input shift 
+	 * @param shift the shift we are comparing to
+	 * @return
+	 */
+	public boolean adjacentTo(Shift shift){
+		if(day.compareTo(shift.day)!=0){ //if they are on different days
+			return false;
+		}
+		return (time-shift.time == 1 || time-shift.time == -1);
+	}
+
+	public boolean firstShiftOfDay(){
+		return (time==day.getFirstAppointment());
+	}
+
+	public boolean lastShiftOfDay(){
+		return (time==day.getLastAppointment());
+	}
+
+	public String toString(){
+		return "("+day+" at "+time+")";
+	}
+
+	private void adjustScore(){
+		if(hasMax()){ //not so sure about this. seems to make sense for now
+			score += Double.MAX_VALUE;
+		}
+		else if(hasMin()){
+			score += 600; //don't know about this value, but we want it to pretty much move to the end of the queue
+		}
+	}
+
+	public double calculateScore(){ //calculates the score based on the sum of the availableTutors scores. 
+		score = 0;
+		for(Tutor t : availableTutors){
+			score += t.calculateAvailabilityRatio();
+		}
+		for(Tutor t : assignedTutors){
+			score += t.calculateAvailabilityRatio();
+		}
+		score = Math.round(score*100)/100.0;
+		adjustScore();
+		return score;
+	}
+
+	@Override
+	public int compareTo(Shift shift) {
+		return (int)(calculateScore()*10 - shift.calculateScore()*10); // multiply by 10 so that we don't lose as much precision on the scores
+
+	}
+	
+	public boolean hasMin(){
+		return assignedTutors.size()>=MIN_TUTORS;
+	}
+	
+	public boolean hasMax(){
+		return assignedTutors.size()>=MAX_TUTORS;
+	}
+}
