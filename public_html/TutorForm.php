@@ -28,7 +28,7 @@
 <html>
 	<body>
 		<div class="topnav">
-		  <a class = "active" style = "width: 350px;"> Center for Writing, Learning and Teaching </a>
+		  <a class = "active" style = "width: 350px;"> Center for Writing, Learning & Teaching </a>
 		</div>
 		
 		<!-- Marks how far through the form they are -->
