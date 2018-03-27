@@ -1,3 +1,9 @@
 1522090209032	Extract method 'extracted'
 1522095258530	Extract method 'extracted'
 1522096046158	Rename method 'checkForPurge'
+1522107043147	Move methods
+1522107048710	Move method
+1522107057106	Move method
+1522107730923	Rename method 'generateShifts'
+1522107979988	Extract method 'extracted'
+1522121144266	Extract method 'extracted'
