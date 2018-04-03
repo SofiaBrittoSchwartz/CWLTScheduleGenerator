@@ -25,7 +25,7 @@
 
     // link to the correct CSS
     echo '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
-    echo '<script src="./multipageForm.js"></script>';
+    echo '<script src="./weeklySchedule.js"></script>';
 
     /* draw table */
     $schedGrid = ' <div id = "schedule" style="width: 60%">';
@@ -83,6 +83,7 @@
           else:
             
             // // each hour block will have an ID based on the day and hour (in military representation) at which it is located
+            // $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
             $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
 
             // $schedGrid .= '<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "tester()"></td>';   

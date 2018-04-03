@@ -48,6 +48,7 @@
 		  <a href="/AdminPages/tutorFormCompletion.php" style = "width: 200px;"> Tutor Form Completion </a>
 		</div>
 
+<!-- <body onload = "loadFirst()"> -->
 <body>
 	
 	<form id = "adminForm">
@@ -62,7 +63,7 @@
 
 		<!-- Part 1: Open Hours Input -->	
 			<div class = "tab" id = "OpenHours">
-				<h2 style = "margin-bottom: -25px;">Confirm Open Hours</h2>
+				<h2 id = "scheduleTitle" style = "margin-bottom: -25px;">Confirm Open Hours</h2>
 				<iframe id = "OpenHoursInput" name = "-1" frameborder= "0"></iframe>
 				
 			</div>
@@ -106,28 +107,61 @@
 		<!-- Buttons -->
 			
 			<div style="text-align: center; height: 10px;">
-				<button type="button" id="prevBtn" onclick="storeSchedule(-1)" style = "display: none;">Previous</button>
-				<button type="button" id="nextBtn" onclick="nextPrev('adminForm', 1)">Next</button>
+				<button type="button" id="prevBtn" onclick="getNextPrev(-1)" style = "display: none;">Previous</button>
+				<!-- <button type="button" id="prevBtn" onclick="nextPrev('adminForm', -1)" style = "display: none;">Previous</button> -->
+				<button type="button" id="nextBtn" onclick="getNextPrev(1)">Next</button>
+				<!-- <button type="button" id="nextBtn" onclick="switchFrame()">Next</button> -->
 			</div>
 			
 
 	</form>
 
 	<!-- <script src = "adminForm.js"></script> -->
-	<script src="../multipageForm.js"></script>
 	<script type="text/javascript">
 		
-		var scheduleStates = new Map();
+		var scheduleStates2 = new Array();
+		var currentTab = 0;
+		// updateSchedule();
+
+		function save(inputType, day, time)
+		{
+			scheduleStates2[day][time] = inputType;
+			saveTimes(inputType, day, time);
+		}
 
 		// function storeSchedule(tabIndex, schedule)
-		function storeSchedule(variant)
+		function getNextPrev(variant)
 		{
-			scheduleStates.set(tabIndex, getSchedule());
-			console.log("Schedule in adminForm: \n"+getSchedule().toString());
-			nextPrev('adminForm', variant);
+			console.log("storeSchedule");
+			// console.log("Schedule in adminForm: \n"+getSchedule().toString());
+			scheduleStates2[currentTab] = nextPrev('adminForm', variant, scheduleStates2[currentTab], currentTab);
+
+			currentTab += variant;
+
+			var tabs = document.getElementsByClassName("tab");
+
+			//sets iframe source if iframe isn't null
+			setIframe(tabs[curr].id + "Input");
+
+			// updateSchedule();
+			console.log("Updated Schedule: \n");
+			console.log(scheduleStates2);
+		}
+
+		function updateSchedule(sched, currTab)
+		{
+			scheduleStates2[currTab] = sched;
+			currentTab = currTab;
+			// var tempSched;
+			// tempSched, currentTab = getSchedule();
+			// console.log(currentTab);
+			// console.log(tempSched);
+			// scheduleStates2[currentTab] = tempSched;
 		}
 
 	</script>
+	<script src="../weeklySchedule.js"></script>
+	<script src="../multipageForm.js"></script>
 
 </body>
 
