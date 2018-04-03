@@ -74,6 +74,12 @@
 				<iframe id = "SpecialEventsInput" name = "2" frameborder= "0"> </iframe>
 			</div>
 
+		<!-- Part 2: Special Events -->	
+			<div class = "tab" id = "Something">
+				<h2 style = "margin-bottom: -25px;">Something Else Events</h2>
+				<iframe id = "SomethingInput" name = "1" frameborder= "0"> </iframe>
+			</div>
+
 		<!-- Part 3: List of Tutors -->
 			<div class = "tab" id = "tutorList">
 				
@@ -107,61 +113,61 @@
 		<!-- Buttons -->
 			
 			<div style="text-align: center; height: 10px;">
-				<button type="button" id="prevBtn" onclick="getNextPrev(-1)" style = "display: none;">Previous</button>
+				<button type="button" id="prevBtn" onclick= "nextPrev('adminForm', -1)" style = "display: none;">Previous</button>
 				<!-- <button type="button" id="prevBtn" onclick="nextPrev('adminForm', -1)" style = "display: none;">Previous</button> -->
-				<button type="button" id="nextBtn" onclick="getNextPrev(1)">Next</button>
+				<button type="button" id="nextBtn" onclick= "nextPrev('adminForm', 1)">Next</button>
 				<!-- <button type="button" id="nextBtn" onclick="switchFrame()">Next</button> -->
 			</div>
 			
 
 	</form>
 
-	<!-- <script src = "adminForm.js"></script> -->
+	
+	<script src="../multipageForm.js"></script>
 	<script type="text/javascript">
-		
-		var scheduleStates2 = new Array();
-		var currentTab = 0;
-		// updateSchedule();
+			
+		showTab(0, true);
+		// var scheduleStates2 = new Array();
+		// var currentTab = 0;
+		// // updateSchedule();
 
-		function save(inputType, day, time)
-		{
-			scheduleStates2[day][time] = inputType;
-			saveTimes(inputType, day, time);
-		}
+		// function save(inputType, day, time)
+		// {
+		// 	scheduleStates2[day][time] = inputType;
+		// 	saveTimes(inputType, day, time);
+		// }
 
-		// function storeSchedule(tabIndex, schedule)
-		function getNextPrev(variant)
-		{
-			console.log("storeSchedule");
-			// console.log("Schedule in adminForm: \n"+getSchedule().toString());
-			scheduleStates2[currentTab] = nextPrev('adminForm', variant, scheduleStates2[currentTab], currentTab);
+		// // function storeSchedule(tabIndex, schedule)
+		// function getNextPrev(variant)
+		// {
+		// 	console.log("storeSchedule");
+		// 	// console.log("Schedule in adminForm: \n"+getSchedule().toString());
+		// 	scheduleStates2[currentTab] = nextPrev('adminForm', variant, scheduleStates2[currentTab], currentTab);
 
-			currentTab += variant;
+		// 	currentTab += variant;
 
-			var tabs = document.getElementsByClassName("tab");
+		// 	var tabs = document.getElementsByClassName("tab");
 
-			//sets iframe source if iframe isn't null
-			setIframe(tabs[curr].id + "Input");
+		// 	//sets iframe source if iframe isn't null
+		// 	setIframe(tabs[curr].id + "Input");
 
-			// updateSchedule();
-			console.log("Updated Schedule: \n");
-			console.log(scheduleStates2);
-		}
+		// 	// updateSchedule();
+		// 	console.log("Updated Schedule: \n");
+		// 	console.log(scheduleStates2);
+		// }
 
-		function updateSchedule(sched, currTab)
-		{
-			scheduleStates2[currTab] = sched;
-			currentTab = currTab;
-			// var tempSched;
-			// tempSched, currentTab = getSchedule();
-			// console.log(currentTab);
-			// console.log(tempSched);
-			// scheduleStates2[currentTab] = tempSched;
-		}
+		// function updateSchedule(sched, currTab)
+		// {
+		// 	scheduleStates2[currTab] = sched;
+		// 	currentTab = currTab;
+		// 	// var tempSched;
+		// 	// tempSched, currentTab = getSchedule();
+		// 	// console.log(currentTab);
+		// 	// console.log(tempSched);
+		// 	// scheduleStates2[currentTab] = tempSched;
+		// }
 
 	</script>
-	<script src="../weeklySchedule.js"></script>
-	<script src="../multipageForm.js"></script>
 
 </body>
 

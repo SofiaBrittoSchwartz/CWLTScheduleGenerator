@@ -18,14 +18,16 @@
 
     $closed = -1;
     $open = 0;
-    $prefered = 1;
+    $preferred = 1;
     $busy = 2;
 
     // echo nl2br("\ncurrentSchedule:".$currentSchedule);
 
     // link to the correct CSS
     echo '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
-    echo '<script src="./weeklySchedule.js"></script>';
+    echo '<script src="./AdminPages/adminForm.js"></script>';
+
+    echo '<h6 style = "display: none" id = "holder"></h6>';
 
     /* draw table */
     $schedGrid = ' <div id = "schedule" style="width: 60%">';
@@ -78,8 +80,8 @@
             
             $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
 
-          elseif($currentSchedule[$curr_day - 1][$curr_hour] === $prefered):
-            $schedGrid .= '<td class="prefered-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';             
+          elseif($currentSchedule[$curr_day - 1][$curr_hour] === $preferred):
+            $schedGrid .= '<td class="preferred-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';             
           else:
             
             // // each hour block will have an ID based on the day and hour (in military representation) at which it is located

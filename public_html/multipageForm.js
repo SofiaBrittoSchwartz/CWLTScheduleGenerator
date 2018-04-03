@@ -1,37 +1,27 @@
 "use strict";
-class AdminForm 
+class Schedule 
 {
-	constructor(otherForm = null, name = "...")
+	constructor(schedule, inputType)
 	{	
-		if(otherForm != null)
+		if(schedule == null)
 		{
-			print("New Form - copying: \n" + otherForm.toString());
-			this.schedule = copy(otherForm.schedule);
+			this.schedule = Array(7).fill(null).map(x => Array(12).fill(0));	
+			
 		}
 		else
 		{
 			// replace this with reading in a json file containing the open hours
-			this.schedule = Array(7).fill(null).map(x => Array(12).fill(0));	
+			this.schedule = Object.assign([], schedule);
 		}
 		
 		this.name = name;
-	}
-
-	getSchedule()
-	{
-		return this.schedule;
-	}
-
-	setValue(day, time, value)
-	{
-		this.schedule[day][time] = value;
 	}
 
 	toString()
 	{
 		var stringBuilder = "";
 		
-		stringBuilder += "name: "+this.name + "\n";
+		stringBuilder += "inputType: "+this.name + "\n";
 
 		for(var i = 0; i < this.schedule.length; i++)
 		{
@@ -45,19 +35,6 @@ class AdminForm
 	{
 		// total hours available / total hours needed
 	}
-
-	submit()
-	{
-		var fs = require("fs");
-
-		fs.writeFile("testerFile.json", JSON.stringify(this.schedule), (err) => {
-		    if (err) {
-		        console.error(err);
-		        return;
-		    };
-		    console.log("File has been created");
-		});
-	}
 }
 	
 	/*
@@ -67,25 +44,35 @@ class AdminForm
 
 	const closed = -1;
 	const open = 0;
-	const prefered = 1;
+	const preferred = 1;
 	const busy = 2;
 
 	var debug = true;
 
-	var scheduleStates = new Array();
-	scheduleStates[0] = new AdminForm(null, "0");
-
-	var currSchedule = scheduleStates[0];
+	var scheduleStates;
 
 	var currentTab = 0; // Current tab is set to be the first tab (0)
-	showTab(currentTab); // Display the current tab
+	// showTab(currentTab); // Display the current tab
 
-	var numCopies = 0;
-
-	function getCurrSchedule()
+	function showTab(tabIndex, isFirst = false)
 	{
-		return currSchedule, currentTab;
-		// return scheduleStates[currentTab].getSchedule();
+		if(isFirst)
+		{
+			scheduleStates = new Array();
+			scheduleStates[0] = new Schedule(null, "0");
+		}
+		
+
+		// This function will display the specified tab of the form...
+		var tabs = document.getElementsByClassName("tab");
+		
+		tabs[tabIndex].style.display = "block";
+
+		setIframe(tabs[tabIndex].id + "Input");
+
+		fixButtons(tabIndex, tabs.length);
+		//... and run a function that will display the correct step indicator:
+		fixStepIndicator(tabIndex);
 	}
 
 	function adjustFrame(currForm, variant)
@@ -110,78 +97,6 @@ class AdminForm
 		if(debug) console.log(str);
 	}
 
-	function showTab(tabIndex)
-	{
-		debug = true;
-		print("showTab");
-		
-
-		// This function will display the specified tab of the form...
-		var tabs = document.getElementsByClassName("tab");
-		
-		print(tabs);
-		// print("...");
-		tabs[tabIndex].style.display = "block";
-		// tabs[currentTab].style.display = "block";
-
-		setIframe(tabs[tabIndex].id + "Input", scheduleStates[currentTab]);
-		fixButtons(tabIndex, tabs.length);
-		//... and run a function that will display the correct step indicator:
-		fixStepIndicator(tabIndex);
-	}
-
-	// be aware of when this is called in relation to updates of currTab
-		// function chooseScheduleState(tabIndex, variant)
-		// {
-		// 	debug = true;
-		// 	print("chooseScheduleState");
-		// 	print(scheduleStates)
-
-		// 	// print('========================================');
-		// 	// print('........................................');
-		// 	// print(scheduleStates)
-		// 	// print(currSchedule.toString());
-		// 	// print('........................................');
-		// 	// print("tabIndex: "+tabIndex);
-		// 	// if moving forward
-		// 	if(variant == 1)
-		// 	{
-		// 		if(scheduleStates[tabIndex] == null)
-		// 		{
-		// 			print("state "+tabIndex+ " is null");
-		// 			// if(tabIndex != 0)
-		// 			// {
-		// 			// 	scheduleStates[tabIndex] = currSchedule;	
-		// 			// }
-		// 			// currSchedule = new AdminForm(currSchedule, (tabIndex+1).toString());
-		// 			scheduleStates[tabIndex] = new AdminForm(scheduleStates[tabIndex], (tabIndex+1).toString());
-		// 			// scheduleStates.splice(tabIndex-variant, 1, currSchedule); //should I do this now or after values have been added?
-		// 		}
-		// 		else
-		// 		{
-		// 			print('save at index: '+tabIndex);
-		// 			// print(currSchedule.toString());
-
-		// 			// scheduleStates[tabIndex] = currSchedule;
-		// 			// currSchedule = scheduleStates[tabIndex+variant];
-
-		// 			//figure out a new state by comparing the new sched#1 and the old sched #2. If new sched#1 overlaps sched#2, then make appropriate changes(making new state and replacing old sched#2) and show a warning message
-		// 		}
-		// 	}
-		// 	// if moving back
-		// 	else if(variant == -1)
-		// 	{
-		// 		print('variant = -1\n\n');
-		// 		print('index: ' +(variant + tabIndex));
-		// 		print(scheduleStates.toString());
-		// 		// print(currSchedule.toString());
-
-		// 		// scheduleStates[tabIndex] = currSchedule;
-		// 		// currSchedule = scheduleStates[tabIndex+variant];
-		// 	}
-		// 	debug = false;
-		// }
-	
 	// Changes the Previous/Next buttons as necessary
 	function fixButtons(tabIndex, numTabs)
 	{	
@@ -212,10 +127,25 @@ class AdminForm
 		}
 	}
 
+	// Set the src attribute of the given iFrame based upon the frameID
+	function setIframe(frameID)
+	{
+		// use a get instead of a create to access the given iFrame and set it's src value
+		var frame = document.getElementById(frameID);
+
+		if(frame != null)
+		{	
+			// frame.name contains a number representing open, closed, or busy as noted above
+			frame.src = "/weeklySchedule.php?sched="+JSON.stringify(scheduleStates[currentTab].schedule)+"&type="+frame.name;	
+		}
+	}
+
 	// function nextPrev(currForm, variant) 
 	function nextPrev(currForm, variant, sched, tab) 
 	{
 		print("nextPrev");
+		var frame = document.getElementById('OpenHoursInput').contentWindow.document
+		scheduleStates[currentTab] = new Schedule(JSON.parse(frame.getElementById("holder").value), -1);
 
 		// This function will figure out which tab to display
 		var tabs = document.getElementsByClassName("tab");
@@ -247,8 +177,7 @@ class AdminForm
 
 		if(scheduleStates[currentTab] == null)
 		{
-			scheduleStates[currentTab] = new AdminForm(scheduleStates[currentTab-variant], (currentTab).toString());
-			print(scheduleStates)
+			scheduleStates[currentTab] = new Schedule(scheduleStates[currentTab-variant].schedule, 2);
 		}
 
 		showTab(currentTab);
@@ -313,52 +242,15 @@ class AdminForm
 	  
 	}
 
-	// function switchFrame()
-	// {
-	// 	var inputType = 2;
-		
-	// 	var sched = document.getElementById("OpenHoursInput").contentDocument;
-	// 	// .contentWindow.document.body.innerHTML;
-
-	// 	document.getElementById("scheduleTitle").innerHTML = "Confirm Special Events";
-		
-	// 	// console.log(document.getElementById());
-
-	// 	for(var hour = 0; hour < 12; hour++)
-	// 	{
-	// 		for(var day = 1; day < 7; day++)
-	// 		{
-	// 			var shiftBlock = sched.getElementById(day+"-"+hour);
-
-	// 			// var shiftBlock = sched.getElementById(day+"-"+time);
-
-	// 			if(shiftBlock.className == "open-shift")
-	// 			{
-	// 				print('inputType: '+inputType);
-	// 				shiftBlock.onclick = "saveTimes("+inputType+", "+day+", "+hour+")";
-	// 			}
-	// 			else
-	// 			{
-	// 				shiftBlock.onclick = "";
-	// 			}
-	// 		}
-	// 	}
-
-	// }
-
-	function copy(arr) 
+	function submit()
 	{
-		numCopies++;
+		var fs = require("fs");
 
-		var output, v, key;
-
-		output = Array.isArray(arr) ? [] : {};
-		
-		for (key in arr) 
-		{
-		   v = arr[key];
-		   output[key] = (typeof v === "object") ? copy(v) : v;
-		}
-
-		return output;
+		fs.writeFile("testerFile.json", JSON.stringify(this.schedule), (err) => {
+		    if (err) {
+		        console.error(err);
+		        return;
+		    };
+		    console.log("File has been created");
+		});
 	}
