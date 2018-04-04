@@ -29,7 +29,7 @@ public class Master {
 	}
 
 	public void readFile() throws FileNotFoundException{
-		String fileName = "Fall2017Availability.csv";
+		String fileName = "Fall2017AvailabilitySubjects.csv";
 		Scanner sc = new Scanner(new File(fileName));
 		String firstLine = sc.nextLine();
 		Scanner fl = new Scanner(firstLine); //this first line of the csv tells us which shifts are changing in the format of D-T (e.g. 3-14 represents Wednesday at 2pm)
@@ -41,48 +41,84 @@ public class Master {
 
 		processAllShifts(fl, shiftIndex, shiftsToModify);
 		processAllTutors(sc, shiftsToModify);
+		checkForSingleShift();
 
 		for(Shift s : shifts){
 			s.availableTutors.addAll(availabilityMap.get(s));
 			s.calculateScore();
 			println(s+": "+s.calculateScore());
 		}
+
+		removeEmptyShifts();
+
 		shiftQ.addAll(shifts);
+		////////////////////////
+	}
+
+	private void removeEmptyShifts() {
+		ArrayList<Shift> toRemove = new ArrayList<Shift>();
+		for(Shift s : shifts){
+			if(s.availableTutors.isEmpty()){
+				toRemove.add(s);
+			}
+		}
+		for(Shift s : toRemove){
+			shifts.remove(s);
+		}
 	}
 
 	public void generateSchedule(){ //this is all messed up. don't look at it yet
-		while(shiftsNeedTutors()){//first we make sure every shift that can have the Minimum number of tutors, has the mininimum number of tutors
+//		DEBUG = true;
+		while(shiftsNeedTutors()){//first we make sure every shift possible has the mininimum number of tutors
+			println("1:");
 			Shift shift = shiftQ.poll();
-			if(shift.day==Day.Sunday && shift.time==13){
-				print();
-			}
+			println("\t"+shift);
 			if(shift.calculateScore() > 0 && shift.hasAvailableTutors() && !shift.hasMin()){
 				while(!shift.hasMin()){
-					Tutor tutor = shift.availableTutors.poll();
-					if(tutor.studentID.equalsIgnoreCase("bwitter")){
-						print();
-					}
-					assignShift(shift, tutor);
-					assignConsecutiveShift(shift, tutor);
+					assign(shift);
 				}
 				shiftQ.add(shift);
 			}
 		}
 		while(numTutorHours() > 0){ //now we fill the shifts until the tutors don't have any more hours to work
+			println("2:");
 			Shift shift = shiftQ.poll();
+			println("\t"+shift);
 			if(shift.calculateScore() > 0 && shift.hasAvailableTutors()){
-				Tutor tutor = shift.availableTutors.poll();
-				if(tutor.studentID.equalsIgnoreCase("bwitter")){
-					print();
-				}
-				assignShift(shift, tutor);
-				assignConsecutiveShift(shift, tutor);
+				assign(shift);
 				shiftQ.add(shift);
 			}
 		}
+//		DEBUG = false;
 	}
 
-	private boolean consecutiveCheck(){ //after the schedule has been generated, this method checks if each tutor is working consecutive shifts (rather than single shifts), returning true if every tutor has no single shifts
+	private void assign(Shift shift) {
+		Tutor tutor = writingAdvisorCheck(shift);
+		//		Tutor tutor = shift.availableTutors.poll();
+		if(((shift.day==Day.Tuesday && shift.time==16)||(shift.day==Day.Wednesday && shift.time==18))&&tutor.studentID.equals("jdejesus")){
+			print();
+		}
+		println("\t\t"+tutor);
+		if(assignShift(shift, tutor)) assignConsecutiveShift(shift, tutor);
+	}
+
+	private Tutor writingAdvisorCheck(Shift shift) {
+		Tutor tutor;
+		if(!shift.hasWritingAdvisor() && !shift.availableTutors.peek().isWritingAdvisor() && shift.hasWritingAdvisorAvailable()){ //if this shift doesn't have a writing advisor yet AND the next tutor that would be assigned isn't a writing advisor
+			ArrayList<Tutor> offLoad = new ArrayList<Tutor>(); //holds the tutors we're polling until we find a writing advisor
+			while(!shift.availableTutors.peek().isWritingAdvisor()){
+				offLoad.add(shift.availableTutors.poll());
+			}
+			tutor = shift.availableTutors.poll();
+			shift.availableTutors.addAll(offLoad);
+		}
+		else{
+			tutor = shift.availableTutors.poll();
+		}
+		return tutor;
+	}
+
+	private boolean consecutiveCheck(){ //after the schedule has been generated, this method will be called to check if each tutor is working consecutive shifts (rather than single shifts), returning true if every tutor has no single shifts
 		for(Tutor t : tutors){
 			boolean[] checked = new boolean[t.assignedShifts.size()];
 			boolean failed = false;//if the tutor has multiple single shifts, we don't want to print them twice
@@ -146,12 +182,6 @@ public class Master {
 			numPrevs++;
 			prev = previousShift(prev);
 		}
-		//		if(numNexts > numPrevs) {
-		//			return numNexts;
-		//		}
-		//		else{
-		//			return numPrevs;
-		//		}
 		return numPrevs+numNexts;
 	}
 
@@ -169,9 +199,14 @@ public class Master {
 
 	private Shift previousShift(Shift shift){//returns the shift immediately before this one or null if it's the first shift of the day or after a break
 		if(!shift.firstShiftOfDay()){
-			Shift prev = shifts.get(shifts.indexOf(shift)-1);
-			if(prev.adjacentTo(shift)){
-				return prev;
+			try{
+				Shift prev = shifts.get(shifts.indexOf(shift)-1);
+				if(prev.adjacentTo(shift)){
+					return prev;
+				}
+			}
+			catch(IndexOutOfBoundsException e){//we catch this because if we remove the last shift of the day (like Friday at 3pm) because it has no available tutors, then this exception will be thrown, 
+				return null;
 			}
 		}
 		return null;
@@ -179,9 +214,14 @@ public class Master {
 
 	private Shift nextShift(Shift shift){//returns the shift immediately after this one or null if it's the last shift of the day or before a break
 		if(!shift.lastShiftOfDay()){
-			Shift next = shifts.get(shifts.indexOf(shift)+1);
-			if(next.adjacentTo(shift)){
-				return next;
+			try{
+				Shift next = shifts.get(shifts.indexOf(shift)+1);
+				if(next.adjacentTo(shift)){
+					return next;
+				}
+			}
+			catch(IndexOutOfBoundsException e){ //we catch this because if we remove the last shift of the day (like Friday at 3pm) because it has no available tutors, then this exception will be thrown, 
+				return null;
 			}
 		}
 		return null;
@@ -205,15 +245,21 @@ public class Master {
 			Shift previous = previousShift(shift);
 			Shift next = nextShift(shift);
 			if(previous != null){
+				println("\t\t\t"+previous);
 				if(previous.availableTutors.contains(tutor) && !previous.assignedTutors.contains(tutor)){//if the tutor can work the previous shift but hasn't been assigned to it yet, do
-					if(assignShift(previous, tutor)) consecutiveAssigned = true;
-					previous.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
+					if(assignShift(previous, tutor)){
+						consecutiveAssigned = true;
+						previous.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
+					}
 				}
 			}
 			if(next !=null && !consecutiveAssigned){//same deal, but we don't want to assign another shift if we already did above
+				println("\t\t\t"+next);
 				if(next.availableTutors.contains(tutor) && !next.assignedTutors.contains(tutor)){
-					if(assignShift(next, tutor)) consecutiveAssigned = true;
-					next.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
+					if(assignShift(next, tutor)){
+						consecutiveAssigned = true;
+						next.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
+					}
 				}
 
 			}
@@ -226,6 +272,9 @@ public class Master {
 			}
 			else if(!consecutiveAssigned && tutor.numShiftsNeeded>0){//otherwise, if we still have time to spare, try getting rid of this one anyway.
 				unassignTutor(shift, tutor);
+				shift.availableTutors.remove(tutor);
+				if(previous!=null) previous.availableTutors.remove(tutor);
+				if(next!=null) next.availableTutors.remove(tutor);
 			}
 			return consecutiveAssigned;
 		}
@@ -256,7 +305,7 @@ public class Master {
 		}
 		shift.assignedTutors.remove(tutor);
 		tutor.assignedShifts.remove(shift);
-		if(!shift.availableTutors.contains(tutor)) shift.availableTutors.add(tutor);
+//		if(!shift.availableTutors.contains(tutor)) shift.availableTutors.add(tutor);
 		unpurge(tutor);
 		tutor.numShiftsNeeded++;
 		refreshScores(shift, tutor);
@@ -280,6 +329,14 @@ public class Master {
 		}
 		shift.calculateScore();
 		shift.reheapify();
+		reheapifyShifts();
+	}
+
+	private void reheapifyShifts(){
+		ArrayList<Shift> temp = new ArrayList<Shift>();
+		temp.addAll(shiftQ);
+		shiftQ.clear();
+		shiftQ.addAll(temp);
 	}
 
 	private void purge(Tutor tutor) { //removes all tutors that no longer have hours to work     
@@ -386,14 +443,16 @@ public class Master {
 				continue;
 			}
 			String[] tokens = line.split(",+");
-			studentID = tokens[0];
-			if(tutorContains(studentID)){ //if we find a tutor already in the system, then we should skip them
-				println(studentID + " already exists. there must be a problem. skipping this tutor for now");
-				continue;
+			if(tokens.length > 0){
+				studentID = tokens[0];
+				if(tutorContains(studentID)){ //if we find a tutor already in the system, then we should skip them
+					println(studentID + " already exists. there must be a problem. skipping this tutor for now");
+					continue;
+				}
+				processTutor(shiftsToModify, studentID, tokens);
 			}
-
-			processTutor(shiftsToModify, studentID, tokens);
 		}
+
 		sc.close();
 		for(Tutor t : tutors){ //calculate the availability ratios for tutors now
 			t.calculateAvailabilityRatio();
@@ -411,38 +470,47 @@ public class Master {
 
 
 		for(int i = 1; i < tokens.length; i++){
-			int available = Integer.parseInt(tokens[i]); //1 if the student is available at this time, and a 0 if not
-			int j = i-1; //shiftIndex
+			try{
+				int available = Integer.parseInt(tokens[i]); //1 if the student is available at this time, and a 0 if not
+				int j = i-1; //shiftIndex
 
-			Shift shift = shiftsToModify.get(j);
-			Shift mostRecent = tutor.availableShifts.isEmpty() ? null : tutor.availableShifts.get(tutor.availableShifts.size()-1); //the most recently assigned shift, shifts are added to 'shiftsToModify' chronologically
+				Shift shift = shiftsToModify.get(j);
+				Shift mostRecent = tutor.availableShifts.isEmpty() ? null : tutor.availableShifts.get(tutor.availableShifts.size()-1); //the most recently assigned shift, shifts are added to 'shiftsToModify' chronologically
 
-			println(shift + " consecutive: " + consecutive);
-			println("the most recent available shift is " + mostRecent);
-			print("Evaluating...");
+				println(shift + " consecutive: " + consecutive);
+				println("the most recent available shift is " + mostRecent);
+				print("Evaluating...");
 
-			switch(available){
-			case 0: //tutor is unavailable for this shift
-				println(" x");
-				if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
-					println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
-					remove(tutor, mostRecent);
+				switch(available){
+				case 0: //tutor is unavailable for this shift
+					println(" x");
+					if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
+						println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
+						remove(tutor, mostRecent);
+					}
+					consecutive = 0; //reset the run
+					break;
+				case 1:
+					println(" Available!");
+					consecutive = (mostRecent!=null && mostRecent.adjacentTo(shift)) ? consecutive+1 : 1; //increment the run or start over at 1 if it's a new day
+					if(!shift.lastShiftOfDay() || consecutive >= MIN_LENGTH){ //if it's the lastShift, then we need to be on a run of consecutive shifts to add this one
+						add(tutor, shift);
+					}
+					break;
+				default:
+					println("AVAILABILITY NOT 1 OR 0, SOMETHING IS WRONG");
+					break;
 				}
-				consecutive = 0; //reset the run
-				break;
-			case 1:
-				println(" Available!");
-				consecutive = (mostRecent!=null && mostRecent.adjacentTo(shift)) ? consecutive+1 : 1; //increment the run or start over at 1 if it's a new day
-				if(!shift.lastShiftOfDay() || consecutive >= MIN_LENGTH){ //if it's the lastShift, then we need to be on a run of consecutive shifts to add this one
-					add(tutor, shift);
-				}
-				break;
-			default:
-				println("AVAILABILITY NOT 1 OR 0, SOMETHING IS WRONG");
-				break;
+				println();
 			}
-			println();
+			catch(NumberFormatException e){
+				String subject = tokens[i];
+				tutor.subjects.add(subject);
+			}
 		}
+
+		println(tutor +": "+tutor.subjects);
+
 		println(tutor + " is available for the following shifts: ");
 		for(Shift s : tutor.availableShifts){
 			println(s);
@@ -462,13 +530,31 @@ public class Master {
 
 	private void checkForSingleShift(){//checks for any single shifts in a tutor's availability
 		for(Tutor tutor : tutors){
-			for(int i = 1; i < tutor.availableShifts.size()-1; i++){
-				Shift prev 	  = tutor.availableShifts.get(i-1);
-				Shift current = tutor.availableShifts.get(i);
-				Shift next    = tutor.availableShifts.get(i+1);
-				if(!current.adjacentTo(prev) && !current.adjacentTo(next)){
-					println(tutor + " has a single shift at " + current);
-					//					remove(tutor, current);
+			for(int i = 0; i < tutor.availableShifts.size(); i++){
+				if(i>0 && i < tutor.availableShifts.size()-1){
+					Shift prev 	  = tutor.availableShifts.get(i-1);
+					Shift current = tutor.availableShifts.get(i);
+					Shift next    = tutor.availableShifts.get(i+1);
+					if(!current.adjacentTo(prev) && !current.adjacentTo(next)){
+						println(tutor + " has a single shift at " + current);
+						//					remove(tutor, current);
+					}
+				}
+				if(i==0){
+					Shift current = tutor.availableShifts.get(i);
+					Shift next    = tutor.availableShifts.get(i+1);
+					if(!current.adjacentTo(next)){
+						println(tutor + " has a single shift at " + current);
+						//					remove(tutor, current);
+					}
+				}
+				if(i==tutor.availableShifts.size()-1){
+					Shift prev 	  = tutor.availableShifts.get(i-1);
+					Shift current = tutor.availableShifts.get(i);
+					if(!current.adjacentTo(prev)){
+						println(tutor + " has a single shift at " + current);
+						remove(tutor, current);
+					}
 				}
 			}
 		}
@@ -549,7 +635,7 @@ public class Master {
 		println();
 		for(Tutor t : m.tutors){
 			t.sortAssignedShifts();
-			println(t+": "+t.assignedShifts);
+			println(t+"("+m.numConsecutiveShifts(t)+"): "+t.assignedShifts);
 		}
 		println();
 		m.printSchedule();
@@ -559,14 +645,5 @@ public class Master {
 		m.consecutiveCheck();
 
 		println("\n" + (finish-start) + "ms");
-
-		for(int i = 2; i < 10; i++){ //prints all tutors and their longest run
-			for(Tutor t : m.tutors){
-				if(m.numConsecutiveShifts(t) == i){
-					println(t+"("+i+"): "+t.assignedShifts);
-				}
-			}
-		}
-
 	}
 }
