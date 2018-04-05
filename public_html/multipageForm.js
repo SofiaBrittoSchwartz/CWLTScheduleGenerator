@@ -14,14 +14,41 @@ class Schedule
 			this.schedule = Object.assign([], schedule);
 		}
 		
-		this.name = name;
+		this.inputType = inputType;
+	}
+
+	update(prev)
+	{
+		print(prev);
+		print("before: ");
+		print(this.schedule.toString());
+
+		var count = 0;
+		for(var i = 0; i < this.schedule.length; i++)
+		{
+			for(var j = 0; j < this.schedule[0].length; j++)
+			{
+				if(prev.schedule[i][j] == prev.inputType && this.schedule[i][j] != prev.inputType)
+				{
+					this.schedule[i][j] = prev.inputType;
+					count++;
+				}
+			}
+		}
+		print("count: "+count+"\nafter: ");
+		print(this.schedule);
+	}
+
+	calcRatio()
+	{
+		// total hours available / total hours needed
 	}
 
 	toString()
 	{
 		var stringBuilder = "";
 		
-		stringBuilder += "inputType: "+this.name + "\n";
+		stringBuilder += "inputType: "+this.inputType + "\n";
 
 		for(var i = 0; i < this.schedule.length; i++)
 		{
@@ -29,11 +56,6 @@ class Schedule
 		}
 
 		return stringBuilder;
-	}
-
-	calcRatio()
-	{
-		// total hours available / total hours needed
 	}
 }
 	
@@ -56,17 +78,16 @@ class Schedule
 
 	function showTab(tabIndex, isFirst = false)
 	{
-		if(isFirst)
-		{
-			scheduleStates = new Array();
-			scheduleStates[0] = new Schedule(null, "0");
-		}
-		
-
 		// This function will display the specified tab of the form...
 		var tabs = document.getElementsByClassName("tab");
 		
 		tabs[tabIndex].style.display = "block";
+
+		if(isFirst)
+		{
+			scheduleStates = new Array();
+			scheduleStates[0] = new Schedule(null, closed);
+		}
 
 		setIframe(tabs[tabIndex].id + "Input");
 
@@ -144,11 +165,11 @@ class Schedule
 	function nextPrev(currForm, variant, sched, tab) 
 	{
 		print("nextPrev");
-		var frame = document.getElementById('OpenHoursInput').contentWindow.document
-		scheduleStates[currentTab] = new Schedule(JSON.parse(frame.getElementById("holder").value), -1);
 
 		// This function will figure out which tab to display
 		var tabs = document.getElementsByClassName("tab");
+
+		updateSchedule(tabs[currentTab].id + "Input", variant);
 
 		// Exit the function if any field in the current tab is invalid:
 		if (variant == 1 && !validateForm()) return false;
@@ -160,19 +181,17 @@ class Schedule
 		currentTab = currentTab + variant;
 
 		// if you have reached the end of the form
-		if (currentTab >= tabs.length-1) {
-
+		if (currentTab >= tabs.length-1) 
+		{
 			print(tabs.length-1)
-			adjustFrame(currForm, -1);
+			// adjustFrame(currForm, -1);
 			showTab(currentTab);
 			submit();
-
-			// return false;
-			return scheduleStates[currentTab-variant]
+			return;
 		}
 
 		// Otherwise, display the correct tab:
-		adjustFrame(currForm, variant);
+		// adjustFrame(currForm, variant);
 		// chooseScheduleState(currentTab-variant, variant);
 
 		if(scheduleStates[currentTab] == null)
@@ -183,13 +202,44 @@ class Schedule
 		showTab(currentTab);
 
 		window.scrollTo(0, 0);
+	}
 
-		return scheduleStates[currentTab-variant]
+	function updateSchedule(frameID, variant)
+	{
+		// will exit this function if currentTab doesn't have a weeklySchedule iFrame
+		if(document.getElementById(frameID) == null) return;
+
+		print(1);
+
+		var newSched = document.getElementById(frameID).contentWindow.document;
+		// scheduleStates[currentTab].schedule = JSON.parse(newSched.getElementById("holder").value);
+
+		// get updated schedule from the hidden h6 tag and save in scheduleStates
+		if(scheduleStates[currentTab] != null)
+		{
+			print(2);
+			scheduleStates[currentTab].schedule = JSON.parse(newSched.getElementById("holder").value);
+		}
+		else //might be able to get rid of this else
+		{
+			print(3);
+			// change the inputType according to a given array
+			scheduleStates[currentTab] = new Schedule(JSON.parse(newSched.getElementById("holder").value), closed);
+		}
+
+		print(4);
+		// print("variant: " +variant+"\n\ncurrSchedule: \n" +scheduleStates[currentTab+1]);
+
+		// if necessary update the subsequent scheduleStates that rely upon the current scheduleState
+		if(variant == 1 && scheduleStates[currentTab+1] != null)
+		{
+			print(5);
+			scheduleStates[currentTab+1].update(scheduleStates[currentTab]);
+		}
 	}
 
 	function validateForm() 
 	{
-		return true;
 	  // This function deals with validation of the form fields
 	  var x, y, i, valid = true;
 	  x = document.getElementsByClassName("tab");

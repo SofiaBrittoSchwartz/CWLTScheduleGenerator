@@ -1,16 +1,11 @@
-<!-- <script src = "./AdminPages/adminForm.js"></script> -->
-
 <?php
 
   $openHours = array_fill(0, 6, array_fill(0, 11, 0));
 
-  $schedule = $openHours;
-
-  $sched = json_decode($_GET['sched']);
+  $jsonSched = $_GET['sched'];
+  $sched = json_decode($jsonSched);
   $type = $_GET['type'];
 
-  // echo "schedule: ".$sched;
-  echo nl2br("\n".$type);
   echo draw_schedule($sched, $type);
   
   /* draws a schedule, using any previous information that needs to be included and specifying the type of these inputs*/
@@ -21,16 +16,18 @@
     $preferred = 1;
     $busy = 2;
 
-    // echo nl2br("\ncurrentSchedule:".$currentSchedule);
+    if($currentSchedule == null):
+      $currentSchedule = $openHours;
+    endif;
 
     // link to the correct CSS
-    echo '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
-    echo '<script src="./AdminPages/adminForm.js"></script>';
+    $schedGrid =  '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
+    $schedGrid .=  '<script src="./AdminPages/adminForm.js"></script>';
 
-    echo '<h6 style = "display: none" id = "holder"></h6>';
+    $schedGrid .=  '<h6 style = "display: none" id = "holder" value = '.$jsonSched.'></h6>';
 
     /* draw table */
-    $schedGrid = ' <div id = "schedule" style="width: 60%">';
+    $schedGrid .= ' <div id = "schedule" style="width: 60%">';
     $schedGrid .= '<table cellpadding="0" cellspacing="0" class="schedule" style="width:800px">';
 
     /* table headings */
@@ -72,23 +69,29 @@
 
         else:
 
+          $onclick = '';
+          
+          if ($currentSchedule[$curr_day - 1][$curr_hour] == $inputType): 
+            $onclick= 'saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')';
+
+          endif;
+          
           if($currentSchedule[$curr_day - 1][$curr_hour] === $closed):
 
-            $schedGrid .= '<td class="closed-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
+            $schedGrid .= '<td class="closed-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick = "'.$onclick.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $busy):
             
-            $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';  
+            $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.' onclick = '.$onclick.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $preferred):
-            $schedGrid .= '<td class="preferred-shift" id = "'.$curr_day.'-'.$curr_hour.'"></td>';             
+            $schedGrid .= '<td class="preferred-shift" id = "'.$curr_day.'-'.$curr_hour.' onclick = '.$onclick.'"></td>';  
+
           else:
             
-            // // each hour block will have an ID based on the day and hour (in military representation) at which it is located
-            // $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
+            // each hour block will have an ID based on the day and hour (in military representation) at which it is located
             $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
-
-            // $schedGrid .= '<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "tester()"></td>';   
+            
           endif;
         
         endif;
@@ -106,6 +109,8 @@
     $schedGrid .= '</table>';
 
     $schedGrid .= '</div>';
+
+    $schedGrid .=  '<script> setSchedule('.json_encode($currentSchedule).')</script>';
     
     /* all done, return result */
     return $schedGrid;
