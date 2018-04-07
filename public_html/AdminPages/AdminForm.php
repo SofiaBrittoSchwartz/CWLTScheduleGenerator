@@ -104,9 +104,11 @@
 
 		<!-- Buttons -->
 			
-			<div style="text-align: center; height: 10px;">
+			<div style="text-align: center; height: 10px;" id = 'btnHolder'>
 				<button type="button" id="prevBtn" onclick= "nextPrev('adminForm', -1)" style = "display: none;">Previous</button>
 				<button type="button" id="nextBtn" onclick= "nextPrev('adminForm', 1)">Next</button>
+				
+				<!-- <input type="submit" id="submit" visibility = "hidden"></input> -->
 			</div>
 			
 
@@ -117,8 +119,6 @@
 	<script>
 			
 		showTab(0, true);
-
-		
 
 	</script>
 

@@ -24,7 +24,7 @@
     $schedGrid =  '<link rel="stylesheet" href="./CSS/weeklySchedule.css">';
     $schedGrid .=  '<script src="./AdminPages/adminForm.js"></script>';
 
-    $schedGrid .=  '<h6 style = "display: none" id = "holder" value = '.$jsonSched.'></h6>';
+    $schedGrid .=  '<h6 style = "display: none" id = "holder" value = "'.$jsonSched.'"></h6>';
 
     /* draw table */
     $schedGrid .= ' <div id = "schedule" style="width: 60%">';
@@ -77,15 +77,13 @@
           endif;
           
           if($currentSchedule[$curr_day - 1][$curr_hour] === $closed):
-
             $schedGrid .= '<td class="closed-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick = "'.$onclick.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $busy):
-            
-            $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.' onclick = '.$onclick.'"></td>';  
+            $schedGrid .= '<td class="busy-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick = "'.$onclick.'"></td>';  
 
           elseif($currentSchedule[$curr_day - 1][$curr_hour] === $preferred):
-            $schedGrid .= '<td class="preferred-shift" id = "'.$curr_day.'-'.$curr_hour.' onclick = '.$onclick.'"></td>';  
+            $schedGrid .= '<td class="preferred-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick = "'.$onclick.'"></td>';  
 
           else:
             
@@ -110,7 +108,7 @@
 
     $schedGrid .= '</div>';
 
-    $schedGrid .=  '<script> setSchedule('.json_encode($currentSchedule).')</script>';
+    $schedGrid .=  '<script> setSchedule('.json_encode($currentSchedule).');</script>';
     
     /* all done, return result */
     return $schedGrid;

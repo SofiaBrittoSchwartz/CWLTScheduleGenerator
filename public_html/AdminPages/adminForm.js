@@ -2,11 +2,7 @@ var schedule;
 
 function setSchedule(sched)
 {
-	// console.log("setSchedule");
 	schedule = Array.from(sched);
-
-	// console.log(document);
-
 	var holder = document.getElementById("holder");
 	holder.value = JSON.stringify(schedule);
 }
@@ -42,7 +38,7 @@ function saveTimes(inputType, day, time)
 	{
 		schedule[day-1][time] = open;
 		timeBlock.className = "open-shift";
-	} 
+	}
 
 	var holder = document.getElementById("holder");
 	holder.value = JSON.stringify(schedule);
