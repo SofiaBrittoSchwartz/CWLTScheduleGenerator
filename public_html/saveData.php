@@ -1,23 +1,24 @@
-<?php 
+<?php
+	$schedule = $_GET['sched'];
+	$tutorList = $_GET['tutorList'];
 
-	// $schedule = json_decode($_GET['sched']);
-	$data = $_GET['data'];
+	save($schedule, $tutorList);
 
-	echo save($data);
-
-	function save($data)
+	function save($schedule, $tutorList)
 	{
-		// echo $schedule;
-		echo " hello ";
-		echo $data;
+		$input = '{ "schedule": '.$schedule.'}';
+
+		$file = fopen("DataFiles/adminFormData1.json", "w");
 		
-		$file = fopen("DataFiles/adminFormData1.json", "w"); 
-		$text = '{ "schedule": [[-1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  [0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1]]}';
-		
-		fwrite($file, $schedule); 
-		// fwrite($file, 'This is it!'); 
-		fwrite($file, $text); 
+		fwrite($file, $input); 
 		fclose($file);
+
+		$tutorFile = fopen("DataFiles/tutorList1.json", "w");
+		
+		fwrite($tutorFile, $tutorList);
+		fclose($tutorFile);
+
+		echo '<h1 style = "margin-top: 80px; text-align: center;"> Thank you! </h1>';
 	}
 	
 ?>

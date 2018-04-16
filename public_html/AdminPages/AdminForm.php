@@ -77,7 +77,8 @@
 			<div class = "tab" id = "tutorList">
 				
 				<h2 style = "margin-right: 30px; margin-top: 40px; margin-bottom: -20px;"> List of Tutors </h2>
-				<iframe src = "tutorList.php" frameborder="0" style = "width: 650px; height: 330px; margin-top: 5px;"></iframe>
+				<iframe src = "tutorList.php" id = "tutors" frameborder="0" style = "width: 650px; height: 330px; margin-top: 5px;"></iframe>
+				<input type = "file" style = "margin-left: 45%; margin-bottom: 15px;"></input>
 				<!-- <h3> Use a JS function to resize the tab div && the iframe based on the size of the number of items in tutorList.json </h3> -->
 
 			</div>
@@ -98,8 +99,8 @@
 			</div> -->
 
 		<!-- Confirmation Screen -->
-			<div class = "tab">
-				<h1 style = "margin-top: 80px; text-align: center;"> Thank you! </h1>
+			<div class = "tab" id = "confirmation">
+				<iframe id = "confirmationScreen" frameborder="0"> </iframe>
 			</div>
 
 		<!-- Buttons -->
