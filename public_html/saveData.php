@@ -6,13 +6,22 @@
 
 	function save($schedule, $tutorList)
 	{
-		$input = '{ "schedule": '.$schedule.'}';
+		$sched = "";
+		$schedule = json_decode($schedule);
 
+		$sched .= "\n\t\t[".json_encode($schedule[0]);
+		for($i = 1; $i < count($schedule); $i++):
+			$sched .= ",\n\t\t".json_encode($schedule[$i]);
+		endfor;
+
+		$input = "{ \n\t\"schedule\": ".$sched."]\n}";
 		$file = fopen("DataFiles/adminFormData1.json", "w");
 		
 		fwrite($file, $input); 
 		fclose($file);
 
+		// to get it to format properly in the file for readability
+		$tutorList = json_encode(json_decode($tutorList), JSON_PRETTY_PRINT);
 		$tutorFile = fopen("DataFiles/tutorList1.json", "w");
 		
 		fwrite($tutorFile, $tutorList);

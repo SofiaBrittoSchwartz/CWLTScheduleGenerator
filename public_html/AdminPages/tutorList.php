@@ -1,17 +1,24 @@
 <style>
+	
+	html
+	{
+		background-color: #ffffff;
+	}
 
 	.column 
 	{
 	    float: left;
-	    width: 50%;
-	    padding: 10px;
-	    height: 300px; /* Should be removed. Only for demonstration */
+	    padding: 5px;
 	}
 
 	input
 	{
 		margin-top: 10px;
-		border: solid thin grey;
+		border: solid thin;
+		border-color: #80808052;
+		font-size: 15px;
+		font-family: Raleway;
+
 	}
 
 	h3
@@ -24,53 +31,68 @@
 </style>
 
 <html>
-<body style = "margin: 3px;">
+<body id = "tutorListBody" style = "margin: 3px;">
 
 <?php
-	$string = file_get_contents("tutorList.json");
-	$json_a = json_decode($string, true);
-
+	$frameID = $_GET['frameID'];
+	$file_contents = file_get_contents('../DataFiles/tutorList.json');
+	$json_a = json_decode($file_contents, true);
+	
 	echo '<script src="./adminForm.js"></script>';
 	echo '<h6 style = "display: none" id = "holder" value = "'.$json_a.'"></h6>';
+	
 	// Student Name Column
-	echo "<div class = 'row' style = 'width: 800px;'>";
-	echo "<div class = 'column' style = 'width: 180px;'>";
-	echo "<h3 style = 'margin-left: 10px;'> Name </h3>";
+	echo "<div class = 'row' style = 'width: 950px;'>";
+	echo "<div class = 'column' id = 'name' style = 'width: 180px;'>";
+	echo "<h3 style = 'margin-left: -5%;'> Name </h3>";
 	
 	// populate all the names of the tutors into the Name column
 	foreach ($json_a as $tutor) 
 	{
-		echo "<input id = '".$tutor['studentID']."-name' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."-name\")' placeholder = '". $tutor['name'] ."' style = 'margin-left: 20%;'/>";
+		echo "<input id = '".$tutor['studentID']."-name' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\", \"name\")' value = '". $tutor['name'] ."'/>";
 	}
 
 	echo "</div>";
 
 	// Job Title Column
-	echo "<div class = 'column' style = 'width: 170px;'>";
-	echo "<h3 style = 'margin-left: -10px;'> Job Title </h3>";
+	echo "<div class = 'column' id = 'position' style = 'width: 230px;'>";
+	echo "<h3> Job Title(s) </h3>";
 
 	// populate all the positions of the tutors into the Job Title column
 	foreach ($json_a as $tutor) 
 	{
-		echo "<input id = '".$tutor['studentID']."-position' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."-position\")' title = 'Please input a position title' placeholder = '".$tutor['position']."' style = 'margin-left: 10%;'/>";
+		echo "<input id = '".$tutor['studentID']."-position' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\", \"position\")' title = 'Please input a position title' value = '".implode(', ', $tutor['position'])."' style = 'width: 220px;'/>";
 	}
 
 	echo "</div>";
 
 	// Email Column
-	echo "<div class = 'column' style = 'width: 300px;'>";
-	echo "<h3 style = 'margin-left: -80px;'> Email </h3>";
+	echo "<div class = 'column' id = 'studentID' style = 'width: 260px;'>";
+	echo "<h3 style = 'margin-left: 0;'> Email </h3>";
 
 	// populate all the email prefixes of the tutors (used as studentIDs because these must be unique) into the Email column
 	foreach ($json_a as $tutor) 
 	{
-		echo "<input id = '".$tutor['studentID']."-studentID' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."-studentID\")' title = 'Please input a studentID' placeholder = '".$tutor['studentID']."' style = 'margin-left: 5%; width: 100px;'/>@pugetsound.edu";
+		echo "<input id = '".$tutor['studentID']."-studentID' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\", \"studentID\")' title = 'Please input a studentID' value = '".$tutor['studentID']."' style = 'width: 125px;'/> @pugetsound.edu";
+	}
+	echo "</div>";
+
+	echo "<div class = 'column' id = 'numHours' style = 'width: 120px;'>";
+	echo "<h3 style = 'margin-left: -45%;'> Number of Hours </h3>";
+
+	foreach ($json_a as $tutor) 
+	{
+		echo "<input id = '".$tutor['studentID']."-numHours' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\",\"numHours\")' title = 'Please input the number of hours this tutor works' value = '".$tutor['numHours']."' style = ' width: 100px; text-align: center;'/>";
 	}
 
 	echo "</div>";
 	echo "</div>";
-	echo "<script> loadFile('../DataFiles/tutorList1');</script>";
-	// echo "<script> loadFile('tutorList');</script>";
+	echo "<button id = \"addBtn\" onclick = \"addTutor(".$frameID.")\" style = \"margin-top: 10px; margin-left: 10px; \">+</button>";
+	echo "<p id=\"errorMessage\" style = 'display: inline; color: red; visibility: hidden;' hidden> Please make sure all previous tutors have been assigned the necessary values <p>";
+	// Use this value to set the height of the iFrame and/or body
+	$height = 160 + (count($json_a) * 22);
+
+	echo "<script> loadFile('../DataFiles/tutorList'); setFrameHeight('tutors', ".$height."); </script>";
 ?>
 </body>
 </html>

@@ -67,9 +67,11 @@ var debug = true;
 var scheduleStates;
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
+var currentFrame = 0;
 
 function showTab(tabIndex, isFirst = false)
 {
+	print("showTab");
 	// This function will display the specified tab of the form...
 	var tabs = document.getElementsByClassName("tab");
 	tabs[tabIndex].style.display = "block";
@@ -79,17 +81,17 @@ function showTab(tabIndex, isFirst = false)
 		scheduleStates = new Array();
 		defaultData = new Map();
 
-		readTextFile('../DataFiles/adminFormData.json');
+		readTextFile('../DataFiles/adminFormData1.json');
 
 		var input = getInputType();
 
+		//in the case of only a single schedule iFrame, this will create a new schedule to use 
 		if(input != null)
 		{
 			scheduleStates[0] = new Schedule(null, input);	
 		}
 	}
 	
-	// print(getTabType());
 	setIframe(tabs[tabIndex].id);
 
 	fixButtons(tabIndex, tabs.length);
@@ -100,11 +102,11 @@ function showTab(tabIndex, isFirst = false)
 
 function nextPrev(currForm, variant) 
 {
+	print("----------------nextPrev---------------");
 	// This function will figure out which tab to display
 	var tabs = document.getElementsByClassName("tab");
 
 	updateSchedule(variant);
-
 	// Exit the function if any field in the current tab is invalid:
 	// if (variant == 1 && !validateForm()) return false;
 
@@ -112,19 +114,26 @@ function nextPrev(currForm, variant)
 	tabs[currentTab].style.display = "none";
 
 	// Increase or decrease the current tab by 1:
-	currentTab = currentTab + variant;
+	currentTab += variant;
 
 	// Otherwise, display the correct tab:
 	// adjustFrame(currForm, variant);
 
 	// if this tab has an Iframe for a schedule, but that schedule hasn't been instantiated yet
-	if(scheduleStates[currentTab] == null)
+	if(scheduleStates[currentFrame] == null)
 	{	
 		var input = getInputType();
-
+		
 		if(input != null)
 		{
-			scheduleStates[currentTab] = new Schedule(scheduleStates[currentTab-variant].schedule, input);	
+			if(scheduleStates.length == 0)
+			{
+				scheduleStates[0] = new Schedule(null, input);	
+			}
+			else
+			{
+				scheduleStates[currentFrame] = new Schedule(scheduleStates[currentFrame-variant].schedule, input);	
+			}
 		}
 	}
 
@@ -136,37 +145,59 @@ function nextPrev(currForm, variant)
 // Set the src attribute of the given iFrame based upon the frameID
 function setIframe(frameID)
 {
-	var frameID = document.getElementsByTagName("iframe")[currentTab].id;
+	print("setIframe");
+
 	var tabType = getTabType();
 
-	var frame = document.getElementById(frameID);
+	var frame = getCurrFrame();
 
 	if(frame != null)
 	{
 		switch(tabType)
 		{
 			case "schedule":
-				frame.src = "/weeklySchedule.php?sched="+JSON.stringify(scheduleStates[currentTab].schedule)+"&type="+frame.name;
+				frame.src = "/weeklySchedule.php?sched="+JSON.stringify(scheduleStates[currentFrame].schedule, null, '\t')+"&type="+frame.name;
 				break;
 			case "confirmation":
-				// print(defaultData);
-				frame.src = "../saveData.php?sched="+JSON.stringify(scheduleStates[0].schedule)+"&tutorList="+JSON.stringify(defaultData);
+				frame.src = "../saveData.php?sched="+JSON.stringify(scheduleStates[0].schedule, null, '\t')+"&tutorList="+JSON.stringify(defaultData, null, '\t');
 				break;
-			// case "data":
-			// 	break;
 		}
 	}
 }
 
-function getTabType()
+function getCurrFrame()
 {
+	var tabID = document.getElementsByClassName("tab")[currentTab].id;
+
 	var frames = document.getElementsByTagName('iframe');
 
-	if(frames[currentTab].id.includes('Input'))
+	for(var i = 0; i < frames.length; i++)
+	{
+		if(frames[i].id.includes(tabID))
+		{
+			return frames[i];
+		}
+	}
+
+	return null;
+}
+
+function getTabType()
+{
+	print("getTabType");
+
+	var frame = getCurrFrame();
+
+	if(frame == null)
+	{
+		return null;
+	}
+
+	if(frame.id.includes('Input'))
 	{
 		return "schedule";
 	}
-	else if(frames[currentTab].id.includes('Screen'))
+	else if(frame.id.includes('Screen'))
 	{
 		return "confirmation";
 	}
@@ -176,36 +207,10 @@ function getTabType()
 	}
 }
 
-function updateSchedule(variant)
-{
-	var frameID = document.getElementsByTagName("iframe")[currentTab].id;
-
-	// will exit this function if currentTab doesn't have an iFrame
-	if(document.getElementById(frameID) == null) return;
-
-	var frameDoc = document.getElementById(frameID).contentWindow.document;
-	var tabType = getTabType();
-
-	// get updated schedule from the hidden h6 tag and save in scheduleStates
-	if(tabType == "schedule" && scheduleStates[currentTab] != null)
-	{
-		scheduleStates[currentTab].schedule = JSON.parse(frameDoc.getElementById("holder").value);
-
-		// if necessary update the subsequent scheduleStates that rely upon the current scheduleState
-		if(variant == 1 && scheduleStates[currentTab+1] != null)
-		{
-			scheduleStates[currentTab+1].update(scheduleStates[currentTab]);
-		}
-	}
-	else if(tabType == "data")
-	{
-		print(frameDoc.getElementById("holder").value);
-		defaultData = JSON.parse(frameDoc.getElementById("holder").value);
-	}
-}
-
 function getInputType()
 {
+	print("getInputType");
+
 	// get the current tab's id to determine the frameID, 
 	// then use that to access the name attribute which stores the input type in a String
 	var tabID = document.getElementsByClassName("tab")[currentTab].id;
@@ -221,27 +226,45 @@ function getInputType()
 	}
 }
 
-// needs to be fixed
-function adjustFrame(currForm, variant)
+function updateSchedule(variant)
 {
-	var frame = document.getElementById(currForm);
-	var tabs = document.getElementsByClassName("tab");
+	print("updateSchedule");
+	// var frameID = document.getElementsByTagName("iframe")[currentTab].id;
+	var frame = getCurrFrame();
+	
+	if(frame == null) return;
+	var frameID = frame.id;
 
-	if(variant == 1)
+	// will exit this function if currentTab doesn't have an iFrame
+	// if(document.getElementById(frameID) == null) return;
+
+	var frameDoc = document.getElementById(frameID).contentWindow.document;
+	var tabType = getTabType();
+
+	// get updated schedule from the hidden h6 tag and save in scheduleStates
+	if(tabType == "schedule" && scheduleStates[currentFrame] != null)
 	{
-		frame.style.width = "880px";
-		frame.style.height = "600px";	
+		scheduleStates[currentFrame].schedule = JSON.parse(frameDoc.getElementById("holder").value);
+
+		// if necessary update the subsequent scheduleStates that rely upon the current scheduleState
+		if(variant == 1 && scheduleStates[currentFrame+1] != null)
+		{
+			scheduleStates[currentFrame+1].update(scheduleStates[currentFrame]);
+		}
 	}
-	else if(variant == -1 && (currentTab == 0 || currentTab == tabs.length - 1))
+	else if(tabType == "data")
 	{
-		frame.style.width = "580px";
-		frame.style.height = "300px";	
-	}		
+		print(frameDoc.getElementById("holder").value);
+		defaultData = JSON.parse(frameDoc.getElementById("holder").value);
+	}
+
+	currentFrame += variant;
 }
 
 // Changes the Previous/Next buttons as necessary
 function fixButtons(tabIndex, numTabs)
 {	
+	print("fixButtons");
 	// if first tab, hide prevBtn
 	if (tabIndex == 0) 
 	{
@@ -251,19 +274,6 @@ function fixButtons(tabIndex, numTabs)
   	else if (tabIndex == (numTabs - 2)) 
 	{
 		document.getElementById("nextBtn").innerHTML = "Submit";
-		
-		// <input type="submit" id="submit" visibility = "hidden"></input>
-
-		// "/weeklySchedule.php?sched="+JSON.stringify(scheduleStates[currentTab].schedule)+"&type="+frame.name;	
-		// document.getElementById("adminForm").action = "../saveData.php?sched="+JSON.stringify(scheduleStates[1].schedule);
-		// document.getElementById("adminForm").action = "../saveData.php?data="+holder;
-
-		// var submitBtn = document.createElement('input');
-		// submitBtn.type = 'submit';
-		// submitBtn.display = 'inline';
-		// document.getElementById('btnHolder').append(submitBtn);
-		
-		// document.getElementById("nextBtn").style.display = "none";
 	} 
 	// if last tab, hide the buttons
 	else if (tabIndex == (numTabs - 1))
@@ -305,6 +315,24 @@ function fixStepIndicator(tabIndex)
 		}
 
 	}	  
+}
+
+// needs to be fixed / might no longer be necessary
+function adjustFrame(currForm, variant)
+{
+	var frame = document.getElementById(currForm);
+	var tabs = document.getElementsByClassName("tab");
+
+	if(variant == 1)
+	{
+		frame.style.width = "880px";
+		frame.style.height = "600px";	
+	}
+	else if(variant == -1 && (currentTab == 0 || currentTab == tabs.length - 1))
+	{
+		frame.style.width = "580px";
+		frame.style.height = "300px";	
+	}		
 }
 
 /* NO LONGER SURE IF NECESSARY OR EFFECTIVE */
