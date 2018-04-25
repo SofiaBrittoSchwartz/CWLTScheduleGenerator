@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * An object representation of a 1 hour shift. If a tutor is working for multiple hours in a row, this will be represented as multiple shifts.
@@ -7,14 +10,29 @@ import java.util.PriorityQueue;
  *
  */
 public class Shift implements Comparable<Shift>{
-	protected Day day; //day of the shift
-	protected int time;//start time of the shift. 
-	protected PriorityQueue<Tutor> availableTutors; 
 	protected ArrayList<Tutor> assignedTutors;
+	protected PriorityQueue<Tutor> availableTutors;
+	protected ArrayList<Tutor> preferredTutors; //list of the tutors who preferred this shift, not just are available.
+	protected HashMap<Tutor, Integer> scoreAdjustmentMap; //mapping Tutors to how their base score changes for this score specifically (e.g. preferences)
+	protected HashMap<Tutor, Integer> tutorScores;
+	
 	private double score = 0; //the sum of the scores of the available tutors for this shift
-	private ArrayList<Tutor> preferredTutors; //list of the tutors who preferred this shift, not just are available.
+	protected int scoreAdjustment = 0;
+
 	protected static final int MIN_TUTORS = 2;
-	protected static final int MAX_TUTORS = 8;
+	protected static final int MAX_TUTORS = 7;
+	protected static int PREFERENCE_ADJUSTMENT = -6;//don't know about this number
+	private static final double BASE_POPULATION_ADJUSTMENT = 1000.0;
+	private static final double POPULATION_ADJUSTMENT = BASE_POPULATION_ADJUSTMENT*(MAX_TUTORS-MIN_TUTORS);
+	
+	
+	
+	@Expose
+	protected Day day; //day of the shift
+	@Expose
+	protected int time;//start time of the shift. 
+	@Expose
+	protected ArrayList<String> tutors;
 
 
 	public Shift(Day day, int time){
@@ -22,6 +40,20 @@ public class Shift implements Comparable<Shift>{
 		this.time = time;
 		availableTutors = new PriorityQueue<Tutor>();
 		assignedTutors = new ArrayList<Tutor>();
+		scoreAdjustmentMap = new HashMap<Tutor, Integer>();
+		preferredTutors = new ArrayList<Tutor>();
+		tutors = new ArrayList<String>();
+	}
+
+	protected void prefer(Tutor tutor){
+		preferredTutors.add(tutor);
+		if(scoreAdjustmentMap.containsKey(tutor)){
+			int newAdjustment = scoreAdjustmentMap.get(tutor) + PREFERENCE_ADJUSTMENT;
+			scoreAdjustmentMap.put(tutor, newAdjustment);
+		}
+		else{
+			scoreAdjustmentMap.put(tutor, PREFERENCE_ADJUSTMENT);
+		}
 	}
 
 	/**
@@ -50,11 +82,28 @@ public class Shift implements Comparable<Shift>{
 
 	private void adjustScore(){
 		if(hasMax()){ //not so sure about this. seems to make sense for now
-			score += Double.MAX_VALUE;
+			score = Double.POSITIVE_INFINITY;
 		}
-		else if(hasMin()){
-			score += 6000*(1.0)/(double)(MAX_TUTORS-assignedTutors.size()); //don't know about this, but I wanted heavily populated shifts to be penalized
-//			score += 1000*assignedTutors.size(); //don't know about this value, but we want it to pretty much move to the end of the queue, 
+		else{
+			tutorAdjustments();
+			if(hasMin()){
+//				score += POPULATION_ADJUSTMENT / (double)(MAX_TUTORS-assignedTutors.size()); //don't know about this, but I wanted heavily populated shifts to be penalized
+				score += 1000*assignedTutors.size(); //don't know about this value, but we want it to pretty much move to the end of the queue, 
+			}
+		}
+		score += scoreAdjustment;
+	}
+
+	private void tutorAdjustments() {
+		for(Tutor t : availableTutors){
+			if(scoreAdjustmentMap.containsKey(t)){
+				t.tempScore = t.calculateAvailabilityRatio();//ensure it starts at the base
+				t.tempScore += scoreAdjustmentMap.get(t);
+			}
+		}
+		reheapify();
+		for(Tutor t : availableTutors){
+			t.tempScore = 0; //reset all tutors back to 0
 		}
 	}
 
@@ -76,7 +125,7 @@ public class Shift implements Comparable<Shift>{
 		return (int)(calculateScore()*10 - shift.calculateScore()*10); // multiply by 10 so that we don't lose as much precision on the scores
 
 	}
-	
+
 	public int compareTime(Shift s){
 		if(day.compareTo(s.day)!=0){
 			return day.compareTo(s.day);
@@ -85,7 +134,7 @@ public class Shift implements Comparable<Shift>{
 			return time-s.time;
 		}
 	}
-	
+
 	private String convertTime(){//converts time to 12h format
 		String t;
 		if(time < 12){
@@ -99,40 +148,60 @@ public class Shift implements Comparable<Shift>{
 		}
 		return t;
 	}
-	
+
 	public boolean hasMin(){
 		if(time > 9){
 			return assignedTutors.size()>=MIN_TUTORS;
 		}
 		return assignedTutors.size()>=1;
 	}
-	
+
 	public boolean hasMax(){
 		return assignedTutors.size()>=MAX_TUTORS;
 	}
-	
-	public boolean hasWritingAdvisor(){
+
+	public boolean hasSubject(String subject){
+		int count = 0;
 		for(Tutor tutor : assignedTutors){
-			if(tutor.subjects.contains("Writing Advisor")){
-				return true;
+			if(tutor.subjects.contains(subject)){
+				if(time == 15 && day != Day.Friday && subject.equals(Master.WRITING_ADVISOR)){//if it's 3pm Sun-Thur and we're checking writing advisors
+					return tutor.isVeteran;
+				}
+				else if(time < 16 || !subject.equals(Master.WRITING_ADVISOR)){
+					return true;
+				}
+				else if(subject.equals(Master.WRITING_ADVISOR)){
+					count++;
+				}
+			}
+		}
+		if(subject.equals(Master.WRITING_ADVISOR)){
+			if(time >= 16){
+				return count >= Master.AFTERNOON_WRITING_ADVISOR;
 			}
 		}
 		return false;
 	}
-	
-	public boolean hasWritingAdvisorAvailable(){
+
+	public boolean hasSubjectAvailable(String subject){
 		for(Tutor tutor : availableTutors){
-			if(tutor.subjects.contains("Writing Advisor")){
+			if(tutor.subjects.contains(subject)){
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean hasAvailableTutors(){
 		return availableTutors.size()>0;
 	}
 	
+	public void finalizeTutors(){
+		for(Tutor t : assignedTutors){
+			tutors.add(t.studentID);
+		}
+	}
+
 	public void reheapify(){//reheapifies the tutor PriorityQueue
 		ArrayList<Tutor> temp = new ArrayList<Tutor>();
 		temp.addAll(availableTutors);

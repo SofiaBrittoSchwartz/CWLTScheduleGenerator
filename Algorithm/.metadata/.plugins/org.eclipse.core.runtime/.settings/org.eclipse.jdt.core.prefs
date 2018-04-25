@@ -11,3 +11,4 @@ org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
 org.eclipse.jdt.core.compiler.source=1.8
 org.eclipse.jdt.core.formatter.comment.format_line_comments=false
 org.eclipse.jdt.core.formatter.lineSplit=160
+org.eclipse.jdt.core.userLibrary.gson_lib=<?xml version\="1.0" encoding\="UTF-8"?>\n<userlibrary systemlibrary\="false" version\="2">\n\t<archive path\="/Users/samberling/OneDrive/School/Spring 2018/CSCI 440/Schedule Generator/Dependencies/gson-2.6.2.jar"/>\n</userlibrary>\n

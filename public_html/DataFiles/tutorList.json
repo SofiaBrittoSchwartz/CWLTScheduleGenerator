@@ -1,63 +1,57 @@
-{	
-	"sbschwartz": 
-	{ 
-		"name": "Sofia Schwartz", 
-		"studentID": "sbschwartz", 	
+{
+	"sbschwartz": {
+		"name": "Sofia Schwartz",
+		"studentID": "sbschwartz",
 		"position": [],
 		"numHours": 6,
-		"scheduleInfo":
-			[[-1,-1,-1,0,0,0,0,0,-1,-1,-1,-1],
-			[0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,-1,0,0,0,-1,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,-1,-1,-1,-1]]
+		"scheduleInfo": [
+			[-1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1]
+		]
 	},
 
-	"sberling": 
-	{ 
-		"name": "Sam Berling", 
-		"studentID": "sberling", 	
+	"sberling": {
+		"name": "Sam Berling",
+		"studentID": "sberling",
 		"position": ["Writing Advisor", "Comp Sci Tutor"],
 		"numHours": 12
 	},
 
-	"person2": 
-	{ 
-		"name": "reallyLongName guy", 
-		"studentID": "person2", 
+	"person2": {
+		"name": "reallyLongName guy",
+		"studentID": "person2",
 		"position": ["Writing Advisor"],
 		"numHours": 6
 	},
 
-	"person3":
-	{ 
-		"name": "Person 3", 
-		"studentID": "person3", 
+	"person3": {
+		"name": "Person 3",
+		"studentID": "person3",
 		"position": ["Math Subject Tutor"],
 		"numHours": 6
 	},
 
-	"person4":
-	{ 
-		"name": "Person 4", 
-		"studentID": "person4", 
+	"person4": {
+		"name": "Person 4",
+		"studentID": "person4",
 		"position": ["Bio Subject Tutor"],
 		"numHours": 6
 	},
 
-	"person5":
-	{ 
-		"name": "Person 5", 
-		"studentID": "person5", 
+	"person5": {
+		"name": "Person 5",
+		"studentID": "person5",
 		"position": ["Chem Subject Tutor"],
 		"numHours": 6
 	},
 
-	"jbiden":
-	{ 
-		"name": "Joe Biden", 
-		"studentID": "jbiden", 
+	"jbiden": {
+		"name": "Joe Biden",
+		"studentID": "jbiden",
 		"position": ["Politics Subject Tutor"],
 		"numHours": 6
 	}

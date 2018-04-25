@@ -1,0 +1,9 @@
+
+public class TutorJSON {
+	protected String name;
+	protected String studentID;
+	protected String[] position;
+	protected int numHours;
+	protected int[][] scheduleInfo;
+	
+}

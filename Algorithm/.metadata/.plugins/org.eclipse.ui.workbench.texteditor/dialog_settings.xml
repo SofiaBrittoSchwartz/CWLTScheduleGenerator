@@ -8,14 +8,14 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="debug"/>
-			<item value="DEBUGd"/>
 			<item value="DEBUG"/>
-			<item value="throws"/>
-			<item value="throws&apos;"/>
-			<item value="bwitter"/>
-			<item value=" sh "/>
-			<item value="println()"/>
+			<item value="writing"/>
+			<item value="PREFERENCE_ADJUSTMENT"/>
+			<item value="&#x09;&#x09;"/>
+			<item value="hasSub"/>
+			<item value="\t"/>
+			<item value="&#x09;&#x09;println(&quot;\t\t&quot;+tutor);"/>
+			<item value="single"/>
 		</list>
 		<list key="replacehistory">
 		</list>

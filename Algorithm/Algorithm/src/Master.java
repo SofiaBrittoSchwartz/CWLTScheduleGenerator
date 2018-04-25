@@ -4,18 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Scanner;
+import com.google.gson.*;
+
 
 
 
 public class Master {
+	private static final int FAILED_SHIFT_SCORE = 100;
 	protected HashMap<Shift, ArrayList<Tutor>> availabilityMap; //Maps a shift to a list of tutors available during that time. Preliminary data structure that holds this information before we can score the tutors and shifts and put the 
 	protected ArrayList<Tutor> tutors; //Master list of all tutors
 	protected ArrayList<Shift> shifts; //unordered master list of all shifts
 	protected PriorityQueue<Shift> shiftQ; //master list of all shifts ordered by their score
 
-	protected static boolean DEBUG = true; //variable that turns on(true)/off(false) print statements. I left this as *not* final so that I can selectively print some things and not others when debugging
-	protected static final int MIN_LENGTH = 2; //minimum number of consecutive hours a tutor is required to work
+	protected static boolean DEBUG = false; //variable that turns on(true)/off(false) print statements. I left this as *not* final so that I can selectively print some things and not others when debugging
+	protected static final int MIN_LENGTH = 2; //minimum number of consecutive hours a tutor is preferred to work
 	protected static final int MAX_LENGTH = 3; //maximum number of consecutive hours a tutor is allowed to work
+
+	protected static final int BUSY = 2;
+	protected static final int AVAILABLE = 0;
+	protected static final int PREFERRED = 1;
+	protected static final String WRITING_ADVISOR = "Writing Advisor";
+	protected static final String ACADEMIC_CONSULTANT = "Academic Consultant";
+	protected static final int AFTERNOON_WRITING_ADVISOR = 2; //the number of writing advisors needed for the afternoon
 
 	private int minCount = 0; //used to count how many shifts have min number of tutors
 	private int maxCount = 0; //used to count how many shifts have max number of Tutors 
@@ -29,7 +39,7 @@ public class Master {
 	}
 
 	public void readFile() throws FileNotFoundException{
-		String fileName = "Fall2017AvailabilitySubjects.csv";
+		String fileName = "Fall2017AvailabilitySubjectsPreferences.csv";
 		Scanner sc = new Scanner(new File(fileName));
 		String firstLine = sc.nextLine();
 		Scanner fl = new Scanner(firstLine); //this first line of the csv tells us which shifts are changing in the format of D-T (e.g. 3-14 represents Wednesday at 2pm)
@@ -46,13 +56,119 @@ public class Master {
 		for(Shift s : shifts){
 			s.availableTutors.addAll(availabilityMap.get(s));
 			s.calculateScore();
-			println(s+": "+s.calculateScore());
+			print(s+": ");//+s.availableTutors);
+			for(Tutor t : s.availableTutors){
+				print("("+t+", "+s.scoreAdjustmentMap.get(t)+")");
+			}
+			println();
 		}
 
 		removeEmptyShifts();
 
 		shiftQ.addAll(shifts);
 		////////////////////////
+	}
+
+	public void generateSchedule(){ //this is all messed up. don't look at it yet
+		while(shiftsNeedTutors()){//first we make sure every shift possible has the mininimum number of tutors
+			Shift shift = shiftQ.poll();
+			if(shift.calculateScore() > 0 && shift.hasAvailableTutors() && !shift.hasMin()){
+				while(!shift.hasMin()){
+					assign(shift);
+				}
+				shiftQ.add(shift);
+			}
+		}
+		while(numTutorHours() > 0){ //now we fill the shifts until the tutors don't have any more hours to work
+			Shift shift = shiftQ.poll();
+			if(shift.calculateScore() > 0 && shift.hasAvailableTutors()){
+				assign(shift);
+				shiftQ.add(shift);
+			}
+		}
+	}
+
+	private int calculateScore(){
+		int score = 0;
+		score -= shiftPopulationScore()/10; //(least important)
+		score += preferenceScore()*2; //check for preferences (fourth)
+		for(Shift s : shifts){
+			if(!subjectDuplicate(s)) score += 3; //check for duplicate subjects
+		}
+		score += 3*writingAdvisorScore();
+		//distributing veterans -- during closing shift in the fall AND every shift on sunday (at least opening and closing) AND distrbuting them around (highest) 
+
+
+		//new people work at least one shift during the day (before 5) (second)
+		for(Tutor t : tutors){
+			if(t.worksDaytimeShift()) score+= 5;
+		}
+
+
+		//		DEBUG = true;
+		//		println(score);
+		return score;
+	}
+
+	private int shiftPopulationScore() {
+		int weight = 0;
+		for(int i = 1; i <= Shift.MAX_TUTORS; i++){
+			//			println("Shifts with " + i + " tutors: " + numShiftsWithNumTutors(i));
+			weight+= i*i*numShiftsWithNumTutors(i); //check how many high-population shifts there are
+		}
+		return weight;
+	}
+
+	private int writingAdvisorScore(){
+		int score = 0;
+		for(Shift s : shifts){
+			if(s.hasSubject(WRITING_ADVISOR)){
+				score++;
+				if(s.day != Day.Friday && s.time == 15){
+					score++;
+				}
+				if(s.time >= 16){
+					score++;
+				}
+			}
+		}
+		return score;
+	}
+
+	private int preferenceScore(){
+		//		int numTutorHours = 0;
+		int numPrefHours = 0;
+		for(Shift s : shifts){
+			//			numTutorHours += s.assignedTutors.size();
+			for(Tutor t : s.assignedTutors){
+				if(s.preferredTutors.contains(t)) numPrefHours++;
+			}
+		}
+		//		println(numPrefHours+", "+numTutorHours);
+		return numPrefHours;
+	}
+
+	private void subjectCheck(){ //checks for duplicate subjects in all shifts
+		for(Shift s : shifts){
+			if(subjectDuplicate(s)){
+				println(s +": "+ s.assignedTutors);
+			}
+		}
+	}
+
+	private boolean subjectDuplicate(Shift s){//sees if there are tutors of the same subject working this shift (excluding WAs)
+		for(Tutor t : s.assignedTutors){
+			for(String subject : t.subjects){
+				if(!subject.equals(WRITING_ADVISOR) && !subject.equals(ACADEMIC_CONSULTANT)){
+					for(Tutor tu : s.assignedTutors){
+						if(t!=tu && tu.subjects.contains(subject)){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private void removeEmptyShifts() {
@@ -67,44 +183,43 @@ public class Master {
 		}
 	}
 
-	public void generateSchedule(){ //this is all messed up. don't look at it yet
-//		DEBUG = true;
-		while(shiftsNeedTutors()){//first we make sure every shift possible has the mininimum number of tutors
-			println("1:");
-			Shift shift = shiftQ.poll();
-			println("\t"+shift);
-			if(shift.calculateScore() > 0 && shift.hasAvailableTutors() && !shift.hasMin()){
-				while(!shift.hasMin()){
-					assign(shift);
-				}
-				shiftQ.add(shift);
-			}
-		}
-		while(numTutorHours() > 0){ //now we fill the shifts until the tutors don't have any more hours to work
-			println("2:");
-			Shift shift = shiftQ.poll();
-			println("\t"+shift);
-			if(shift.calculateScore() > 0 && shift.hasAvailableTutors()){
-				assign(shift);
-				shiftQ.add(shift);
-			}
-		}
-//		DEBUG = false;
+	private void assign(Shift shift) {
+		Tutor tutor = getBestTutor(shift);
+		//		Tutor tutor = shift.availableTutors.poll();
+		if(assignShift(shift, tutor)) assignConsecutiveShift(shift, tutor);
 	}
 
-	private void assign(Shift shift) {
+	private Tutor getBestTutor(Shift shift) { // does this even make sense
 		Tutor tutor = writingAdvisorCheck(shift);
-		//		Tutor tutor = shift.availableTutors.poll();
-		if(((shift.day==Day.Tuesday && shift.time==16)||(shift.day==Day.Wednesday && shift.time==18))&&tutor.studentID.equals("jdejesus")){
-			print();
+		Tutor firstChoice = tutor;		
+		ArrayList<Tutor> offLoad = new ArrayList<Tutor>();
+
+		while(hasTutorSubject(shift, tutor) && !shift.availableTutors.isEmpty()){
+			offLoad.add(tutor);
+			tutor = writingAdvisorCheck(shift);
 		}
-		println("\t\t"+tutor);
-		if(assignShift(shift, tutor)) assignConsecutiveShift(shift, tutor);
+		if(shift.availableTutors.isEmpty() && hasTutorSubject(shift, tutor)){
+			offLoad.add(tutor);
+			tutor = firstChoice; 
+		}
+		shift.availableTutors.addAll(offLoad);
+		shift.reheapify();
+		return tutor;
+	}
+
+	private boolean hasTutorSubject(Shift shift, Tutor tutor){ //returns whether or not the subjects that this Tutor tutors are all already represented for this shift
+		if(tutor.subjects.size()==1 && tutor.subjects.contains(WRITING_ADVISOR)) return false; //if they are a writing advisor, we don't really care as much
+		for(String subject : tutor.subjects){
+			if(!shift.hasSubject(subject)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private Tutor writingAdvisorCheck(Shift shift) {
 		Tutor tutor;
-		if(!shift.hasWritingAdvisor() && !shift.availableTutors.peek().isWritingAdvisor() && shift.hasWritingAdvisorAvailable()){ //if this shift doesn't have a writing advisor yet AND the next tutor that would be assigned isn't a writing advisor
+		if(!shift.hasSubject(WRITING_ADVISOR) && !shift.availableTutors.peek().isWritingAdvisor() && shift.hasSubjectAvailable(WRITING_ADVISOR)){ //if this shift doesn't have a writing advisor yet AND the next tutor that would be assigned isn't a writing advisor
 			ArrayList<Tutor> offLoad = new ArrayList<Tutor>(); //holds the tutors we're polling until we find a writing advisor
 			while(!shift.availableTutors.peek().isWritingAdvisor()){
 				offLoad.add(shift.availableTutors.poll());
@@ -228,7 +343,7 @@ public class Master {
 	}
 
 	private boolean assignShift(Shift shift, Tutor tutor) { //assigns a tutor to a shift, returning true on success or false if it cannot assign this tutor to this shift
-		if(numShiftsAdjacent(tutor, shift) < MAX_LENGTH && tutor.numShiftsNeeded>0){ //we don't want to add to this shift unless it won't create a run of 3 or more
+		if(numShiftsAdjacent(tutor, shift) < MAX_LENGTH && tutor.numShiftsNeeded>0 && !shift.hasMax()){ //we don't want to add to this shift unless it won't create a run of 3 or more
 			shift.assignedTutors.add(tutor);
 			tutor.numShiftsNeeded--;
 			tutor.assignedShifts.add(shift);
@@ -236,6 +351,7 @@ public class Master {
 			refreshScores(shift, tutor);
 			return true;
 		}
+		shift.scoreAdjustment+=FAILED_SHIFT_SCORE;
 		return false;
 	}
 
@@ -245,8 +361,7 @@ public class Master {
 			Shift previous = previousShift(shift);
 			Shift next = nextShift(shift);
 			if(previous != null){
-				println("\t\t\t"+previous);
-				if(previous.availableTutors.contains(tutor) && !previous.assignedTutors.contains(tutor)){//if the tutor can work the previous shift but hasn't been assigned to it yet, do
+				if(previous.availableTutors.contains(tutor) && !previous.assignedTutors.contains(tutor) && !hasTutorSubject(previous, tutor)){//if the tutor can work the previous shift but hasn't been assigned to it yet, do
 					if(assignShift(previous, tutor)){
 						consecutiveAssigned = true;
 						previous.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
@@ -254,8 +369,7 @@ public class Master {
 				}
 			}
 			if(next !=null && !consecutiveAssigned){//same deal, but we don't want to assign another shift if we already did above
-				println("\t\t\t"+next);
-				if(next.availableTutors.contains(tutor) && !next.assignedTutors.contains(tutor)){
+				if(next.availableTutors.contains(tutor) && !next.assignedTutors.contains(tutor) && !hasTutorSubject(next, tutor)){
 					if(assignShift(next, tutor)){
 						consecutiveAssigned = true;
 						next.availableTutors.remove(tutor); //need to remove the tutor because it won't get removed otherwise
@@ -300,12 +414,9 @@ public class Master {
 	}
 
 	private void unassignTutor(Shift shift, Tutor tutor) { 
-		if(tutor.studentID.equalsIgnoreCase("zbranch")){
-			print();
-		}
 		shift.assignedTutors.remove(tutor);
 		tutor.assignedShifts.remove(shift);
-//		if(!shift.availableTutors.contains(tutor)) shift.availableTutors.add(tutor);
+		//		if(!shift.availableTutors.contains(tutor)) shift.availableTutors.add(tutor);
 		unpurge(tutor);
 		tutor.numShiftsNeeded++;
 		refreshScores(shift, tutor);
@@ -393,18 +504,11 @@ public class Master {
 	private void processAllShifts(Scanner fl, int shiftIndex, ArrayList<Shift> shiftsToModify) {
 		while(fl.hasNext()){
 			String shift = fl.next();
-			println("LOOKING AT " + shift);
-			println("----------");
 			String[] dayTime = shift.split("-");
 			int day = Integer.parseInt(dayTime[0]); //integer representing the day of the week with 0=sunday and so on
 			int time = Integer.parseInt(dayTime[1]); //the time in 24h format
-			println("this shift represents " + Day.values()[day] + " at " +time);
 			shiftIndex = processShift(shiftIndex, shiftsToModify, day, time);
 		}
-		println("Final list of shifts!");
-		//		for(Shift s : shiftsToModify){
-		//			println(s);
-		//		}
 
 		fl.close();
 	}
@@ -455,7 +559,7 @@ public class Master {
 
 		sc.close();
 		for(Tutor t : tutors){ //calculate the availability ratios for tutors now
-			t.calculateAvailabilityRatio();
+			println(t+": "+t.calculateAvailabilityRatio());
 		}
 	}
 
@@ -472,36 +576,41 @@ public class Master {
 		for(int i = 1; i < tokens.length; i++){
 			try{
 				int available = Integer.parseInt(tokens[i]); //1 if the student is available at this time, and a 0 if not
-				int j = i-1; //shiftIndex
 
-				Shift shift = shiftsToModify.get(j);
-				Shift mostRecent = tutor.availableShifts.isEmpty() ? null : tutor.availableShifts.get(tutor.availableShifts.size()-1); //the most recently assigned shift, shifts are added to 'shiftsToModify' chronologically
-
-				println(shift + " consecutive: " + consecutive);
-				println("the most recent available shift is " + mostRecent);
-				print("Evaluating...");
-
-				switch(available){
-				case 0: //tutor is unavailable for this shift
-					println(" x");
-					if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
-						println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
-						remove(tutor, mostRecent);
-					}
-					consecutive = 0; //reset the run
-					break;
-				case 1:
-					println(" Available!");
-					consecutive = (mostRecent!=null && mostRecent.adjacentTo(shift)) ? consecutive+1 : 1; //increment the run or start over at 1 if it's a new day
-					if(!shift.lastShiftOfDay() || consecutive >= MIN_LENGTH){ //if it's the lastShift, then we need to be on a run of consecutive shifts to add this one
-						add(tutor, shift);
-					}
-					break;
-				default:
-					println("AVAILABILITY NOT 1 OR 0, SOMETHING IS WRONG");
-					break;
+				if(available > 2){ //then the file is indicating the number of hours needed by the tutor 
+					tutor.setNumShiftsNeeded(available);
 				}
-				println();
+				else if(available == -2){
+					tutor.isVeteran = true;
+				}
+				else{
+					int shiftIndex = i-1; //shiftIndex
+					//					if(available == 1) available = 0;	
+					Shift shift = (shiftsToModify.get(shiftIndex));
+					Shift mostRecent = tutor.availableShifts.isEmpty() ? null : tutor.availableShifts.get(tutor.availableShifts.size()-1); //the most recently assigned shift, shifts are added to 'shiftsToModify' chronologically
+
+					println(shift + " consecutive: " + consecutive);
+					println("the most recent available shift is " + mostRecent);
+					print("Evaluating...");
+
+
+					switch(available){
+					case BUSY: //tutor is unavailable for this shift
+						consecutive = unavailable(tutor, consecutive, mostRecent);
+						break;
+					case PREFERRED://tutor prefers this shift
+						shift.prefer(tutor);
+						consecutive = available(tutor, consecutive, shift, mostRecent);
+						break;
+					case AVAILABLE:
+						consecutive = available(tutor, consecutive, shift, mostRecent);
+						break;
+					default:
+						println("AVAILABILITY NOT 2 OR 0, SOMETHING IS WRONG");
+						break;
+					}
+					println();
+				}
 			}
 			catch(NumberFormatException e){
 				String subject = tokens[i];
@@ -516,6 +625,25 @@ public class Master {
 			println(s);
 		}
 		println("");
+	}
+
+	private int available(Tutor tutor, int consecutive, Shift shift, Shift mostRecent) {
+		println(" Available!");
+		consecutive = (mostRecent!=null && mostRecent.adjacentTo(shift)) ? consecutive+1 : 1; //increment the run or start over at 1 if it's a new day
+		if(!shift.lastShiftOfDay() || consecutive >= MIN_LENGTH){ //if it's the lastShift, then we need to be on a run of consecutive shifts to add this one
+			add(tutor, shift);
+		}
+		return consecutive;
+	}
+
+	private int unavailable(Tutor tutor, int consecutive, Shift mostRecent) {
+		println(" x");
+		if(consecutive > 0 && consecutive < MIN_LENGTH){ //if the tutor hasn't reached the minimum number of hours, but more than 0 (i.e. not a run of unavailability) then remove the most recent shift because that means it's isolated
+			println(tutor + " is not available for " + MIN_LENGTH + " consecutive hours on " + mostRecent + ". So we are removing this shift from their availability.");
+			if(mostRecent!=null) remove(tutor, mostRecent);
+		}
+		consecutive = 0; //reset the run
+		return consecutive;
 	}
 
 	private void add(Tutor tutor, Shift shift) {
@@ -567,6 +695,30 @@ public class Master {
 			}
 		}
 		return false;
+	}
+
+	private int[] maxTutors(){
+		int[] maxInfo = new int[2];// maxInfo[0] will be the number of tutors working the busiest shifts, and maxInfo[1] will be how many shifts have that number of tutors
+		for(Shift shift : shifts){
+			if(shift.assignedTutors.size() > maxInfo[0]){
+				maxInfo[0] = shift.assignedTutors.size();
+				maxInfo[1] = 1;
+			}
+			else if(shift.assignedTutors.size() == maxInfo[0]){
+				maxInfo[1]++;
+			}
+		}
+		return maxInfo;
+	}
+
+	private int numShiftsWithNumTutors(int numTutors){
+		int num = 0;
+		for(Shift shift : shifts){
+			if(shift.assignedTutors.size() == numTutors){
+				num++;
+			}
+		}
+		return num;
 	}
 
 	public static void println(){
@@ -621,17 +773,103 @@ public class Master {
 		}
 	}
 
+	public static String printShiftSubjects(Shift s){
+		String o = "[";
+		for(Tutor t : s.assignedTutors){
+			o += printTutorSubjects(t) + ", ";
+		}
+		o = o.substring(0, o.length()-2);
+		return o + "]";
+	}
+
+	public static String printTutorSubjects(Tutor t){
+		String o = "(";
+		for(String s : t.subjects){
+			o+= s+", ";
+		}
+		o = o.substring(0, o.length()-2);
+		return o+")";
+	}
+
 	public static void main(String[] args) throws FileNotFoundException{
+		//		long start = System.currentTimeMillis();
+		//		int max = -2000;
+		//		int maxLoc = -1;
+		//		
+		//		for(int i = 100; i >= -100; i--){
+		//			int score = test(i);
+		//			if(score>max){
+		//				max = score;
+		//				maxLoc = i;
+		//			}
+		//
+		//			println(i+": "+score);
+		//		}
+		//		println();
+		//		println(maxLoc+":"+max);
+		//		long finish = System.currentTimeMillis();
+		//		println("\n" + (finish-start) + "ms");
+
+		println(test(-22));
+
+	}
+
+	private void finalizeSchedule(){
+		for(Shift s : shifts){
+			s.finalizeTutors();
+		}
+	}
+
+	private void toJson(){
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+		//		Type typeOfSrc = new TypeToken<ArrayList<Tutor>>(){}.getType();
+		String json = gson.toJson(shifts);//, typeOfSrc);
+		for(int i = 0; i < 20; i++){
+			println();
+		}
+		println(json);
+	}
+	
+	private String fileToString(File file) throws FileNotFoundException{
+		Scanner scan = new Scanner(file);
+		StringBuilder sb = new StringBuilder();
+		while(scan.hasNext()){
+			sb.append(scan.next() +" ");
+		}
+		return sb.toString();
+	}
+
+	private void fromJson() throws FileNotFoundException{
+		Gson gson = new Gson();
+		File file;
+//		try{
+			file = new File("tutorList.json");
+			String json = fileToString(file);
+			println(json);
+			TutorListJSON tj = gson.fromJson(json, TutorListJSON.class);
+			println(tj);
+//		}
+//		catch(Exception e){
+//			println(e.getClass());
+//		}
+	}
+
+	private static int test(int pref) throws FileNotFoundException {
+		DEBUG = true;
+		Shift.PREFERENCE_ADJUSTMENT=pref;
 		Master m = new Master();
 		m.readFile();
 		println(m.shifts.size());
 		println("---------------------------------------------------------------------------------");
+
 		long start = System.currentTimeMillis();
 		m.generateSchedule();
 		long finish = System.currentTimeMillis();
+
 		for(Shift s : m.shifts){
-			println(s+": "+s.assignedTutors);
+			println(s+": "+printShiftSubjects(s));
 		}
+
 		println();
 		for(Tutor t : m.tutors){
 			t.sortAssignedShifts();
@@ -641,9 +879,25 @@ public class Master {
 		m.printSchedule();
 		println("Number of shifts with max # tutors: "+m.maxCount);
 		println("Number of shifts with min # tutors: "+m.minCount);
+		println("There are "+ m.maxTutors()[1] + " shifts with " + m.maxTutors()[0] + " tutors working, the highest of any shift\n");
 
+		m.calculateScore();
+		println();
+
+		println("Tutors who have single shifts:");
 		m.consecutiveCheck();
 
+		println();
+		println("Shifts that have duplicate subjects:");
+		m.subjectCheck();
+
+		m.preferenceScore();
+
 		println("\n" + (finish-start) + "ms");
+		DEBUG = true;
+		m.finalizeSchedule();
+//		m.toJson();
+		m.fromJson();
+		return 	m.calculateScore();
 	}
 }

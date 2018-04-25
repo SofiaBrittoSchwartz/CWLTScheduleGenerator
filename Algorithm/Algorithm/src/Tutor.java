@@ -2,26 +2,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import com.google.gson.annotations.Expose;
+
 public class Tutor implements Comparable<Tutor>{
 	protected String studentName;
-	protected String studentID; //unique identifying name for this tutor. Will likely be their email address prefix
 	protected ArrayList<Shift> availableShifts;
-	protected ArrayList<Shift> assignedShifts;
-	protected HashSet<String> subjects;
 	protected int numShiftsNeeded; //the number of shifts this tutor is allowed to work, decrements as they are assigned shifts
 	private double availabilityRatio;
+	protected double tempScore; //used for adjusting scores for specific shifts
 	protected boolean isVeteran;
+	protected ArrayList<Shift> assignedShifts;
+	protected HashSet<String> subjects;
+
+	@Expose
+	protected String studentID; //unique identifying name for this tutor. Will likely be their email address prefix
 
 	public Tutor(String id){
+		isVeteran = false;
 		this.studentID = id;
 		numShiftsNeeded = 6;
 		subjects = new HashSet<String>();
 		assignedShifts = new ArrayList<Shift>();
 		availableShifts = new ArrayList<Shift>();
 		availabilityRatio = availableShifts.size() / numShiftsNeeded; //should start the ratio off at 0
+		tempScore = 0;
+	}
+	
+	public Tutor(TutorJSON tj){
+		
 	}
 
 	public String toString(){
+		//		return studentID + subjects;
 		return studentID;
 	}
 
@@ -35,11 +47,20 @@ public class Tutor implements Comparable<Tutor>{
 		return availabilityRatio;
 	}
 
+	public double getScore(){
+		if(tempScore != 0){
+			return tempScore;
+		}
+		else{
+			return calculateAvailabilityRatio();
+		}
+	}
+
 	@Override
 	public int compareTo(Tutor t) {
-		return (int)(calculateAvailabilityRatio()*10 - t.calculateAvailabilityRatio()*10); //multiply by 10 as to not lose precision
+		return (int)(getScore()*10 - t.getScore()*10); //multiply by 10 as to not lose precision
 	}
-	
+
 	protected void sortAssignedShifts(){ //bubble sort because why not
 		for(int j = assignedShifts.size()-1; j > 0; j--){//decrementing last index
 			for(int i = 0; i < j; i++){
@@ -51,8 +72,19 @@ public class Tutor implements Comparable<Tutor>{
 			}
 		}
 	}
-	
+
+	protected boolean worksDaytimeShift(){//returns whether this tutor works at least 1 shift during the day
+		for(Shift s : assignedShifts){
+			if(s.time<17) return true;
+		}
+		return false;
+	}
+
 	protected boolean isWritingAdvisor(){
 		return subjects.contains("Writing Advisor");
+	}
+
+	public void setNumShiftsNeeded(int num){
+		numShiftsNeeded = num;
 	}
 }

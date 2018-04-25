@@ -1,0 +1,4 @@
+
+public class TutorListJSON {
+	protected ArrayList<TutorJSON> tutors;
+}

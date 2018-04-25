@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Schedule {
+	protected ArrayList<ScheduleDay> schedule;
+	
+	public Schedule(){
+		schedule = new ArrayList<ScheduleDay>();
+	}
+	
+	protected int contains(Day day){
+		for(int i = 0; i < schedule.size(); i++){
+			ScheduleDay s = schedule.get(i);
+			if(s.day == day){
+				return i;
+			}
+		}
+		return -1;
+	}
+}

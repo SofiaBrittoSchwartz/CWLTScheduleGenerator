@@ -1,0 +1,6 @@
+import java.util.ArrayList;
+
+public class ScheduleDay {
+	protected Day day;
+	protected ArrayList<ScheduleTime> times;
+}

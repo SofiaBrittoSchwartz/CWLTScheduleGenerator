@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+public class TutorListJSON {
+	protected ArrayList<TutorJSON> tutors;
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(TutorJSON t : tutors){
+			sb.append(t);
+		}
+		return sb.toString();
+	}
+}
