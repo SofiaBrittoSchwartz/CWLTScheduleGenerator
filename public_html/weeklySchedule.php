@@ -25,6 +25,7 @@
     $schedGrid .=  '<script src="./AdminPages/adminForm.js"></script>';
 
     $schedGrid .=  '<h6 style = "display: none" id = "holder" value = "'.$jsonSched.'"></h6>';
+    // $schedGrid .= "<p id = 'incompleteTab' style = \"visibility: hidden; color:red;\"> Please fill out all the necessary fields </p>";
 
     /* draw table */
     $schedGrid .= ' <div id = "schedule" style="width: 60%">';
@@ -38,7 +39,7 @@
     $schedGrid .= '<td class="schedule-day-head">'.implode('</td><td class="schedule-day-head">',$headings).'</td></tr>';
 
     /* days and hours vars now ... */
-    $hours_per_day = 11;
+    $hours_per_day = 12;
     $days_in_this_week = 1;
     $day_counter = 0;
 
@@ -53,7 +54,7 @@
         // properly format time based on standard time practices
         if($curr_day == 0):
           $unit = 'am';
-          $hour = 9 + $curr_hour;
+          $hour = 8 + $curr_hour;
 
           if($hour >= 12):
             
@@ -88,7 +89,7 @@
           else:
             
             // each hour block will have an ID based on the day and hour (in military representation) at which it is located
-            $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';   
+            $schedGrid.='<td class="open-shift" id = "'.$curr_day.'-'.$curr_hour.'" onclick= "saveTimes('.$inputType.','.$curr_day.','.$curr_hour.')"></td>';  
             
           endif;
         

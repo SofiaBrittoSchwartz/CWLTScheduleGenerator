@@ -1,7 +1,23 @@
+class Tutor
+{
+	constructor(studentName, studentID, veteranStatus)
+	{
+		this.studentName = studentName;
+		this.studentID = studentID;
+		this.veteranStatus = veteranStatus;
+		this.scheduleInfo = loadFile("../DataFiles/tutorList1");
+	}
+
+
+
+
+}
+
 var schedule;
 var dataName;
 var dataCollection;
 var newTutor;
+var currTutor;
 
 var debug = true;
 
@@ -107,6 +123,7 @@ function saveToHolder(data)
 	{
 		holder.value = JSON.stringify(data, null, '\t');	
 	}
+	// print(holder.value);
 }
 
 function toObj(currMap)
@@ -129,11 +146,13 @@ function toObj(currMap)
 function saveData(studentID, attr)
 {
 	print("SAVEDATA");
+	print("\t-"+attr);
 	var value;
 	var elem;
 	
 	if(studentID == null)
 	{
+		print("null");
 		elem = document.getElementById("none-"+attr);
 	}
 	else
@@ -149,8 +168,26 @@ function saveData(studentID, attr)
 		// if attr inputted is the studentID, update the necessary fields
 		if(attr == "studentID")
 		{
-			elem.id = value +"-"+ attr;	
-			elem.addEventListener("focusout", function(){ saveData(null, elem.id) }, true);
+			// elem.id = value +"-"+ attr;	
+			// elem.addEventListener("focusout", function(){ saveData(null, elem.id) }, true);
+		}
+		else if(attr == "numHours")
+		{
+			print(value);
+			print(isNaN(value));
+			// make sure value inputted to numHours is a number
+			if(isNaN(value)) 
+			{
+				document.getElementById("incorrectInput").style.visibility = 'visible';
+				elem.style.border = "thin solid red";
+				return;
+			}
+			else
+			{
+				print("Correct type input");
+				document.getElementById("incorrectInput").style.visibility = 'hidden';
+				elem.style.border = "solid thin #80808052";
+			}
 		}
 
 		// if this tutor already exists, change the specified value
@@ -165,7 +202,16 @@ function saveData(studentID, attr)
 			newTutor.set(attr, value);
 			
 			if (newTutor.size == 4)
-			{
+			{ 	
+				// modify the ID and onfocusout function of the input fields, inserting the studentID where needed
+				newTutor.forEach(function (value, key, map){ 
+					var inputElem = document.getElementById("none-"+key);
+					inputElem.id = newTutor.get("studentID")+"-"+key;
+					// inputElem.addEventListener("focusout", function(){ saveData(newTutor.get("studentID"), key) }, true);
+					inputElem.onfocusout = function(){ saveData(newTutor.get("studentID"), key) };
+				});
+				
+
 				dataCollection.set(newTutor.get("studentID"), newTutor);
 				newTutor = null;
 			}
@@ -173,11 +219,13 @@ function saveData(studentID, attr)
 		
 	}	
 
+	// save collected data to the HTML holder so it can be accessed upon moving to the next tab
 	saveToHolder(dataCollection);
 }
 
 function addTutor(frameID)
 {
+	print(dataCollection);
 	var columns = document.getElementsByClassName('column');
 
 	var input = document.createElement('input');
@@ -190,7 +238,6 @@ function addTutor(frameID)
 	}	
 	else
 	{
-		var pNode = document.getElementById("errorMessage");
 		document.getElementById("errorMessage").style.visibility = 'visible';
 		return;
 	}
@@ -202,6 +249,7 @@ function addTutor(frameID)
 
 	columns[0].append(input);
 	input.addEventListener("focusout", function(){ saveData(null, columns[0].id)}, true);
+	// document.getElementById('idParent').innerHTML += '<div id="idChild"> content html </div>';
 
 	// modify and append new position input
 	var input1 = input.cloneNode(true);
@@ -224,6 +272,9 @@ function addTutor(frameID)
 	var input3 = input.cloneNode(true);
 	input3.id = "none-numHours";
 	input3.style.width = "100px";
+	input3.style.marginTop = "0px";
+	input3.style.marginBottom = "10px";
+	input3.style.marginRight = "20px";
 	input3.style.textAlign = "center";
 	input3.addEventListener("focusout", function(){saveData(null, columns[3].id)}, true);
 	columns[3].append(input3);

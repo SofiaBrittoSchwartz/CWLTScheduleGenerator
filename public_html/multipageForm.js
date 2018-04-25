@@ -108,7 +108,16 @@ function nextPrev(currForm, variant)
 
 	updateSchedule(variant);
 	// Exit the function if any field in the current tab is invalid:
-	// if (variant == 1 && !validateForm()) return false;
+	if (variant == 1 && !validateForm()) 
+	{
+		// var pNode = document.getElementById("incompleteForm");
+		document.getElementById("incompleteTab").style.visibility = 'visible';
+		return false;
+	}
+	else
+	{
+		document.getElementById("incompleteTab").style.visibility = 'hidden';
+	}
 
 	// Hide the current tab:
 	tabs[currentTab].style.display = "none";
@@ -159,7 +168,7 @@ function setIframe(frameID)
 				frame.src = "/weeklySchedule.php?sched="+JSON.stringify(scheduleStates[currentFrame].schedule, null, '\t')+"&type="+frame.name;
 				break;
 			case "confirmation":
-				frame.src = "../saveData.php?sched="+JSON.stringify(scheduleStates[0].schedule, null, '\t')+"&tutorList="+JSON.stringify(defaultData, null, '\t');
+				frame.src = "../saveData.php?sched="+JSON.stringify(scheduleStates[0].schedule, null, '\t')+"&tutorList="+JSON.stringify(defaultData, null, '\t')+"&fileName="+frame.name;
 				break;
 		}
 	}
@@ -192,8 +201,8 @@ function getTabType()
 	{
 		return null;
 	}
-
-	if(frame.id.includes('Input'))
+	print(frame.id);
+	if(frame.id.includes('Schedule'))
 	{
 		return "schedule";
 	}
@@ -214,7 +223,7 @@ function getInputType()
 	// get the current tab's id to determine the frameID, 
 	// then use that to access the name attribute which stores the input type in a String
 	var tabID = document.getElementsByClassName("tab")[currentTab].id;
-	var frame = document.getElementById(tabID + "Input");
+	var frame = document.getElementById(tabID + "Schedule");
 	
 	if(frame != null)
 	{
@@ -258,7 +267,9 @@ function updateSchedule(variant)
 		defaultData = JSON.parse(frameDoc.getElementById("holder").value);
 	}
 
-	currentFrame += variant;
+	// if currentFrame == 0 only increment (decrementing would result in negative indices)
+	if((currentFrame == 0 && variant != -1) || (currentFrame != 0)) currentFrame += variant;
+	
 }
 
 // Changes the Previous/Next buttons as necessary
@@ -338,31 +349,33 @@ function adjustFrame(currForm, variant)
 /* NO LONGER SURE IF NECESSARY OR EFFECTIVE */
 function validateForm() 
 {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
-  
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    
-    // If a field is empty...
-    if (y[i].value == "") {
-      
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
-  
-  // If the valid status is true, mark the step as finished and valid:
-  if (valid && !document.getElementsByClassName("step")[currentTab].className.includes(" finish"))
-  {	
+	if(getCurrFrame() != null) return true;
+
+	// This function deals with validation of the form fields
+	var x, y, i, valid = true;
+	x = document.getElementsByClassName("tab");
+	y = x[currentTab].getElementsByTagName("input");
+
+	// A loop that checks every input field in the current tab:
+	for (i = 0; i < y.length; i++) {
+
+	// If a field is empty...
+	if (y[i].value == "") {
+	  
+	  // add an "invalid" class to the field:
+	  y[i].className += " invalid";
+	  
+	  // and set the current valid status to false
+	  valid = false;
+	}
+	}
+
+	// If the valid status is true, mark the step as finished and valid:
+	if (valid && !document.getElementsByClassName("step")[currentTab].className.includes(" finish"))
+	{	
 		document.getElementsByClassName("step")[currentTab].className += " finish";
-  }
-  return valid; // return the valid status
+	}
+	return valid; // return the valid status
 }
 
 function readTextFile(file)

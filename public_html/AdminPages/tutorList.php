@@ -42,7 +42,7 @@
 	echo '<h6 style = "display: none" id = "holder" value = "'.$json_a.'"></h6>';
 	
 	// Student Name Column
-	echo "<div class = 'row' style = 'width: 950px;'>";
+	echo "<div class = 'row' style = 'width: 930px;'>";
 	echo "<div class = 'column' id = 'name' style = 'width: 180px;'>";
 	echo "<h3 style = 'margin-left: -5%;'> Name </h3>";
 	
@@ -77,22 +77,24 @@
 	}
 	echo "</div>";
 
-	echo "<div class = 'column' id = 'numHours' style = 'width: 120px;'>";
-	echo "<h3 style = 'margin-left: -45%;'> Number of Hours </h3>";
+	// NumHours Column
+	echo "<div class = 'column' id = 'numHours' style = 'width: 200px;'>";
+	echo "<h3 style = 'margin-left: -45%; height: 18px;'> Number of Hours </h3>";
+	echo "<p id = 'incorrectInput' style = \" visibility: hidden; color:red; margin-left: -15px; margin-top: -10px; height: 10px;\"> Input must be a number. </p>";
 
 	foreach ($json_a as $tutor) 
 	{
-		echo "<input id = '".$tutor['studentID']."-numHours' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\",\"numHours\")' title = 'Please input the number of hours this tutor works' value = '".$tutor['numHours']."' style = ' width: 100px; text-align: center;'/>";
+		echo "<input id = '".$tutor['studentID']."-numHours' type = 'text' onfocusout = 'saveData(\"".$tutor['studentID']."\",\"numHours\")' title = 'Please input the number of hours this tutor works' value = '".$tutor['numHours']."' style = ' width: 100px; text-align: center; margin-right: 20px; margin-top: 0px; margin-bottom: 10px;'/>";
 	}
 
 	echo "</div>";
 	echo "</div>";
 	echo "<button id = \"addBtn\" onclick = \"addTutor(".$frameID.")\" style = \"margin-top: 10px; margin-left: 10px; \">+</button>";
-	echo "<p id=\"errorMessage\" style = 'display: inline; color: red; visibility: hidden;' hidden> Please make sure all previous tutors have been assigned the necessary values <p>";
+	echo "<p id=\"errorMessage\" style = 'display: inline; color: red; visibility: hidden;'> Please make sure all previous tutors have been assigned the necessary values <p>";
 	// Use this value to set the height of the iFrame and/or body
-	$height = 160 + (count($json_a) * 22);
+	$height = 170 + (count($json_a) * 22);
 
-	echo "<script> loadFile('../DataFiles/tutorList'); setFrameHeight('tutors', ".$height."); </script>";
+	echo "<script> loadFile('../DataFiles/tutorList'); setFrameHeight('tutorListInput', ".$height."); </script>";
 ?>
 </body>
 </html>

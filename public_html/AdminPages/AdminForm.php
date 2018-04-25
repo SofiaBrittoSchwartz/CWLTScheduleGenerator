@@ -21,13 +21,17 @@
 		height: 300px;
 	}
 
+	p#incompleteTab
+	{
+		height: 5px;
+	}
+
 	iframe
 	{
 		-webkit-transform: scale(0.90); 
 		-moz-transform-scale(0.75); 
 		width: 815px; 
-		/*width: 90%;*/
-		height: 540px; 
+		height: 570px; 
 		margin-left: -10px;
 		margin-top: 11px;
 	}
@@ -60,10 +64,11 @@
 			</div>
 
 		<!-- Part 1: Open Hours Input -->	
-			<div class = "tab" id = "OpenHours" style = "width: 1000px;">
-				<br><h2 id = "scheduleTitle" style = "margin-bottom: -25px; margin-left: -40px;">Confirm Open Hours</h2><br>
-				<iframe id = "OpenHoursInput" name = "-1" frameborder= "0"></iframe>
-			</div>
+			<!-- <div class = "tab" id = "OpenHours" style = "width: 1000px;">
+				<br><h2 id = "scheduleTitle" style = "margin-bottom: -25px; margin-left: -40px;">Confirm Open Hours</h2>
+				<p id = 'incompleteTab' style = "visibility: hidden; color:red;"> Please fill out all the necessary fields </p>
+				<iframe id = "OpenHoursSchedule" name = "-1" frameborder= "0"></iframe>
+			</div> -->
 
 		<!-- Part 2: Special Events -->	
 			<!-- <div class = "tab" id = "SpecialEvents">
@@ -75,14 +80,15 @@
 			<div class = "tab" id = "tutorList">
 				
 				<h2 style = "margin-right: 30px; margin-top: 40px;"> List of Tutors </h2>
-				<iframe src = "tutorList.php?frameID='tutors'" id = "tutors" frameborder="0" style = "width: 850px; height: 300px; margin-top: 5px;"></iframe>
+				<p id = 'incompleteTab' style = "visibility: hidden; color:red;"> Please fill out all the necessary fields </p>
+				<iframe id = "tutorListInput" src = "tutorList.php?frameID='tutorListInput'" frameborder="0" style = "width: 930px; height: 320px; margin-top: 5px;"></iframe>
 				<input type = "file" style = "margin-left: 45%; margin-bottom: 15px;"></input>
 
 			</div>
 
 		<!-- Confirmation Screen -->
 			<div class = "tab" id = "confirmation">
-				<iframe id = "confirmationScreen" frameborder="0"> </iframe>
+				<iframe id = "confirmationScreen" name = "adminForm" frameborder="0"> </iframe>
 			</div>
 
 		<!-- Buttons -->

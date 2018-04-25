@@ -1,18 +1,17 @@
 <?php
 	$schedule = $_GET['sched'];
 	$tutorList = $_GET['tutorList'];
+	$fileName = $_GET['fileName'];
 
-	save($schedule, $tutorList);
+	if($fileName == 'tutorForm'):
+		saveTutorForm();
+	elseif($fileName == 'adminForm'):
+		saveAdminForm($schedule, $tutorList);	
+	endif;
 
-	function save($schedule, $tutorList)
+	function saveAdminForm($schedule, $tutorList)
 	{
-		$sched = "";
-		$schedule = json_decode($schedule);
-
-		$sched .= "\n\t\t[".json_encode($schedule[0]);
-		for($i = 1; $i < count($schedule); $i++):
-			$sched .= ",\n\t\t".json_encode($schedule[$i]);
-		endfor;
+		$sched = sched_toJSON($schedule);
 
 		$input = "{ \n\t\"schedule\": ".$sched."]\n}";
 		$file = fopen("DataFiles/adminFormData1.json", "w");
@@ -28,6 +27,24 @@
 		fclose($tutorFile);
 
 		echo '<h1 style = "margin-top: 80px; text-align: center;"> Thank you! </h1>';
+	}
+
+	function sched_toJSON($schedule)
+	{
+		$schedule = json_decode($schedule);
+		$sched = "";
+
+		$sched .= "\n\t\t[".json_encode($schedule[0]);
+		for($i = 1; $i < count($schedule); $i++):
+			$sched .= ",\n\t\t".json_encode($schedule[$i]);
+		endfor;
+
+		return $sched;
+	}
+
+	function saveTutorForm()
+	{
+
 	}
 	
 ?>
