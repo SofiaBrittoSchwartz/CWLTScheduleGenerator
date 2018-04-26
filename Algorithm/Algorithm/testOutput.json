@@ -1,0 +1,626 @@
+[
+  {
+    "day": "Sunday",
+    "time": 13,
+    "tutors": [
+      "wkeyse",
+      "mpoplawsky",
+      "eparlan",
+      "jdejesus",
+      "ctomkins"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 14,
+    "tutors": [
+      "wkeyse",
+      "mpoplawsky",
+      "eparlan",
+      "tgill",
+      "jdejesus",
+      "ctomkins"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 15,
+    "tutors": [
+      "iamaya",
+      "jfonseca",
+      "tgill",
+      "klamar"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 16,
+    "tutors": [
+      "iamaya",
+      "jfonseca",
+      "zbranch",
+      "klamar",
+      "kstutz",
+      "bwitter"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 17,
+    "tutors": [
+      "zbranch",
+      "klamar",
+      "kstutz",
+      "bwitter"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 9,
+    "tutors": [
+      "lmorton",
+      "ianderson",
+      "rlaitila",
+      "jhutcheson"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 10,
+    "tutors": [
+      "lmorton",
+      "ianderson",
+      "esmith",
+      "rlaitila",
+      "jhutcheson"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 11,
+    "tutors": [
+      "akabir",
+      "esmith",
+      "smyers",
+      "kmiller"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 12,
+    "tutors": [
+      "akabir",
+      "kmoffett",
+      "smyers",
+      "gchang",
+      "kmiller",
+      "lroberts"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 13,
+    "tutors": [
+      "tgill",
+      "kmoffett",
+      "gchang",
+      "lroberts"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 14,
+    "tutors": [
+      "lmorton",
+      "tgill",
+      "lbengtson",
+      "kmiller",
+      "gchang"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 15,
+    "tutors": [
+      "lmorton",
+      "lbengtson",
+      "ianderson",
+      "ctomkins",
+      "kmiller"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 16,
+    "tutors": [
+      "ianderson",
+      "tgill",
+      "ctomkins",
+      "rchaiser",
+      "jholgate"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 17,
+    "tutors": [
+      "tgill",
+      "adiaz",
+      "rchaiser",
+      "jholgate"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 18,
+    "tutors": [
+      "tgill",
+      "adiaz",
+      "rlaitila",
+      "mzach",
+      "jhutcheson"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 19,
+    "tutors": [
+      "smyers",
+      "rlaitila",
+      "aluong",
+      "glizier",
+      "mzach",
+      "jhutcheson"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 20,
+    "tutors": [
+      "smyers",
+      "aluong",
+      "glizier",
+      "mzach"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 9,
+    "tutors": [
+      "swalling",
+      "akabir",
+      "bwitter",
+      "sberling"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 10,
+    "tutors": [
+      "swalling",
+      "akabir",
+      "sberling",
+      "bwitter"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 11,
+    "tutors": [
+      "zbranch",
+      "sberling",
+      "glizier",
+      "mberrens",
+      "swalling"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 12,
+    "tutors": [
+      "kmoffett",
+      "zbranch",
+      "glizier",
+      "mberrens"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 13,
+    "tutors": [
+      "mtaponga",
+      "kmoffett",
+      "kstutz",
+      "cvanboven",
+      "kmiller"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 14,
+    "tutors": [
+      "mtaponga",
+      "lmorton",
+      "kstutz",
+      "cvanboven",
+      "kmiller"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 15,
+    "tutors": [
+      "lmorton",
+      "tgill",
+      "smyers",
+      "bimada"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 16,
+    "tutors": [
+      "tgill",
+      "smyers",
+      "asalado",
+      "bimada"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 17,
+    "tutors": [
+      "jfonseca",
+      "tgill",
+      "asalado",
+      "jli"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 18,
+    "tutors": [
+      "jfonseca",
+      "mtaponga",
+      "eparlan",
+      "jli",
+      "bimada"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 19,
+    "tutors": [
+      "lbengtson",
+      "zbranch",
+      "mtaponga",
+      "eparlan",
+      "jdejesus",
+      "glizier",
+      "bimada"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 20,
+    "tutors": [
+      "lbengtson",
+      "zbranch",
+      "jdejesus",
+      "glizier"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 9,
+    "tutors": [
+      "lmorton",
+      "bimada",
+      "cvanboven",
+      "jli"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 10,
+    "tutors": [
+      "lmorton",
+      "iyu",
+      "bimada",
+      "cvanboven",
+      "jli",
+      "rchaiser"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 11,
+    "tutors": [
+      "iyu",
+      "akabir",
+      "esmith",
+      "rchaiser"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 12,
+    "tutors": [
+      "akabir",
+      "esmith",
+      "lroberts",
+      "kmoffett"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 13,
+    "tutors": [
+      "wkeyse",
+      "mzach",
+      "lroberts",
+      "kmoffett"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 14,
+    "tutors": [
+      "wkeyse",
+      "mzach",
+      "jfonseca",
+      "lbengtson"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 15,
+    "tutors": [
+      "adiaz",
+      "jfonseca",
+      "lbengtson",
+      "ianderson",
+      "mzach"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 16,
+    "tutors": [
+      "adiaz",
+      "jfonseca",
+      "klamar",
+      "wkeyse",
+      "mpoplawsky"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 17,
+    "tutors": [
+      "klamar",
+      "wkeyse",
+      "mpoplawsky",
+      "mberrens",
+      "iyu"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 18,
+    "tutors": [
+      "jfonseca",
+      "klamar",
+      "mberrens",
+      "iyu"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 19,
+    "tutors": [
+      "rlaitila",
+      "jfonseca",
+      "jdejesus",
+      "asalado"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 20,
+    "tutors": [
+      "rlaitila",
+      "jfonseca",
+      "jdejesus",
+      "asalado"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 9,
+    "tutors": [
+      "hkatz",
+      "bwitter",
+      "mberrens",
+      "jholgate"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 10,
+    "tutors": [
+      "hkatz",
+      "bwitter",
+      "mberrens",
+      "jholgate"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 11,
+    "tutors": [
+      "jfonseca",
+      "zbranch",
+      "gchang",
+      "asalado",
+      "sberling"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 12,
+    "tutors": [
+      "jfonseca",
+      "zbranch",
+      "gchang",
+      "asalado",
+      "sberling"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 13,
+    "tutors": [
+      "mtaponga",
+      "lroberts",
+      "esmith",
+      "sberling",
+      "gchang"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 14,
+    "tutors": [
+      "mtaponga",
+      "lroberts",
+      "ianderson",
+      "lmorton",
+      "esmith"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 15,
+    "tutors": [
+      "ianderson",
+      "lmorton",
+      "aluong",
+      "rchaiser",
+      "kstutz"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 16,
+    "tutors": [
+      "hkatz",
+      "rchaiser",
+      "kstutz",
+      "swalling"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 17,
+    "tutors": [
+      "swalling",
+      "hkatz",
+      "adiaz",
+      "jli"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 18,
+    "tutors": [
+      "swalling",
+      "adiaz",
+      "jli",
+      "mkraus"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 19,
+    "tutors": [
+      "hkatz",
+      "lmorton",
+      "mkraus",
+      "mpoplawsky"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 20,
+    "tutors": [
+      "hkatz",
+      "lmorton",
+      "mpoplawsky"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 9,
+    "tutors": [
+      "ianderson",
+      "iamaya",
+      "jhutcheson",
+      "mkraus"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 10,
+    "tutors": [
+      "ianderson",
+      "iamaya",
+      "zbranch",
+      "jhutcheson",
+      "mkraus",
+      "cvanboven"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 11,
+    "tutors": [
+      "zbranch",
+      "eparlan",
+      "cvanboven"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 12,
+    "tutors": [
+      "eparlan",
+      "iamaya",
+      "mzach",
+      "ctomkins"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 13,
+    "tutors": [
+      "tgill",
+      "jholgate",
+      "iamaya",
+      "iyu",
+      "ctomkins",
+      "mzach",
+      "mkraus"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 14,
+    "tutors": [
+      "tgill",
+      "jholgate",
+      "iyu",
+      "mkraus"
+    ]
+  }
+]

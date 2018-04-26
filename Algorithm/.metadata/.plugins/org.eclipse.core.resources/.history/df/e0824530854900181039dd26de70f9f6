@@ -900,7 +900,6 @@ public class Master {
 		m.finalizeSchedule();
 		PrintWriter out = new PrintWriter("testOutput.json");
 		out.println(m.toJson());
-		out.close();
 //		m.fromJson();
 		return 	m.calculateScore();
 	}

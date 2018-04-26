@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -821,7 +820,7 @@ public class Master {
 		}
 	}
 
-	private String toJson(){
+	private void toJson(){
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		//		Type typeOfSrc = new TypeToken<ArrayList<Tutor>>(){}.getType();
 		String json = gson.toJson(shifts);//, typeOfSrc);
@@ -829,7 +828,6 @@ public class Master {
 			println();
 		}
 		println(json);
-		return json;
 	}
 	
 	private String fileToString(File file) throws FileNotFoundException{
@@ -898,9 +896,7 @@ public class Master {
 		println("\n" + (finish-start) + "ms");
 		DEBUG = true;
 		m.finalizeSchedule();
-		PrintWriter out = new PrintWriter("testOutput.json");
-		out.println(m.toJson());
-		out.close();
+		m.toJson();
 //		m.fromJson();
 		return 	m.calculateScore();
 	}
