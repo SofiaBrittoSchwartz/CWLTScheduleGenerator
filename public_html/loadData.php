@@ -4,7 +4,7 @@
 
 	function load()
 	{
-		$fileName = "../DataFiles/adminFormData1.json";
+		$fileName = "../DataFiles/adminSchedule.json";
 		$file = fopen($fileName, "r");
 		$data = fread($file, filesize($fileName));
 

@@ -35,7 +35,7 @@
 
 <?php
 	$frameID = $_GET['frameID'];
-	$file_contents = file_get_contents('../DataFiles/tutorList.json');
+	$file_contents = file_get_contents('../DataFiles/tutorList1.json');
 	$json_a = json_decode($file_contents, true);
 	
 	echo '<script src="./adminForm.js"></script>';

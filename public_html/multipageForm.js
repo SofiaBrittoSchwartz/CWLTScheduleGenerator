@@ -48,7 +48,34 @@ class Schedule
 		return stringBuilder;
 	}
 }
-	
+
+class Tutor
+{
+	constructor(studentName, studentID, veteranStatus)
+	{
+		debug = true;
+		this.studentName = studentName;
+		this.studentID = studentID;
+		this.veteranStatus = veteranStatus;
+		var tutor = getTutor(this.studentID, "../DataFiles/tutorList1.json");
+
+		this.position = tutor[0];
+		print(this.position);
+		// this.numHours = tutor.numHours;
+		// this.schedule = tutor.scheduleInfo;
+		debug = false;
+	}
+
+	setTutorInfo()
+	{	
+		print(this.studentName + " - " + this.studentID + " - " + this.veteranStatus)
+		this.getTutor(this.studentID, "../DataFiles/tutorList1.json");
+		
+		// this.position = tutor.position;
+		// this.numHours = tutor.numHours;
+		// this.schedule = tutor.scheduleInfo;
+	}
+}	
 /*
 	Create initial schedule in AdminForm.php, pass it to multipageForm.js. After update, have nextPrev return 
 	the new schedule to AdminForm.php to be stored for future use. Maybe 'chooseSchedule()' would be in AdminForm.php
@@ -62,12 +89,79 @@ const busy = 2;
 var defaultSched;
 var defaultData;
 
-var debug = true;
+var debug = false;
 
 var scheduleStates;
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var currentFrame = 0;
+var currTutor;
+
+function objToStrMap(obj) 
+{
+    var strMap = new Map()
+    
+    // where k is a given key within obj
+    for (let k of Object.keys(obj)) 
+    {	
+    	// if k's value is an Object recurse
+    	if(obj[k] instanceof Object)
+    	{
+    		obj[k] = objToStrMap(obj[k]);
+    	}
+
+        strMap.set(k, obj[k]);
+    }
+
+    return strMap;
+}
+
+function getTutor(studentID, fileName)
+{
+	// debug = true;
+	var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", fileName, false);
+    var text;
+
+    rawFile.onreadystatechange = function()
+    {
+    	print(rawFile.readyState)
+    	print(rawFile.status)
+
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+            	print("here")
+                text = rawFile.responseText;
+                // var map = objToStrMap(JSON.parse(text));
+                var holder = JSON.parse(text);
+                print(Object.keys(holder[0]));
+                
+                for(var i = 0; i < holder.length; i++)
+                // for(var elem in map)
+                {
+                	if(holder[i]["studentID"] == studentID)
+                	{	
+                		// this.position = holder[i]["position"];
+                		// this.numHours = holder[i]["numHours"];
+                		// this.scheduleInfo = holder[i]["scheduleInfo"]
+
+                		currTutor = holder[i];
+                		// print(holder[i])
+                		var hold = [holder[i]["position"], holder[i]["numHours"], holder[i]["scheduleInfo"]];
+                		// return [holder[i]["position"], holder[i]["numHours"], holder[i]["scheduleInfo"]];
+                		return hold;
+                	}
+                }
+                // print(this.studentID);
+                // print(this.numHours);
+            }
+        }
+    }
+
+    rawFile.send(null);
+}
 
 function showTab(tabIndex, isFirst = false)
 {
@@ -81,7 +175,7 @@ function showTab(tabIndex, isFirst = false)
 		scheduleStates = new Array();
 		defaultData = new Map();
 
-		readTextFile('../DataFiles/adminFormData1.json');
+		readTextFile('../DataFiles/adminSchedule1.json');
 
 		var input = getInputType();
 
@@ -118,7 +212,13 @@ function nextPrev(currForm, variant)
 	{
 		document.getElementById("incompleteTab").style.visibility = 'hidden';
 	}
-
+//here
+	if(currForm == "tutorForm" && currTutor == null)
+	{
+		var inputs = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("input");
+		// print(inputs[0].value);
+		currTutor = new Tutor(inputs[0].value, inputs[1].value, inputs[2].value);
+	}
 	// Hide the current tab:
 	tabs[currentTab].style.display = "none";
 

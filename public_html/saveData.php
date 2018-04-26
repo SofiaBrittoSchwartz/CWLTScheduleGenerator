@@ -14,7 +14,7 @@
 		$sched = sched_toJSON($schedule);
 
 		$input = "{ \n\t\"schedule\": ".$sched."]\n}";
-		$file = fopen("DataFiles/adminFormData1.json", "w");
+		$file = fopen("DataFiles/adminSchedule1.json", "w");
 		
 		fwrite($file, $input); 
 		fclose($file);

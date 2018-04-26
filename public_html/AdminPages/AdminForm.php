@@ -64,11 +64,11 @@
 			</div>
 
 		<!-- Part 1: Open Hours Input -->	
-			<!-- <div class = "tab" id = "OpenHours" style = "width: 1000px;">
+			<div class = "tab" id = "OpenHours" style = "width: 1000px;">
 				<br><h2 id = "scheduleTitle" style = "margin-bottom: -25px; margin-left: -40px;">Confirm Open Hours</h2>
 				<p id = 'incompleteTab' style = "visibility: hidden; color:red;"> Please fill out all the necessary fields </p>
 				<iframe id = "OpenHoursSchedule" name = "-1" frameborder= "0"></iframe>
-			</div> -->
+			</div>
 
 		<!-- Part 2: Special Events -->	
 			<!-- <div class = "tab" id = "SpecialEvents">

@@ -1,5 +1,5 @@
-{
-    "sbschwartz": {
+[
+    {
         "name": "Sofia Schwartz",
         "studentID": "sbschwartz",
         "position": {},
@@ -91,7 +91,7 @@
             }
         }
     },
-    "sberling": {
+    {
         "name": "Sam Berling",
         "studentID": "sberling",
         "position": {
@@ -100,7 +100,7 @@
         },
         "numHours": 12
     },
-    "person2": {
+    {
         "name": "reallyLongName guy",
         "studentID": "person2",
         "position": {
@@ -108,13 +108,15 @@
         },
         "numHours": 6
     },
-    "person3": {
+    {
         "name": "Person 3",
         "studentID": "person3",
-        "position": "Math Subject Tutor, Writing Advisor",
+        "position": {
+            "0": "Math Subject Tutor"
+        },
         "numHours": 6
     },
-    "person4": {
+    {
         "name": "Person 4",
         "studentID": "person4",
         "position": {
@@ -122,7 +124,7 @@
         },
         "numHours": 6
     },
-    "person5": {
+    {
         "name": "Person 5",
         "studentID": "person5",
         "position": {
@@ -130,12 +132,20 @@
         },
         "numHours": 6
     },
-    "jbiden": {
+    {
         "name": "Joe Biden",
         "studentID": "jbiden",
         "position": {
             "0": "Politics Subject Tutor"
         },
         "numHours": 6
+    },
+    {
+        "name": "Michelle Obama",
+        "position": [
+            "First Lady Advisor"
+        ],
+        "studentID": "mobama",
+        "numHours": "6"
     }
-}
+]

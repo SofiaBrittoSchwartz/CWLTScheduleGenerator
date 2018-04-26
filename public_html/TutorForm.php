@@ -118,7 +118,7 @@
 						<div class="tooltip" style = "margin-left: 100px;"> Returning Tutor:
 						  <span class="tooltiptext" style = "margin-left: -157px;">Check this box if this is NOT your first semester tutoring at the CWLT.</span>
 						</div>
-						<input id="vetStatus" type="checkbox" style = "display: inline; margin-left: 15px;"></p>
+						<input id="vetStatus" type="checkbox" defaultValue = "false" style = "display: inline; margin-left: 15px;"></p>
 					</p>
 				</div>
 			</div>

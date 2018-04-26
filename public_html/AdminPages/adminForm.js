@@ -1,18 +1,3 @@
-class Tutor
-{
-	constructor(studentName, studentID, veteranStatus)
-	{
-		this.studentName = studentName;
-		this.studentID = studentID;
-		this.veteranStatus = veteranStatus;
-		this.scheduleInfo = loadFile("../DataFiles/tutorList1");
-	}
-
-
-
-
-}
-
 var schedule;
 var dataName;
 var dataCollection;
@@ -81,7 +66,17 @@ function loadFile(name)
             if(rawFile.status === 200 || rawFile.status == 0)
             {
                 text = rawFile.responseText;
-                dataCollection = objToStrMap(JSON.parse(text));
+                var parsedStr = JSON.parse(text);
+                print(Array.isArray(parsedStr));
+                if(Array.isArray(parsedStr))
+                {
+                	setSchedule(parsedStr);
+                }
+                else
+                {
+                	dataCollection = objToStrMap(parsedStr);	
+                }
+                
             }
         }
     }
@@ -111,13 +106,40 @@ function objToStrMap(obj)
     return strMap;
 }
 
+function toObj(currMap, firstCall = false)
+{
+	var mapArray = Array.from(currMap);
+ 	
+ 	var object = new Object();
+ 	var arr = new Array();
+
+ 	for(var i = 0; i < mapArray.length; i++)
+ 	{
+ 		
+ 		if(mapArray[i][1] instanceof Map) mapArray[i][1] = toObj(mapArray[i][1]);
+
+ 		if(firstCall)
+ 		{	
+ 			arr[i] = mapArray[i][1];
+ 		}
+ 		else
+ 		{
+ 			Object.assign(object, {[mapArray[i][0]]: mapArray[i][1]});
+ 		}
+ 		
+ 	}
+ 	if(firstCall) return arr;
+ 	else return object;
+	
+}
+
 function saveToHolder(data)
 {
 	var holder = document.getElementById("holder");
 
 	if(data instanceof Map)
 	{	
-		holder.value = JSON.stringify(toObj(data), null, '\t');
+		holder.value = JSON.stringify(toObj(data, true), null, '\t');
 	}
 	else
 	{
@@ -126,33 +148,14 @@ function saveToHolder(data)
 	// print(holder.value);
 }
 
-function toObj(currMap)
-{
-	var mapArray = Array.from(currMap);
- 	
- 	var object = new Object();
-
- 	for(var i = 0; i < mapArray.length; i++)
- 	{
-
- 		if(mapArray[i][1] instanceof Map) mapArray[i][1] = toObj(mapArray[i][1]);
-
- 		Object.assign(object, {[mapArray[i][0]]: mapArray[i][1]});
- 	}
-
-	return object;
-}
-
 function saveData(studentID, attr)
 {
 	print("SAVEDATA");
-	print("\t-"+attr);
 	var value;
 	var elem;
 	
 	if(studentID == null)
 	{
-		print("null");
 		elem = document.getElementById("none-"+attr);
 	}
 	else
@@ -165,16 +168,8 @@ function saveData(studentID, attr)
 	if(value != "")
 	{
 
-		// if attr inputted is the studentID, update the necessary fields
-		if(attr == "studentID")
+		if(attr == "numHours")
 		{
-			// elem.id = value +"-"+ attr;	
-			// elem.addEventListener("focusout", function(){ saveData(null, elem.id) }, true);
-		}
-		else if(attr == "numHours")
-		{
-			print(value);
-			print(isNaN(value));
 			// make sure value inputted to numHours is a number
 			if(isNaN(value)) 
 			{
@@ -184,9 +179,19 @@ function saveData(studentID, attr)
 			}
 			else
 			{
-				print("Correct type input");
 				document.getElementById("incorrectInput").style.visibility = 'hidden';
 				elem.style.border = "solid thin #80808052";
+			}
+		}
+
+		if (attr == "position")
+		{
+			print('position')
+			value = value.split(",");
+			
+			if(!(value instanceof Array))
+			{
+				value = [value];
 			}
 		}
 
@@ -194,6 +199,7 @@ function saveData(studentID, attr)
 		if(dataCollection.get(studentID) != null)
 		{
 			dataCollection.get(studentID).set(attr, value);	
+			
 		}
 		// otherwise, keep track of a new tutor, but only add to collection
 		// once all attributes have been filled in
