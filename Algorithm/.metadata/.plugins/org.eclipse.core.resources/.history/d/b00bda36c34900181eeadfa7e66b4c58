@@ -830,6 +830,17 @@ public class Master {
 		}
 	}
 
+	private String toJson(){
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+		//		Type typeOfSrc = new TypeToken<ArrayList<Tutor>>(){}.getType();
+		String json = gson.toJson(shifts);//, typeOfSrc);
+		for(int i = 0; i < 20; i++){
+			println();
+		}
+		println(json);
+		return json;
+	}
+
 	private String fileToString(File file) throws FileNotFoundException{
 		Scanner scan = new Scanner(file);
 		StringBuilder sb = new StringBuilder();
@@ -838,15 +849,6 @@ public class Master {
 		}
 		scan.close();
 		return sb.toString();
-	}
-
-	private String toJson(){
-		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-		//		Type typeOfSrc = new TypeToken<ArrayList<Tutor>>(){}.getType();
-		reorderShifts();
-		String json = gson.toJson(shifts);//, typeOfSrc);
-		println(json);
-		return json;
 	}
 
 	private void fromJson() throws FileNotFoundException{
@@ -868,28 +870,12 @@ public class Master {
 		return earliest;
 	}
 	
-	private boolean truthCheck(boolean[] ordered){//returns true if all elements of the input array are true. used for reordering the shifts
-		for(int i = 0; i < ordered.length; i++){
-			if(ordered[i] == false) return false;
-		}
-		return true;
-	}
-	
 	private void reorderShifts(){
 		ArrayList<Shift> orderedShifts = new ArrayList<Shift>();
-		boolean[] ordered = new boolean[shifts.size()]; //marking whether or not the shift at this index has been put in the ordered arraylist
-		int currentTime = earliestTime();
-		while(!truthCheck(ordered)){
-			for(int i = 0; i < shifts.size(); i++){
-				if(!ordered[i] && shifts.get(i).time == currentTime){
-					orderedShifts.add(shifts.get(i));
-					ordered[i] = true;
-				}
-			}
-			currentTime++;
+		int currentTime = -1;
+		while(!shifts.isEmpty()){
+			
 		}
-//		println("Shifts ordered by time: " + orderedShifts);
-		shifts = orderedShifts;
 	}
 
 	private static int test(int pref) throws FileNotFoundException {

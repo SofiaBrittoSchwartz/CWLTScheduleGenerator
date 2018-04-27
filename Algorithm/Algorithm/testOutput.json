@@ -1,59 +1,5 @@
 [
   {
-    "day": "Sunday",
-    "time": 13,
-    "tutors": [
-      "Amanda Diaz",
-      "Rachel Chaiser",
-      "Emily Parlan",
-      "Meadow Poplawsky"
-    ]
-  },
-  {
-    "day": "Sunday",
-    "time": 14,
-    "tutors": [
-      "Amanda Diaz",
-      "Rachel Chaiser",
-      "Jordan Fonseca",
-      "Jule Holgate",
-      "Emily Parlan",
-      "Meadow Poplawsky"
-    ]
-  },
-  {
-    "day": "Sunday",
-    "time": 15,
-    "tutors": [
-      "Jordan Fonseca",
-      "Jule Holgate",
-      "Ivin Yu",
-      "Kathryn Stutz"
-    ]
-  },
-  {
-    "day": "Sunday",
-    "time": 16,
-    "tutors": [
-      "Isabel Amaya",
-      "Zoe Branch",
-      "Kathryn Stutz",
-      "Ivin Yu",
-      "James DeJesus",
-      "Sarah Walling-Bell"
-    ]
-  },
-  {
-    "day": "Sunday",
-    "time": 17,
-    "tutors": [
-      "Isabel Amaya",
-      "Zoe Branch",
-      "James DeJesus",
-      "Sarah Walling-Bell"
-    ]
-  },
-  {
     "day": "Monday",
     "time": 9,
     "tutors": [
@@ -61,6 +7,48 @@
       "Isabelle Anderson",
       "Rachael Laitila",
       "Erika Smith"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 9,
+    "tutors": [
+      "Sarah Walling-Bell",
+      "Alia Kabir",
+      "Kara Ann Lamar",
+      "Sam Berling"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 9,
+    "tutors": [
+      "Lura Morton",
+      "Caleb van Boven",
+      "Jayne Hutcheson",
+      "Brittney Imada",
+      "Isabelle Anderson"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 9,
+    "tutors": [
+      "Hannah Katz",
+      "Brynn Witter",
+      "Geremia Lizier-Zmudzinksi",
+      "Jule Holgate",
+      "Kathryn Stutz"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 9,
+    "tutors": [
+      "Isabelle Anderson",
+      "Isabel Amaya",
+      "Jayne Hutcheson",
+      "Miranda Kraus"
     ]
   },
   {
@@ -74,120 +62,6 @@
     ]
   },
   {
-    "day": "Monday",
-    "time": 11,
-    "tutors": [
-      "Alia Kabir",
-      "Katarina Moffett",
-      "Sophie Myers",
-      "Kyle Miller"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 12,
-    "tutors": [
-      "Alia Kabir",
-      "Katarina Moffett",
-      "Gabby Chang",
-      "Sophie Myers",
-      "Kyle Miller"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 13,
-    "tutors": [
-      "Jordan Fonseca",
-      "Maggie Zach",
-      "Gabby Chang",
-      "Katarina Moffett"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 14,
-    "tutors": [
-      "Jordan Fonseca",
-      "Maggie Zach",
-      "Lura Morton",
-      "Lilly Bengston",
-      "Cole Tomkins"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 15,
-    "tutors": [
-      "Lura Morton",
-      "Tiare Gill",
-      "Lilly Bengston",
-      "Cole Tomkins"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 16,
-    "tutors": [
-      "Tiare Gill",
-      "William Keyse",
-      "Cole Tomkins",
-      "Jule Holgate"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 17,
-    "tutors": [
-      "Lura Morton",
-      "Amanda Diaz",
-      "William Keyse",
-      "Jule Holgate"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 18,
-    "tutors": [
-      "Lura Morton",
-      "Amanda Diaz",
-      "Sophie Myers",
-      "Amy Luong"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 19,
-    "tutors": [
-      "Sophie Myers",
-      "Amy Luong",
-      "Max Tapogna",
-      "Kara Ann Lamar",
-      "Geremia Lizier-Zmudzinksi",
-      "Maggie Zach"
-    ]
-  },
-  {
-    "day": "Monday",
-    "time": 20,
-    "tutors": [
-      "Max Tapogna",
-      "Kara Ann Lamar",
-      "Geremia Lizier-Zmudzinksi",
-      "Maggie Zach"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 9,
-    "tutors": [
-      "Sarah Walling-Bell",
-      "Alia Kabir",
-      "Kara Ann Lamar",
-      "Sam Berling"
-    ]
-  },
-  {
     "day": "Tuesday",
     "time": 10,
     "tutors": [
@@ -195,123 +69,6 @@
       "Alia Kabir",
       "Sam Berling",
       "Kara Ann Lamar"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 11,
-    "tutors": [
-      "Zoe Branch",
-      "Maggie Berrens",
-      "Geremia Lizier-Zmudzinksi",
-      "Katarina Moffett",
-      "Sam Berling"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 12,
-    "tutors": [
-      "Katarina Moffett",
-      "Zoe Branch",
-      "Maggie Berrens",
-      "Geremia Lizier-Zmudzinksi"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 13,
-    "tutors": [
-      "Max Tapogna",
-      "Katarina Moffett",
-      "Kathryn Stutz",
-      "Kyle Miller"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 14,
-    "tutors": [
-      "Max Tapogna",
-      "Lura Morton",
-      "Kathryn Stutz",
-      "Kyle Miller",
-      "William Keyse"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 15,
-    "tutors": [
-      "Lura Morton",
-      "Sophie Myers",
-      "Brittney Imada",
-      "William Keyse",
-      "Brynn Witter"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 16,
-    "tutors": [
-      "Tiare Gill",
-      "Sophie Myers",
-      "Arcelia Salado Alvarado",
-      "Brittney Imada",
-      "Brynn Witter"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 17,
-    "tutors": [
-      "Jordan Fonseca",
-      "Tiare Gill",
-      "Arcelia Salado Alvarado",
-      "Jiawen Li",
-      "Amy Luong"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 18,
-    "tutors": [
-      "Jordan Fonseca",
-      "Zoe Branch",
-      "Emily Parlan",
-      "Jiawen Li"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 19,
-    "tutors": [
-      "Rachael Laitila",
-      "Zoe Branch",
-      "Emily Parlan",
-      "James DeJesus",
-      "Arcelia Salado Alvarado"
-    ]
-  },
-  {
-    "day": "Tuesday",
-    "time": 20,
-    "tutors": [
-      "Rachael Laitila",
-      "Zoe Branch",
-      "James DeJesus",
-      "Arcelia Salado Alvarado"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 9,
-    "tutors": [
-      "Lura Morton",
-      "Caleb van Boven",
-      "Jayne Hutcheson",
-      "Brittney Imada",
-      "Isabelle Anderson"
     ]
   },
   {
@@ -327,6 +84,50 @@
     ]
   },
   {
+    "day": "Thursday",
+    "time": 10,
+    "tutors": [
+      "Hannah Katz",
+      "Brynn Witter",
+      "Geremia Lizier-Zmudzinksi",
+      "Jule Holgate",
+      "Kathryn Stutz"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 10,
+    "tutors": [
+      "Isabelle Anderson",
+      "Isabel Amaya",
+      "Rachael Laitila",
+      "Jayne Hutcheson",
+      "Miranda Kraus",
+      "Caleb van Boven"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 11,
+    "tutors": [
+      "Alia Kabir",
+      "Katarina Moffett",
+      "Sophie Myers",
+      "Kyle Miller"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 11,
+    "tutors": [
+      "Zoe Branch",
+      "Maggie Berrens",
+      "Geremia Lizier-Zmudzinksi",
+      "Katarina Moffett",
+      "Sam Berling"
+    ]
+  },
+  {
     "day": "Wednesday",
     "time": 11,
     "tutors": [
@@ -338,6 +139,48 @@
     ]
   },
   {
+    "day": "Thursday",
+    "time": 11,
+    "tutors": [
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Gabby Chang",
+      "Arcelia Salado Alvarado",
+      "Sam Berling"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 11,
+    "tutors": [
+      "Rachael Laitila",
+      "Emily Parlan",
+      "Caleb van Boven",
+      "Jayne Hutcheson"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 12,
+    "tutors": [
+      "Alia Kabir",
+      "Katarina Moffett",
+      "Gabby Chang",
+      "Sophie Myers",
+      "Kyle Miller"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 12,
+    "tutors": [
+      "Katarina Moffett",
+      "Zoe Branch",
+      "Maggie Berrens",
+      "Geremia Lizier-Zmudzinksi"
+    ]
+  },
+  {
     "day": "Wednesday",
     "time": 12,
     "tutors": [
@@ -345,6 +188,57 @@
       "Brittney Imada",
       "Kyle Miller",
       "William Keyse"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 12,
+    "tutors": [
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Gabby Chang",
+      "Arcelia Salado Alvarado",
+      "Sam Berling"
+    ]
+  },
+  {
+    "day": "Friday",
+    "time": 12,
+    "tutors": [
+      "Emily Parlan",
+      "Isabel Amaya",
+      "Maggie Zach",
+      "Cole Tomkins"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 13,
+    "tutors": [
+      "Amanda Diaz",
+      "Rachel Chaiser",
+      "Emily Parlan",
+      "Meadow Poplawsky"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 13,
+    "tutors": [
+      "Jordan Fonseca",
+      "Maggie Zach",
+      "Gabby Chang",
+      "Katarina Moffett"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 13,
+    "tutors": [
+      "Max Tapogna",
+      "Katarina Moffett",
+      "Kathryn Stutz",
+      "Kyle Miller"
     ]
   },
   {
@@ -359,127 +253,6 @@
     ]
   },
   {
-    "day": "Wednesday",
-    "time": 14,
-    "tutors": [
-      "Maggie Zach",
-      "Lindsey Roberts",
-      "Gabby Chang",
-      "Maggie Berrens",
-      "Tiare Gill"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 15,
-    "tutors": [
-      "Amanda Diaz",
-      "Lindsey Roberts",
-      "Isabelle Anderson",
-      "Rachel Chaiser",
-      "Maggie Berrens"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 16,
-    "tutors": [
-      "Amanda Diaz",
-      "Isabelle Anderson",
-      "Jordan Fonseca",
-      "Kara Ann Lamar",
-      "Rachel Chaiser"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 17,
-    "tutors": [
-      "Jordan Fonseca",
-      "Kara Ann Lamar",
-      "Lilly Bengston",
-      "Jiawen Li",
-      "Lindsey Roberts"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 18,
-    "tutors": [
-      "Lilly Bengston",
-      "Isabelle Anderson",
-      "Jiawen Li",
-      "Lindsey Roberts"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 19,
-    "tutors": [
-      "Jordan Fonseca",
-      "Tiare Gill",
-      "Isabelle Anderson",
-      "James DeJesus",
-      "Miranda Kraus",
-      "Erika Smith"
-    ]
-  },
-  {
-    "day": "Wednesday",
-    "time": 20,
-    "tutors": [
-      "Jordan Fonseca",
-      "Tiare Gill",
-      "James DeJesus",
-      "Miranda Kraus",
-      "Erika Smith"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 9,
-    "tutors": [
-      "Hannah Katz",
-      "Brynn Witter",
-      "Geremia Lizier-Zmudzinksi",
-      "Jule Holgate",
-      "Kathryn Stutz"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 10,
-    "tutors": [
-      "Hannah Katz",
-      "Brynn Witter",
-      "Geremia Lizier-Zmudzinksi",
-      "Jule Holgate",
-      "Kathryn Stutz"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 11,
-    "tutors": [
-      "Jordan Fonseca",
-      "Zoe Branch",
-      "Gabby Chang",
-      "Arcelia Salado Alvarado",
-      "Sam Berling"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 12,
-    "tutors": [
-      "Jordan Fonseca",
-      "Zoe Branch",
-      "Gabby Chang",
-      "Arcelia Salado Alvarado",
-      "Sam Berling"
-    ]
-  },
-  {
     "day": "Thursday",
     "time": 13,
     "tutors": [
@@ -487,118 +260,6 @@
       "Erika Smith",
       "Lindsey Roberts",
       "Sam Berling"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 14,
-    "tutors": [
-      "Erika Smith",
-      "Lilly Bengston",
-      "Meadow Poplawsky",
-      "Lindsey Roberts",
-      "Miranda Kraus"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 15,
-    "tutors": [
-      "Lilly Bengston",
-      "Meadow Poplawsky",
-      "Miranda Kraus",
-      "Maggie Berrens"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 16,
-    "tutors": [
-      "Hannah Katz",
-      "Maggie Berrens",
-      "Jiawen Li",
-      "Sarah Walling-Bell"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 17,
-    "tutors": [
-      "Sarah Walling-Bell",
-      "Hannah Katz",
-      "Jiawen Li",
-      "Caleb van Boven"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 18,
-    "tutors": [
-      "Lura Morton",
-      "Caleb van Boven",
-      "Brynn Witter"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 19,
-    "tutors": [
-      "Tiare Gill",
-      "Hannah Katz",
-      "Lura Morton",
-      "Meadow Poplawsky",
-      "Brynn Witter"
-    ]
-  },
-  {
-    "day": "Thursday",
-    "time": 20,
-    "tutors": [
-      "Tiare Gill",
-      "Hannah Katz",
-      "Meadow Poplawsky"
-    ]
-  },
-  {
-    "day": "Friday",
-    "time": 9,
-    "tutors": [
-      "Isabelle Anderson",
-      "Isabel Amaya",
-      "Jayne Hutcheson",
-      "Miranda Kraus"
-    ]
-  },
-  {
-    "day": "Friday",
-    "time": 10,
-    "tutors": [
-      "Isabelle Anderson",
-      "Isabel Amaya",
-      "Rachael Laitila",
-      "Jayne Hutcheson",
-      "Miranda Kraus",
-      "Caleb van Boven"
-    ]
-  },
-  {
-    "day": "Friday",
-    "time": 11,
-    "tutors": [
-      "Rachael Laitila",
-      "Emily Parlan",
-      "Caleb van Boven",
-      "Jayne Hutcheson"
-    ]
-  },
-  {
-    "day": "Friday",
-    "time": 12,
-    "tutors": [
-      "Emily Parlan",
-      "Isabel Amaya",
-      "Maggie Zach",
-      "Cole Tomkins"
     ]
   },
   {
@@ -614,6 +275,62 @@
     ]
   },
   {
+    "day": "Sunday",
+    "time": 14,
+    "tutors": [
+      "Amanda Diaz",
+      "Rachel Chaiser",
+      "Jordan Fonseca",
+      "Jule Holgate",
+      "Emily Parlan",
+      "Meadow Poplawsky"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 14,
+    "tutors": [
+      "Jordan Fonseca",
+      "Maggie Zach",
+      "Lura Morton",
+      "Lilly Bengston",
+      "Cole Tomkins"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 14,
+    "tutors": [
+      "Max Tapogna",
+      "Lura Morton",
+      "Kathryn Stutz",
+      "Kyle Miller",
+      "William Keyse"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 14,
+    "tutors": [
+      "Maggie Zach",
+      "Lindsey Roberts",
+      "Gabby Chang",
+      "Maggie Berrens",
+      "Tiare Gill"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 14,
+    "tutors": [
+      "Erika Smith",
+      "Lilly Bengston",
+      "Meadow Poplawsky",
+      "Lindsey Roberts",
+      "Miranda Kraus"
+    ]
+  },
+  {
     "day": "Friday",
     "time": 14,
     "tutors": [
@@ -621,6 +338,289 @@
       "Tiare Gill",
       "Ivin Yu",
       "Cole Tomkins"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 15,
+    "tutors": [
+      "Jordan Fonseca",
+      "Jule Holgate",
+      "Ivin Yu",
+      "Kathryn Stutz"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 15,
+    "tutors": [
+      "Lura Morton",
+      "Tiare Gill",
+      "Lilly Bengston",
+      "Cole Tomkins"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 15,
+    "tutors": [
+      "Lura Morton",
+      "Sophie Myers",
+      "Brittney Imada",
+      "William Keyse",
+      "Brynn Witter"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 15,
+    "tutors": [
+      "Amanda Diaz",
+      "Lindsey Roberts",
+      "Isabelle Anderson",
+      "Rachel Chaiser",
+      "Maggie Berrens"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 15,
+    "tutors": [
+      "Lilly Bengston",
+      "Meadow Poplawsky",
+      "Miranda Kraus",
+      "Maggie Berrens"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 16,
+    "tutors": [
+      "Isabel Amaya",
+      "Zoe Branch",
+      "Kathryn Stutz",
+      "Ivin Yu",
+      "James DeJesus",
+      "Sarah Walling-Bell"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 16,
+    "tutors": [
+      "Tiare Gill",
+      "William Keyse",
+      "Cole Tomkins",
+      "Jule Holgate"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 16,
+    "tutors": [
+      "Tiare Gill",
+      "Sophie Myers",
+      "Arcelia Salado Alvarado",
+      "Brittney Imada",
+      "Brynn Witter"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 16,
+    "tutors": [
+      "Amanda Diaz",
+      "Isabelle Anderson",
+      "Jordan Fonseca",
+      "Kara Ann Lamar",
+      "Rachel Chaiser"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 16,
+    "tutors": [
+      "Hannah Katz",
+      "Maggie Berrens",
+      "Jiawen Li",
+      "Sarah Walling-Bell"
+    ]
+  },
+  {
+    "day": "Sunday",
+    "time": 17,
+    "tutors": [
+      "Isabel Amaya",
+      "Zoe Branch",
+      "James DeJesus",
+      "Sarah Walling-Bell"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 17,
+    "tutors": [
+      "Lura Morton",
+      "Amanda Diaz",
+      "William Keyse",
+      "Jule Holgate"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 17,
+    "tutors": [
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "Arcelia Salado Alvarado",
+      "Jiawen Li",
+      "Amy Luong"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 17,
+    "tutors": [
+      "Jordan Fonseca",
+      "Kara Ann Lamar",
+      "Lilly Bengston",
+      "Jiawen Li",
+      "Lindsey Roberts"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 17,
+    "tutors": [
+      "Sarah Walling-Bell",
+      "Hannah Katz",
+      "Jiawen Li",
+      "Caleb van Boven"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 18,
+    "tutors": [
+      "Lura Morton",
+      "Amanda Diaz",
+      "Sophie Myers",
+      "Amy Luong"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 18,
+    "tutors": [
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Emily Parlan",
+      "Jiawen Li"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 18,
+    "tutors": [
+      "Lilly Bengston",
+      "Isabelle Anderson",
+      "Jiawen Li",
+      "Lindsey Roberts"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 18,
+    "tutors": [
+      "Lura Morton",
+      "Caleb van Boven",
+      "Brynn Witter"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 19,
+    "tutors": [
+      "Sophie Myers",
+      "Amy Luong",
+      "Max Tapogna",
+      "Kara Ann Lamar",
+      "Geremia Lizier-Zmudzinksi",
+      "Maggie Zach"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 19,
+    "tutors": [
+      "Rachael Laitila",
+      "Zoe Branch",
+      "Emily Parlan",
+      "James DeJesus",
+      "Arcelia Salado Alvarado"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 19,
+    "tutors": [
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "Isabelle Anderson",
+      "James DeJesus",
+      "Miranda Kraus",
+      "Erika Smith"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 19,
+    "tutors": [
+      "Tiare Gill",
+      "Hannah Katz",
+      "Lura Morton",
+      "Meadow Poplawsky",
+      "Brynn Witter"
+    ]
+  },
+  {
+    "day": "Monday",
+    "time": 20,
+    "tutors": [
+      "Max Tapogna",
+      "Kara Ann Lamar",
+      "Geremia Lizier-Zmudzinksi",
+      "Maggie Zach"
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "time": 20,
+    "tutors": [
+      "Rachael Laitila",
+      "Zoe Branch",
+      "James DeJesus",
+      "Arcelia Salado Alvarado"
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "time": 20,
+    "tutors": [
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "James DeJesus",
+      "Miranda Kraus",
+      "Erika Smith"
+    ]
+  },
+  {
+    "day": "Thursday",
+    "time": 20,
+    "tutors": [
+      "Tiare Gill",
+      "Hannah Katz",
+      "Meadow Poplawsky"
     ]
   }
 ]

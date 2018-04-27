@@ -843,8 +843,10 @@ public class Master {
 	private String toJson(){
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		//		Type typeOfSrc = new TypeToken<ArrayList<Tutor>>(){}.getType();
-		reorderShifts();
 		String json = gson.toJson(shifts);//, typeOfSrc);
+		for(int i = 0; i < 20; i++){
+			println();
+		}
 		println(json);
 		return json;
 	}
@@ -888,8 +890,7 @@ public class Master {
 			}
 			currentTime++;
 		}
-//		println("Shifts ordered by time: " + orderedShifts);
-		shifts = orderedShifts;
+		println(orderedShifts);
 	}
 
 	private static int test(int pref) throws FileNotFoundException {
