@@ -198,7 +198,7 @@ public class Shift implements Comparable<Shift>{
 	
 	public void finalizeTutors(){
 		for(Tutor t : assignedTutors){
-			tutors.add(t.studentName);
+			tutors.add(t.studentID);
 		}
 	}
 

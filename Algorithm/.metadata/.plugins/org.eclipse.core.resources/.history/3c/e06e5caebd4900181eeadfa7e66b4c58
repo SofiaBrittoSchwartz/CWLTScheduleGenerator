@@ -554,10 +554,7 @@ public class Master {
 			}
 			String[] tokens = line.split(",+");
 			if(tokens.length > 0){
-				both = tokens[0].split("~");
-//				DEBUG = true;
-//				println(Arrays.toString(both));
-//				DEBUG = false;
+				both = tokens[0].split("|");
 				studentID = both[0];
 				name = both[1];
 				if(tutorContains(studentID)){ //if we find a tutor already in the system, then we should skip them
@@ -904,9 +901,9 @@ public class Master {
 		println("\n" + (finish-start) + "ms");
 		DEBUG = true;
 		m.finalizeSchedule();
-				PrintWriter out = new PrintWriter("testOutput.json");
-				out.println(m.toJson());
-				out.close();
+		//		PrintWriter out = new PrintWriter("testOutput.json");
+		//		out.println(m.toJson());
+		//		out.close();
 		m.fromJson();
 		return 	m.calculateScore();
 	}

@@ -3,624 +3,624 @@
     "day": "Sunday",
     "time": 13,
     "tutors": [
-      "wkeyse",
-      "mpoplawsky",
-      "eparlan",
-      "jdejesus",
-      "ctomkins"
+      "Amanda Diaz",
+      "Rachel Chaiser",
+      "Emily Parlan",
+      "Meadow Poplawsky"
     ]
   },
   {
     "day": "Sunday",
     "time": 14,
     "tutors": [
-      "wkeyse",
-      "mpoplawsky",
-      "eparlan",
-      "tgill",
-      "jdejesus",
-      "ctomkins"
+      "Amanda Diaz",
+      "Rachel Chaiser",
+      "Jordan Fonseca",
+      "Jule Holgate",
+      "Emily Parlan",
+      "Meadow Poplawsky"
     ]
   },
   {
     "day": "Sunday",
     "time": 15,
     "tutors": [
-      "iamaya",
-      "jfonseca",
-      "tgill",
-      "klamar"
+      "Jordan Fonseca",
+      "Jule Holgate",
+      "Ivin Yu",
+      "Kathryn Stutz"
     ]
   },
   {
     "day": "Sunday",
     "time": 16,
     "tutors": [
-      "iamaya",
-      "jfonseca",
-      "zbranch",
-      "klamar",
-      "kstutz",
-      "bwitter"
+      "Isabel Amaya",
+      "Zoe Branch",
+      "Kathryn Stutz",
+      "Ivin Yu",
+      "James DeJesus",
+      "Sarah Walling-Bell"
     ]
   },
   {
     "day": "Sunday",
     "time": 17,
     "tutors": [
-      "zbranch",
-      "klamar",
-      "kstutz",
-      "bwitter"
+      "Isabel Amaya",
+      "Zoe Branch",
+      "James DeJesus",
+      "Sarah Walling-Bell"
     ]
   },
   {
     "day": "Monday",
     "time": 9,
     "tutors": [
-      "lmorton",
-      "ianderson",
-      "rlaitila",
-      "jhutcheson"
+      "Lura Morton",
+      "Isabelle Anderson",
+      "Rachael Laitila",
+      "Erika Smith"
     ]
   },
   {
     "day": "Monday",
     "time": 10,
     "tutors": [
-      "lmorton",
-      "ianderson",
-      "esmith",
-      "rlaitila",
-      "jhutcheson"
+      "Lura Morton",
+      "Isabelle Anderson",
+      "Erika Smith",
+      "Rachael Laitila"
     ]
   },
   {
     "day": "Monday",
     "time": 11,
     "tutors": [
-      "akabir",
-      "esmith",
-      "smyers",
-      "kmiller"
+      "Alia Kabir",
+      "Katarina Moffett",
+      "Sophie Myers",
+      "Kyle Miller"
     ]
   },
   {
     "day": "Monday",
     "time": 12,
     "tutors": [
-      "akabir",
-      "kmoffett",
-      "smyers",
-      "gchang",
-      "kmiller",
-      "lroberts"
+      "Alia Kabir",
+      "Katarina Moffett",
+      "Gabby Chang",
+      "Sophie Myers",
+      "Kyle Miller"
     ]
   },
   {
     "day": "Monday",
     "time": 13,
     "tutors": [
-      "tgill",
-      "kmoffett",
-      "gchang",
-      "lroberts"
+      "Jordan Fonseca",
+      "Maggie Zach",
+      "Gabby Chang",
+      "Katarina Moffett"
     ]
   },
   {
     "day": "Monday",
     "time": 14,
     "tutors": [
-      "lmorton",
-      "tgill",
-      "lbengtson",
-      "kmiller",
-      "gchang"
+      "Jordan Fonseca",
+      "Maggie Zach",
+      "Lura Morton",
+      "Lilly Bengston",
+      "Cole Tomkins"
     ]
   },
   {
     "day": "Monday",
     "time": 15,
     "tutors": [
-      "lmorton",
-      "lbengtson",
-      "ianderson",
-      "ctomkins",
-      "kmiller"
+      "Lura Morton",
+      "Tiare Gill",
+      "Lilly Bengston",
+      "Cole Tomkins"
     ]
   },
   {
     "day": "Monday",
     "time": 16,
     "tutors": [
-      "ianderson",
-      "tgill",
-      "ctomkins",
-      "rchaiser",
-      "jholgate"
+      "Tiare Gill",
+      "William Keyse",
+      "Cole Tomkins",
+      "Jule Holgate"
     ]
   },
   {
     "day": "Monday",
     "time": 17,
     "tutors": [
-      "tgill",
-      "adiaz",
-      "rchaiser",
-      "jholgate"
+      "Lura Morton",
+      "Amanda Diaz",
+      "William Keyse",
+      "Jule Holgate"
     ]
   },
   {
     "day": "Monday",
     "time": 18,
     "tutors": [
-      "tgill",
-      "adiaz",
-      "rlaitila",
-      "mzach",
-      "jhutcheson"
+      "Lura Morton",
+      "Amanda Diaz",
+      "Sophie Myers",
+      "Amy Luong"
     ]
   },
   {
     "day": "Monday",
     "time": 19,
     "tutors": [
-      "smyers",
-      "rlaitila",
-      "aluong",
-      "glizier",
-      "mzach",
-      "jhutcheson"
+      "Sophie Myers",
+      "Amy Luong",
+      "Max Tapogna",
+      "Kara Ann Lamar",
+      "Geremia Lizier-Zmudzinksi",
+      "Maggie Zach"
     ]
   },
   {
     "day": "Monday",
     "time": 20,
     "tutors": [
-      "smyers",
-      "aluong",
-      "glizier",
-      "mzach"
+      "Max Tapogna",
+      "Kara Ann Lamar",
+      "Geremia Lizier-Zmudzinksi",
+      "Maggie Zach"
     ]
   },
   {
     "day": "Tuesday",
     "time": 9,
     "tutors": [
-      "swalling",
-      "akabir",
-      "bwitter",
-      "sberling"
+      "Sarah Walling-Bell",
+      "Alia Kabir",
+      "Kara Ann Lamar",
+      "Sam Berling"
     ]
   },
   {
     "day": "Tuesday",
     "time": 10,
     "tutors": [
-      "swalling",
-      "akabir",
-      "sberling",
-      "bwitter"
+      "Sarah Walling-Bell",
+      "Alia Kabir",
+      "Sam Berling",
+      "Kara Ann Lamar"
     ]
   },
   {
     "day": "Tuesday",
     "time": 11,
     "tutors": [
-      "zbranch",
-      "sberling",
-      "glizier",
-      "mberrens",
-      "swalling"
+      "Zoe Branch",
+      "Maggie Berrens",
+      "Geremia Lizier-Zmudzinksi",
+      "Katarina Moffett",
+      "Sam Berling"
     ]
   },
   {
     "day": "Tuesday",
     "time": 12,
     "tutors": [
-      "kmoffett",
-      "zbranch",
-      "glizier",
-      "mberrens"
+      "Katarina Moffett",
+      "Zoe Branch",
+      "Maggie Berrens",
+      "Geremia Lizier-Zmudzinksi"
     ]
   },
   {
     "day": "Tuesday",
     "time": 13,
     "tutors": [
-      "mtaponga",
-      "kmoffett",
-      "kstutz",
-      "cvanboven",
-      "kmiller"
+      "Max Tapogna",
+      "Katarina Moffett",
+      "Kathryn Stutz",
+      "Kyle Miller"
     ]
   },
   {
     "day": "Tuesday",
     "time": 14,
     "tutors": [
-      "mtaponga",
-      "lmorton",
-      "kstutz",
-      "cvanboven",
-      "kmiller"
+      "Max Tapogna",
+      "Lura Morton",
+      "Kathryn Stutz",
+      "Kyle Miller",
+      "William Keyse"
     ]
   },
   {
     "day": "Tuesday",
     "time": 15,
     "tutors": [
-      "lmorton",
-      "tgill",
-      "smyers",
-      "bimada"
+      "Lura Morton",
+      "Sophie Myers",
+      "Brittney Imada",
+      "William Keyse",
+      "Brynn Witter"
     ]
   },
   {
     "day": "Tuesday",
     "time": 16,
     "tutors": [
-      "tgill",
-      "smyers",
-      "asalado",
-      "bimada"
+      "Tiare Gill",
+      "Sophie Myers",
+      "Arcelia Salado Alvarado",
+      "Brittney Imada",
+      "Brynn Witter"
     ]
   },
   {
     "day": "Tuesday",
     "time": 17,
     "tutors": [
-      "jfonseca",
-      "tgill",
-      "asalado",
-      "jli"
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "Arcelia Salado Alvarado",
+      "Jiawen Li",
+      "Amy Luong"
     ]
   },
   {
     "day": "Tuesday",
     "time": 18,
     "tutors": [
-      "jfonseca",
-      "mtaponga",
-      "eparlan",
-      "jli",
-      "bimada"
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Emily Parlan",
+      "Jiawen Li"
     ]
   },
   {
     "day": "Tuesday",
     "time": 19,
     "tutors": [
-      "lbengtson",
-      "zbranch",
-      "mtaponga",
-      "eparlan",
-      "jdejesus",
-      "glizier",
-      "bimada"
+      "Rachael Laitila",
+      "Zoe Branch",
+      "Emily Parlan",
+      "James DeJesus",
+      "Arcelia Salado Alvarado"
     ]
   },
   {
     "day": "Tuesday",
     "time": 20,
     "tutors": [
-      "lbengtson",
-      "zbranch",
-      "jdejesus",
-      "glizier"
+      "Rachael Laitila",
+      "Zoe Branch",
+      "James DeJesus",
+      "Arcelia Salado Alvarado"
     ]
   },
   {
     "day": "Wednesday",
     "time": 9,
     "tutors": [
-      "lmorton",
-      "bimada",
-      "cvanboven",
-      "jli"
+      "Lura Morton",
+      "Caleb van Boven",
+      "Jayne Hutcheson",
+      "Brittney Imada",
+      "Isabelle Anderson"
     ]
   },
   {
     "day": "Wednesday",
     "time": 10,
     "tutors": [
-      "lmorton",
-      "iyu",
-      "bimada",
-      "cvanboven",
-      "jli",
-      "rchaiser"
+      "Lura Morton",
+      "Ivin Yu",
+      "Caleb van Boven",
+      "Jayne Hutcheson",
+      "Rachel Chaiser",
+      "Brittney Imada"
     ]
   },
   {
     "day": "Wednesday",
     "time": 11,
     "tutors": [
-      "iyu",
-      "akabir",
-      "esmith",
-      "rchaiser"
+      "Ivin Yu",
+      "Alia Kabir",
+      "Rachel Chaiser",
+      "Kyle Miller",
+      "Jayne Hutcheson"
     ]
   },
   {
     "day": "Wednesday",
     "time": 12,
     "tutors": [
-      "akabir",
-      "esmith",
-      "lroberts",
-      "kmoffett"
+      "Alia Kabir",
+      "Brittney Imada",
+      "Kyle Miller",
+      "William Keyse"
     ]
   },
   {
     "day": "Wednesday",
     "time": 13,
     "tutors": [
-      "wkeyse",
-      "mzach",
-      "lroberts",
-      "kmoffett"
+      "William Keyse",
+      "Maggie Zach",
+      "Brittney Imada",
+      "Gabby Chang",
+      "Tiare Gill"
     ]
   },
   {
     "day": "Wednesday",
     "time": 14,
     "tutors": [
-      "wkeyse",
-      "mzach",
-      "jfonseca",
-      "lbengtson"
+      "Maggie Zach",
+      "Lindsey Roberts",
+      "Gabby Chang",
+      "Maggie Berrens",
+      "Tiare Gill"
     ]
   },
   {
     "day": "Wednesday",
     "time": 15,
     "tutors": [
-      "adiaz",
-      "jfonseca",
-      "lbengtson",
-      "ianderson",
-      "mzach"
+      "Amanda Diaz",
+      "Lindsey Roberts",
+      "Isabelle Anderson",
+      "Rachel Chaiser",
+      "Maggie Berrens"
     ]
   },
   {
     "day": "Wednesday",
     "time": 16,
     "tutors": [
-      "adiaz",
-      "jfonseca",
-      "klamar",
-      "wkeyse",
-      "mpoplawsky"
+      "Amanda Diaz",
+      "Isabelle Anderson",
+      "Jordan Fonseca",
+      "Kara Ann Lamar",
+      "Rachel Chaiser"
     ]
   },
   {
     "day": "Wednesday",
     "time": 17,
     "tutors": [
-      "klamar",
-      "wkeyse",
-      "mpoplawsky",
-      "mberrens",
-      "iyu"
+      "Jordan Fonseca",
+      "Kara Ann Lamar",
+      "Lilly Bengston",
+      "Jiawen Li",
+      "Lindsey Roberts"
     ]
   },
   {
     "day": "Wednesday",
     "time": 18,
     "tutors": [
-      "jfonseca",
-      "klamar",
-      "mberrens",
-      "iyu"
+      "Lilly Bengston",
+      "Isabelle Anderson",
+      "Jiawen Li",
+      "Lindsey Roberts"
     ]
   },
   {
     "day": "Wednesday",
     "time": 19,
     "tutors": [
-      "rlaitila",
-      "jfonseca",
-      "jdejesus",
-      "asalado"
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "Isabelle Anderson",
+      "James DeJesus",
+      "Miranda Kraus",
+      "Erika Smith"
     ]
   },
   {
     "day": "Wednesday",
     "time": 20,
     "tutors": [
-      "rlaitila",
-      "jfonseca",
-      "jdejesus",
-      "asalado"
+      "Jordan Fonseca",
+      "Tiare Gill",
+      "James DeJesus",
+      "Miranda Kraus",
+      "Erika Smith"
     ]
   },
   {
     "day": "Thursday",
     "time": 9,
     "tutors": [
-      "hkatz",
-      "bwitter",
-      "mberrens",
-      "jholgate"
+      "Hannah Katz",
+      "Brynn Witter",
+      "Geremia Lizier-Zmudzinksi",
+      "Jule Holgate",
+      "Kathryn Stutz"
     ]
   },
   {
     "day": "Thursday",
     "time": 10,
     "tutors": [
-      "hkatz",
-      "bwitter",
-      "mberrens",
-      "jholgate"
+      "Hannah Katz",
+      "Brynn Witter",
+      "Geremia Lizier-Zmudzinksi",
+      "Jule Holgate",
+      "Kathryn Stutz"
     ]
   },
   {
     "day": "Thursday",
     "time": 11,
     "tutors": [
-      "jfonseca",
-      "zbranch",
-      "gchang",
-      "asalado",
-      "sberling"
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Gabby Chang",
+      "Arcelia Salado Alvarado",
+      "Sam Berling"
     ]
   },
   {
     "day": "Thursday",
     "time": 12,
     "tutors": [
-      "jfonseca",
-      "zbranch",
-      "gchang",
-      "asalado",
-      "sberling"
+      "Jordan Fonseca",
+      "Zoe Branch",
+      "Gabby Chang",
+      "Arcelia Salado Alvarado",
+      "Sam Berling"
     ]
   },
   {
     "day": "Thursday",
     "time": 13,
     "tutors": [
-      "mtaponga",
-      "lroberts",
-      "esmith",
-      "sberling",
-      "gchang"
+      "Zoe Branch",
+      "Erika Smith",
+      "Lindsey Roberts",
+      "Sam Berling"
     ]
   },
   {
     "day": "Thursday",
     "time": 14,
     "tutors": [
-      "mtaponga",
-      "lroberts",
-      "ianderson",
-      "lmorton",
-      "esmith"
+      "Erika Smith",
+      "Lilly Bengston",
+      "Meadow Poplawsky",
+      "Lindsey Roberts",
+      "Miranda Kraus"
     ]
   },
   {
     "day": "Thursday",
     "time": 15,
     "tutors": [
-      "ianderson",
-      "lmorton",
-      "aluong",
-      "rchaiser",
-      "kstutz"
+      "Lilly Bengston",
+      "Meadow Poplawsky",
+      "Miranda Kraus",
+      "Maggie Berrens"
     ]
   },
   {
     "day": "Thursday",
     "time": 16,
     "tutors": [
-      "hkatz",
-      "rchaiser",
-      "kstutz",
-      "swalling"
+      "Hannah Katz",
+      "Maggie Berrens",
+      "Jiawen Li",
+      "Sarah Walling-Bell"
     ]
   },
   {
     "day": "Thursday",
     "time": 17,
     "tutors": [
-      "swalling",
-      "hkatz",
-      "adiaz",
-      "jli"
+      "Sarah Walling-Bell",
+      "Hannah Katz",
+      "Jiawen Li",
+      "Caleb van Boven"
     ]
   },
   {
     "day": "Thursday",
     "time": 18,
     "tutors": [
-      "swalling",
-      "adiaz",
-      "jli",
-      "mkraus"
+      "Lura Morton",
+      "Caleb van Boven",
+      "Brynn Witter"
     ]
   },
   {
     "day": "Thursday",
     "time": 19,
     "tutors": [
-      "hkatz",
-      "lmorton",
-      "mkraus",
-      "mpoplawsky"
+      "Tiare Gill",
+      "Hannah Katz",
+      "Lura Morton",
+      "Meadow Poplawsky",
+      "Brynn Witter"
     ]
   },
   {
     "day": "Thursday",
     "time": 20,
     "tutors": [
-      "hkatz",
-      "lmorton",
-      "mpoplawsky"
+      "Tiare Gill",
+      "Hannah Katz",
+      "Meadow Poplawsky"
     ]
   },
   {
     "day": "Friday",
     "time": 9,
     "tutors": [
-      "ianderson",
-      "iamaya",
-      "jhutcheson",
-      "mkraus"
+      "Isabelle Anderson",
+      "Isabel Amaya",
+      "Jayne Hutcheson",
+      "Miranda Kraus"
     ]
   },
   {
     "day": "Friday",
     "time": 10,
     "tutors": [
-      "ianderson",
-      "iamaya",
-      "zbranch",
-      "jhutcheson",
-      "mkraus",
-      "cvanboven"
+      "Isabelle Anderson",
+      "Isabel Amaya",
+      "Rachael Laitila",
+      "Jayne Hutcheson",
+      "Miranda Kraus",
+      "Caleb van Boven"
     ]
   },
   {
     "day": "Friday",
     "time": 11,
     "tutors": [
-      "zbranch",
-      "eparlan",
-      "cvanboven"
+      "Rachael Laitila",
+      "Emily Parlan",
+      "Caleb van Boven",
+      "Jayne Hutcheson"
     ]
   },
   {
     "day": "Friday",
     "time": 12,
     "tutors": [
-      "eparlan",
-      "iamaya",
-      "mzach",
-      "ctomkins"
+      "Emily Parlan",
+      "Isabel Amaya",
+      "Maggie Zach",
+      "Cole Tomkins"
     ]
   },
   {
     "day": "Friday",
     "time": 13,
     "tutors": [
-      "tgill",
-      "jholgate",
-      "iamaya",
-      "iyu",
-      "ctomkins",
-      "mzach",
-      "mkraus"
+      "Max Tapogna",
+      "Tiare Gill",
+      "Isabel Amaya",
+      "Ivin Yu",
+      "Cole Tomkins",
+      "Maggie Zach"
     ]
   },
   {
     "day": "Friday",
     "time": 14,
     "tutors": [
-      "tgill",
-      "jholgate",
-      "iyu",
-      "mkraus"
+      "Max Tapogna",
+      "Tiare Gill",
+      "Ivin Yu",
+      "Cole Tomkins"
     ]
   }
 ]

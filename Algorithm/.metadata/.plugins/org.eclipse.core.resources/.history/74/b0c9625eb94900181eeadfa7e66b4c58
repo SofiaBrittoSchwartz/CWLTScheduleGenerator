@@ -4,10 +4,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.google.gson.annotations.Expose;
 
 public class Tutor implements Comparable<Tutor>{
 	protected String studentName;
-	protected String studentID; //unique identifying name for this tutor. Will likely be their email address prefix
 	protected ArrayList<Shift> availableShifts;
 	protected int numShiftsNeeded; //the number of shifts this tutor is allowed to work, decrements as they are assigned shifts
 	private double availabilityRatio;
@@ -16,11 +16,12 @@ public class Tutor implements Comparable<Tutor>{
 	protected ArrayList<Shift> assignedShifts;
 	protected HashSet<String> subjects;
 
+	@Expose
+	protected String studentID; //unique identifying name for this tutor. Will likely be their email address prefix
 
-	public Tutor(String id, String name){
+	public Tutor(String id){
 		isVeteran = false;
-		studentID = id;
-		studentName = name;
+		this.studentID = id;
 		numShiftsNeeded = 6;
 		subjects = new HashSet<String>();
 		assignedShifts = new ArrayList<Shift>();
@@ -46,7 +47,7 @@ public class Tutor implements Comparable<Tutor>{
 	protected void parseShiftInfo(int[][] schedule){
 		for(int i = 0; i < schedule.length; i++){
 			for(int j = 0; j < schedule[i].length; j++){
-				switch(schedule[i][j]){ //maybe switch to an if statement 
+				switch(schedule[i][j]){
 				case Master.CLOSED://this shouldn't happen because the tutor scheduleInfo won't have info on the center's opening hours.
 					break;
 				case Master.AVAILABLE:

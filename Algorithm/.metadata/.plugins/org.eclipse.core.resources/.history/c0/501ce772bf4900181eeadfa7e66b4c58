@@ -904,9 +904,9 @@ public class Master {
 		println("\n" + (finish-start) + "ms");
 		DEBUG = true;
 		m.finalizeSchedule();
-				PrintWriter out = new PrintWriter("testOutput.json");
-				out.println(m.toJson());
-				out.close();
+		//		PrintWriter out = new PrintWriter("testOutput.json");
+		//		out.println(m.toJson());
+		//		out.close();
 		m.fromJson();
 		return 	m.calculateScore();
 	}
