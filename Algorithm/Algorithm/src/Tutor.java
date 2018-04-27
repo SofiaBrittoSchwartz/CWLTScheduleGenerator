@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import com.google.gson.annotations.Expose;
@@ -33,16 +35,54 @@ public class Tutor implements Comparable<Tutor>{
 		studentID = tj.studentID;
 		numShiftsNeeded = tj.numHours;
 		subjects = new HashSet<String>();
-		subjects.addAll(tj.position);
+		subjects.addAll(tj.position.values());
 		studentName = tj.name;
+		int[][] scheduleArray = convertScheduleInfo(tj.scheduleInfo);
 		//TO DO: get tj.scheduleInfo, and handle availableShifts, preferred Shifts
 		// availability Ratio
 		//temp score
 		//assignedShift
 	}
+	
+	protected void parseShiftInfo(int[][] schedule){
+		for(int i = 0; i < schedule.length; i++){
+			for(int j = 0; j < schedule[i].length; j++){
+				switch(schedule[i][j]){
+				case Master.CLOSED://this shouldn't happen because the tutor scheduleInfo won't have info on the center's opening hours.
+					break;
+				case Master.AVAILABLE:
+					//check to see if the center is open
+						//if so, add to availableShifts
+						//if not, mark them as available for extra activities such as CWLT300 and Staff Meeting
+							/*issue: the way we keep track of Shifts and availability is through Shift objects
+							 * If we want to keep track of availability outside of CWLT open hours, 
+							 * then we need to either create a special Shift object that handles this,
+							 * or we need to store this schedule[][] as an attribute for tutors so we can easily keep track
+							 * I'm leaning towards the latter option, though it's less space efficient, because it seems more intuitive*/
+					break;
+				case Master.BUSY:
+					// do nothing?
+					break;
+				case Master.PREFERRED:
+					//do the prefer process
+					break;
+				}
+			}
+		}
+	}
+	
+	protected int[][] convertScheduleInfo(HashMap<Integer, HashMap<Integer, Integer>> schedule){
+		int[][] output = new int[6][13];
+		for(int i = 0; i < schedule.keySet().size(); i++){//for(Integer day : schedule.keySet()){
+			for(int j = 0; j < schedule.get(i).keySet().size(); j++){//for(Integer hour : schedule.get(day).keySet()){
+				output[i][j] = schedule.get(i).get(j);
+			}
+		}
+		return output;
+	}
 
 	public String toString(){
-		//		return studentID + subjects;
+		if(studentName != null) return studentName;
 		return studentID;
 	}
 

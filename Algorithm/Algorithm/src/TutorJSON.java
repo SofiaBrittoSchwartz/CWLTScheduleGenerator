@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TutorJSON {
 	protected String name;
 	protected String studentID;
-	protected ArrayList<String> position;
+	protected HashMap<Integer, String> position;
 	protected int numHours;
 	protected boolean veteran;
-	protected ArrayList<ArrayList<Integer>> scheduleInfo;
+	protected HashMap<Integer, HashMap<Integer, Integer>> scheduleInfo;
 	
 	public String toString(){
 		return "("+name +", "+studentID+", "+position+", "+numHours+", "+scheduleInfo+", "+veteran+")";

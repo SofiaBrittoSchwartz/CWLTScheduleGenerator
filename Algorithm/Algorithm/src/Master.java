@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -24,6 +25,8 @@ public class Master {
 	protected static final int BUSY = 2;
 	protected static final int AVAILABLE = 0;
 	protected static final int PREFERRED = 1;
+	protected static final int CLOSED = -1;
+
 	protected static final String WRITING_ADVISOR = "Writing Advisor";
 	protected static final String ACADEMIC_CONSULTANT = "Academic Consultant";
 	protected static final int AFTERNOON_WRITING_ADVISOR = 2; //the number of writing advisors needed for the afternoon
@@ -831,29 +834,27 @@ public class Master {
 		println(json);
 		return json;
 	}
-	
+
 	private String fileToString(File file) throws FileNotFoundException{
 		Scanner scan = new Scanner(file);
 		StringBuilder sb = new StringBuilder();
 		while(scan.hasNext()){
 			sb.append(scan.next() +" ");
 		}
+		scan.close();
 		return sb.toString();
 	}
 
 	private void fromJson() throws FileNotFoundException{
 		Gson gson = new Gson();
 		File file;
-//		try{
-			file = new File("tutorList.json");
-			String json = fileToString(file);
-			println(json);
-			TutorListJSON tj = gson.fromJson(json, TutorListJSON.class);
-			println(tj);
-//		}
-//		catch(Exception e){
-//			println(e.getClass());
-//		}
+		file = new File("tutorList1.json");
+		String json = fileToString(file);
+		println(json);
+		TutorJSON[] tj = gson.fromJson(json, TutorJSON[].class);
+		println(Arrays.toString(tj));
+		Tutor t = new Tutor(tj[0]);
+
 	}
 
 	private static int test(int pref) throws FileNotFoundException {
@@ -898,10 +899,10 @@ public class Master {
 		println("\n" + (finish-start) + "ms");
 		DEBUG = true;
 		m.finalizeSchedule();
-		PrintWriter out = new PrintWriter("testOutput.json");
-		out.println(m.toJson());
-		out.close();
-//		m.fromJson();
+		//		PrintWriter out = new PrintWriter("testOutput.json");
+		//		out.println(m.toJson());
+		//		out.close();
+		m.fromJson();
 		return 	m.calculateScore();
 	}
 }
